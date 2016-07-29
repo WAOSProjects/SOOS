@@ -1,0 +1,142 @@
+/*
+ * fix decallage modal need to fix width of body to 100%
+ */
+html, body {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  background: #f9f9f9;
+  overflow-x: hidden;
+}
+
+/*
+ * Beautiful overflow
+ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+  height: 15px;
+  display: block;
+  background-color: transparent;
+}
+::-webkit-scrollbar-track-piece  {
+  background-color: transparent;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 50px;
+  background-color: gray;
+  border: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/*
+* Content
+*/
+
+/*loading*/
+.loading-bar.bar {
+  background: #f83f51 !important;
+}
+
+.loading-bar .peg {
+  -webkit-box-shadow: #f83f51 1px 0 6px 1px !important;
+     -moz-box-shadow: #f83f51 1px 0 6px 1px !important;
+      -ms-box-shadow: #f83f51 1px 0 6px 1px !important;
+          box-shadow: #f83f51 1px 0 6px 1px !important;
+}
+
+tooltip tip-tip {
+  white-space: nowrap;
+  line-height:12px !important;
+  font-size: 14px !important;
+}
+
+/* base */
+.base {
+  background-color: #fff;
+  border: 1px solid #dddddd;
+  padding: 15px;
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.base .header {
+  border-bottom: 1px solid #ddd;
+}
+
+.base .header .btn, .base .header .btn-large, .base .header .btn-flat{
+  padding: 0 0.7rem;
+  margin: 11px 5px 0 5px;
+  box-shadow: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #7c7c7c;
+  margin-bottom: 5px;
+}
+
+.base .header .btn:hover, .base .header .btn-large:hover, .base .header .btn-flat:hover {
+    background-color: #ddd;
+    color: #4c4c4c;
+}
+
+/* cards */
+.card {
+  font-size: 90%;
+  z-index: 0;
+  border: 1px solid #dddddd;
+}
+
+/* collections */
+.collection .collection-item {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.collection .collection-item.avatar .circle {
+  background: #7f8c8d;
+}
+
+.collection.with-header .collection-header .row {
+  margin-bottom: 0;
+}
+
+/* Separators */
+hr.separator {
+  border: none;
+  border-top: 1px solid #ddd;
+  width: 100%;
+}
+
+/*
+* Inputs
+*/
+textarea {
+  height: 10em;
+  border: 1px solid #dddddd;
+}
+
+.mouse-hand {
+  cursor: pointer;
+}
+.mouse-hand.icon:hover {
+  color: rgb(252, 13, 27);
+}
+.inherit-color {
+  color: inherit;
+}
+
+button:disabled {
+  cursor: no-drop;
+  opacity: 0.5;
+}

@@ -1,0 +1,41 @@
+(function () {
+  'use strict';
+
+  angular
+    .module('articles')
+    .run(menuConfig)
+    .constant('appInformation', {
+      view: '/home'
+    });
+
+  menuConfig.$inject = ['Navs', 'sideNavs'];
+
+  function menuConfig(Navs, sideNavs) {
+    /*
+     * Globals vars
+     */
+    var _app = {
+      name: 'Articles',
+      version: '1.0.0',
+      view : 'home', // app view
+      state: 'articles', //link route
+      icon: 'fa-newspaper-o', //https://fortawesome.github.io/Font-Awesome/
+      color: '#3e454e', //https://flatuicolors.com/ (sideNav)
+      fontColor: '#fff', //https://flatuicolors.com/ (sideNav)
+      position: 1, //default 1
+      roles: ['*']
+    };
+
+    sideNavs.addSideNavItem('sidebar', {
+      title: _app.name,
+      icon: _app.icon,
+      color: _app.color,
+      fontColor: _app.fontColor,
+      state: _app.state,
+      view: _app.view,
+      roles: _app.roles,
+      position: _app.position
+    });
+
+  }
+}());

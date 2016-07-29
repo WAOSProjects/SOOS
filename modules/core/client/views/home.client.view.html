@@ -1,0 +1,22 @@
+<section class="home">
+  <div class="row">
+    <div class="col s12 m8 offset-s0 offset-m2">
+      <div class="back-logo">
+        <!--{{bind-attr class="hasQuery:while-search :back-logo"}} -->
+        <center ng-if="vm.logo"><img src="modules/raws/client/img/brand/logo-soos-big.png" width="300px"></img></center>
+        <center ng-if="!vm.logo"><img src="modules/raws/client/img/brand/logo-soos-big2.png" width="300px"></img></center>
+        <!-- {{bind-attr class="hasQuery:while-search :back-logo :hide-on-small-only"}} -->
+      </div>
+    </div>
+  </div>
+  <div data-surprise="vm.showSomething" data-surprise-trigger="37,38,39,40"></div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="base">
+        <div class="col s12">
+          <p>Soos is an open source web tool developed at the Data Lab based on the tool RAW to create custom vector-based visualizations on top of the amazing d3.js library. Primarily conceived as a tool for designers and vis geeks, Soos aims at providing a missing link between spreadsheet applications (e.g. Microsoft Excel, Apple Numbers, OpenRefine) and vector graphics editors (e.g. Adobe Illustrator, Inkscape, ...).</p>
+        </div>
+      </div>
+    </div>
+</section>
