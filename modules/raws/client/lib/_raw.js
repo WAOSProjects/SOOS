@@ -46,8 +46,8 @@
         data = [],
         re = new RegExp((
           '(\\' + delimiter + '|\\r?\\n|\\r|^)' +
-          '(?:\'([^\']*(?:\'\'[^\']*)*)\'|' +
-          '([^\'\\' + delimiter + '\\r\\n]*))'
+          '(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|' +
+          '([^\"\\' + delimiter + '\\r\\n]*))'
         ), 'gi');
 
       while (matches = re.exec(string)) {
