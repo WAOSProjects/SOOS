@@ -294,12 +294,39 @@
       return dimensions;
     }
 
+    model.isValidType = function() {
+      var hasValidType = true;
+      var tmpBoolean = true;
+
+      dimensions.values().forEach(function(d) {
+        if (d.type()) {
+          var values = [];
+
+          if (typeof(d.type()) != 'object') {
+            values.push(d.type());
+          } else {
+            values = d.type();
+          }
+
+          tmpBoolean = values.filter(function(e) {
+            return d.types().map(function(f) {
+              return f.name;
+            }).indexOf(e) != -1;
+          }).length > 0;
+        }
+
+        hasValidType = hasValidType && tmpBoolean;
+      });
+
+      return hasValidType;
+    }
+
     model.isValid = function() {
       return dimensions.values()
         .filter(function(d) {
           return d.required() > d.value.length;
         })
-        .length == 0;
+        .length == 0 && model.isValidType();
     }
 
     model.instruction = function() {
