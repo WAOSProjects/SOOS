@@ -1,4 +1,4 @@
-[![SOOS logo](https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/logo-soos-big.png)]
+![SOOS logo](https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/logo-soos-big.png)
 
 ## Credits
 Based on :
