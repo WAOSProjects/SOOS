@@ -1,4 +1,4 @@
-# [WeAreOpenSource.me](www.weareopensource.me)
+# [WeAreOpenSource.me](https://weareopensource.me)
 
 ## SOOS
 
