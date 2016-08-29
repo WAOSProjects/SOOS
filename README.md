@@ -1,12 +1,24 @@
-![SOOS logo](https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/logo-soos-big.png)
+# [WeAreOpenSource.me](www.weareopensource.me)
 
-## Credits
+## SOOS
+
+<center><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/logo-soos-big.png?raw=true" width="250px"/><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/easter-eggs.png?raw=true" width="250px"/></center>
+
+#### Screenshots
+
+<center><a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true" width="500px"/></a>
+<a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/02.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/02.png?raw=true" width="500px"/></a>
+<a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/03.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/03.png?raw=true" width="500px"/></a>
+<a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/04.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/04.png?raw=true" width="500px"/></a></center>
+
+
+#### Credits
 Based on :
 * [Raw](http://raw.densitydesign.org/)
 * [roMEANet](https://github.com/weareopensource/roMEANet)
 * [MeanJs](http://meanjs.org/)
 
-## License
+#### License
 (The MIT License)
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -27,3 +39,8 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# Questions ?
+
+[pierrebrisorgueil@me.com][email]
+[email]: mailto:pierrebrisorgueil@me.com
