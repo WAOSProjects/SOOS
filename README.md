@@ -2,23 +2,27 @@
 
 ## SOOS
 
-<center><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/logo-soos-big.png?raw=true" width="250px"/><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/easter-eggs.png?raw=true" width="250px"/></center>
+<div style="text-align:center"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/logo-soos-big.png?raw=true" width="250px"/><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/brand/easter-eggs.png?raw=true" width="250px"/></div>
 
-#### Screenshots
+## Description
 
-<center><a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true" width="500px"/></a>
+Soos is an open source web tool developed at the Data Lab based on the tool RAW to create custom vector-based visualizations on top of the amazing d3.js library. Primarily conceived as a tool for designers and vis geeks, Soos aims at providing a missing link between spreadsheet applications (e.g. Microsoft Excel, Apple Numbers, OpenRefine) and vector graphics editors (e.g. Adobe Illustrator, Inkscape, ...).
+
+## Screenshots
+
+<div style="text-align:center"><a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true" width="500px"/></a>
 <a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/02.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/02.png?raw=true" width="500px"/></a>
 <a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/03.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/03.png?raw=true" width="500px"/></a>
-<a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/04.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/04.png?raw=true" width="500px"/></a></center>
+<a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/04.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/04.png?raw=true" width="500px"/></a></div>
 
 
-#### Credits
+## Credits
 Based on :
 * [Raw](http://raw.densitydesign.org/)
 * [roMEANet](https://github.com/weareopensource/roMEANet)
 * [MeanJs](http://meanjs.org/)
 
-#### License
+## License
 (The MIT License)
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -40,7 +44,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# Questions ?
+## Questions ?
 
 [pierrebrisorgueil@me.com][email]
 [email]: mailto:pierrebrisorgueil@me.com
