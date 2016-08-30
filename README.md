@@ -8,6 +8,13 @@
 
 Soos is an open source web tool developed at the Data Lab based on the tool RAW to create custom vector-based visualizations on top of the amazing d3.js library. Primarily conceived as a tool for designers and vis geeks, Soos aims at providing a missing link between spreadsheet applications (e.g. Microsoft Excel, Apple Numbers, OpenRefine) and vector graphics editors (e.g. Adobe Illustrator, Inkscape, ...).
 
+## Installation
+
+* Node v5.7.0 max, mongo 3.x
+* clone
+* npm install
+* grunt
+
 ## Screenshots
 
 <div style="text-align:center"><a href="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true"><img src="https://github.com/weareopensource/roMEANet-SOOS/blob/master/modules/raws/client/img/screenshots/01.png?raw=true" width="500px"/></a>
