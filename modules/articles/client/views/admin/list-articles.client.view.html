@@ -1,0 +1,30 @@
+<section>
+  <div class="row">
+    <div class="col s8">
+      <h2>Articles</h2>
+    </div>
+    <div class="col s4">
+      <a class="waves-effect waves-light btn right" data-ui-sref="admin.articles.create">
+         <i class="fa fa-plus" aria-hidden="true"></i>
+       </a>
+    </div>
+  </div>
+  <div class="row" ng-repeat="article in vm.articles">
+    <div class="col s12">
+      <div class="base">
+        <a data-ui-sref="admin.articles.edit({articleId: article._id})"><h4 class="list-group-item-heading" ng-bind="article.title"></h4></a>
+        <small class="list-group-item-text">
+            Posted on
+            <span ng-bind="article.created | date:'mediumDate'"></span>
+            by
+            <span ng-if="article.user" ng-bind="article.user.displayName"></span>
+            <span ng-if="!article.user">Deleted User</span>
+          </small>
+        <p class="list-group-item-text" ng-bind-html="article.content"></p>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-warning center-align" data-ng-if="articles.$resolved && !articles.length">
+    No articles yet, why don't you <a data-ui-sref="admin.articles.create">create one</a>?
+  </div>
+</section>

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -8,22 +8,22 @@
       view: '/home'
     });
 
-  menuConfig.$inject = ['Navs', 'sideNavs'];
+  menuConfig.$inject = ['sideNavs'];
 
-  function menuConfig(Navs, sideNavs) {
+  function menuConfig(sideNavs) {
     /*
      * Globals vars
      */
     var _app = {
       name: 'Articles',
       version: '1.0.0',
-      view : 'home', // app view
-      state: 'articles', //link route
-      icon: 'fa-newspaper-o', //https://fortawesome.github.io/Font-Awesome/
-      color: '#3e454e', //https://flatuicolors.com/ (sideNav)
-      fontColor: '#fff', //https://flatuicolors.com/ (sideNav)
-      position: 1, //default 1
-      roles: ['*']
+      view: 'home', // app view
+      state: 'articles.list', // link route
+      icon: 'fa-newspaper-o', // https://fortawesome.github.io/Font-Awesome/
+      color: '#3e454e', // https://flatuicolors.com/ (sideNav)
+      fontColor: '#fff', // https://flatuicolors.com/ (sideNav)
+      position: 1, // default 1
+      roles: ['user', 'admin']
     };
 
     sideNavs.addSideNavItem('sidebar', {

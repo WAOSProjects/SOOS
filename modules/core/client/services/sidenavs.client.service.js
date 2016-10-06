@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -7,6 +7,7 @@
 
   function sideNavs() {
     var shouldRender;
+    var shouldRenderItem;
     var service = {
       addSideNav: addSideNav,
       addSideNavItem: addSideNavItem,
@@ -32,7 +33,8 @@
       service.sidenavs[sideNavId] = {
         roles: options.roles || service.defaultRoles,
         items: options.items || [],
-        shouldRender: shouldRender
+        shouldRender: shouldRender,
+        shouldRenderItem: shouldRenderItem
       };
 
       // Return the sideNav object
@@ -59,7 +61,8 @@
         roles: ((options.roles === null || typeof options.roles === 'undefined') ? service.defaultRoles : options.roles),
         position: options.position || 0,
         items: [],
-        shouldRender: shouldRender
+        shouldRender: shouldRender,
+        shouldRenderItem: shouldRenderItem
       });
 
       // Add subsideNav items
@@ -95,7 +98,8 @@
             state: options.state || '',
             roles: ((options.roles === null || typeof options.roles === 'undefined') ? service.sidenavs[sideNavId].items[itemIndex].roles : options.roles),
             position: options.position || 0,
-            shouldRender: shouldRender
+            shouldRender: shouldRender,
+            shouldRenderItem: shouldRenderItem
           });
         }
       }
@@ -115,7 +119,33 @@
 
     function init() {
       // A private function for rendering decision
-      shouldRender = function (user) {
+      shouldRenderItem = function(user) {
+        if (user && _.indexOf(this.roles, 'moderator') !== -1 && _.indexOf(user.roles, 'moderator') !== -1) {
+          return true;
+        }
+        if (user && _.indexOf(user.apps, this.state) === -1 && this.state !== 'home' && _.indexOf(this.roles, 'user') === -1) {
+          return false;
+        }
+        if (this.roles.indexOf('*') !== -1) {
+          return true;
+        } else {
+          if (!user) {
+            return false;
+          }
+          for (var userRoleIndex in user.roles) {
+            if (user.roles.hasOwnProperty(userRoleIndex)) {
+              for (var roleIndex in this.roles) {
+                if (this.roles.hasOwnProperty(roleIndex) && this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                  return true;
+                }
+              }
+            }
+          }
+        }
+        return false;
+      };
+
+      shouldRender = function(user) {
         if (this.roles.indexOf('*') !== -1) {
           return true;
         } else {

@@ -6,11 +6,11 @@
     // Initialize global variables
     var PasswordController,
       scope,
+      Authentication,
       $httpBackend,
       $stateParams,
       $location,
-      $window,
-      Authentication;
+      $window;
 
     beforeEach(function() {
       jasmine.addMatchers({
@@ -35,20 +35,19 @@
         scope = $rootScope.$new();
 
         // Point global variables to injected services
+        Authentication = _Authentication_;
         $stateParams = _$stateParams_;
         $httpBackend = _$httpBackend_;
-        Authentication = _Authentication_;
         $location = _$location_;
         $location.path = jasmine.createSpy().and.returnValue(true);
 
+        $httpBackend.whenGET('api/users/me').respond({ user: { username: 'test', roles: ['user'] } });
+
         // Mock logged in user
         Authentication.user = {
-          username: '123',
+          username: 'test',
           roles: ['user']
         };
-        Authentication.token = '65d6sdq56sd21ds8qs7d53qs4d234ds8q7sd53q4sd24';
-
-        $httpBackend.expectGET(/api\/users|me/).respond({ user :Authentication.user, token: Authentication.token });
 
         // Initialize the Authentication controller
         PasswordController = $controller('PasswordController as vm', {
@@ -56,32 +55,38 @@
         });
       }));
 
+      afterEach(inject(function (Authentication) {
+        Authentication.signout();
+      }));
+
       it('should redirect logged in user to home', function() {
         expect($location.path).toHaveBeenCalledWith('/');
       });
     });
 
-    afterEach(inject(function (Authentication) {
-      Authentication.signout();
-    }));
-
     describe('Logged out user', function() {
-      beforeEach(inject(function($controller, $rootScope, _$window_, _$stateParams_, _$httpBackend_, _$location_) {
+      beforeEach(inject(function($controller, $rootScope, _Authentication_, _$stateParams_, _$httpBackend_, _$location_) {
         // Set a new global scope
         scope = $rootScope.$new();
 
         // Point global variables to injected services
+        Authentication = _Authentication_;
         $stateParams = _$stateParams_;
         $httpBackend = _$httpBackend_;
         $location = _$location_;
         $location.path = jasmine.createSpy().and.returnValue(true);
-        $window = _$window_;
-        $window.user = null;
+        Authentication.user = null;
+
+        $httpBackend.whenGET('api/users/me').respond({ user: null });
 
         // Initialize the Authentication controller
         PasswordController = $controller('PasswordController as vm', {
           $scope: scope
         });
+      }));
+
+      afterEach(inject(function (Authentication) {
+        Authentication.signout();
       }));
 
       it('should not redirect to home', function() {
@@ -179,15 +184,11 @@
         });
 
         describe('POST success', function() {
-          var mock = {};
-          mock.user= {
-            username: '123',
-            roles: ['user']
+          var user = {
+            username: 'test'
           };
-          mock.token = '65d6sdq56sd21ds8qs7d53qs4d234ds8q7sd53q4sd24';
-
           beforeEach(function() {
-            $httpBackend.when('POST', '/api/auth/reset/' + token, passwordDetails).respond(mock);
+            $httpBackend.when('POST', '/api/auth/reset/' + token, passwordDetails).respond({ user: user });
 
             scope.vm.resetUserPassword(true);
             $httpBackend.flush();
@@ -198,7 +199,7 @@
           });
 
           it('should attach user profile', function() {
-            expect(scope.vm.authentication.user).toEqual(mock.user);
+            expect(scope.vm.authentication.user).toEqual(user);
           });
 
           it('should redirect to password reset success view', function() {

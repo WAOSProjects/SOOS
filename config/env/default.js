@@ -2,14 +2,16 @@
 
 module.exports = {
   app: {
-    title: 'SOOS',
-    description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
+    title: 'roMEANet',
+    description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js, on the top of MEAN.JS',
+    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport, meanjs',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || 3000,
   host: process.env.HOST || '0.0.0.0',
-  templateEngine: 'swig',
+  // DOMAIN config should be set to the fully qualified application accessible
+  // URL. For example: https://www.myapp.com (including port if required).
+  domain: process.env.DOMAIN,
   // Session Cookie settings
   sessionCookie: {
     // session expiration is set by default to 24 hours
@@ -23,15 +25,14 @@ module.exports = {
     secure: false
   },
   // sessionSecret should be changed for security measures and concerns
-  sessionSecret: process.env.SESSION_SECRET || 'SOOS4EVER',
-  // sessionKey is set to the generic sessionId key used by PHP applications
-  // for obsecurity reasons
+  sessionSecret: process.env.SESSION_SECRET || 'roMEANet',
+  // sessionKey is the cookie session name
   sessionKey: 'sessionId',
   sessionCollection: 'sessions',
   // Lusca config
   csrf: {
     csrf: false,
-    csp: { /* Content Security Policy object */},
+    csp: false,
     xframe: 'SAMEORIGIN',
     p3p: 'ABCDEF',
     hsts: {
@@ -51,8 +52,17 @@ module.exports = {
       }
     }
   },
+  shared: {
+    owasp: {
+      allowPassphrases: true,
+      maxLength: 128,
+      minLength: 10,
+      minPhraseLength: 20,
+      minOptionalTestsToPass: 4
+    }
+  },
   jwt: {
-    secret: process.env.JWT_SECRET || 'M3@N_R0CK5',
+    secret: process.env.JWT_SECRET || 'roM3@Net_R0CK5',
     options: {
       expiresIn: process.env.JWT_EXPIRES_IN || '1d'
     }

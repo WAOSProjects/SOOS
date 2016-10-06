@@ -1,4 +1,5 @@
 <div class="header" ng-controller="HeaderController as vm">
+
   <!-- Nav -->
   <nav class="top z-depth-0">
     <div class="nav-wrapper">
@@ -11,14 +12,14 @@
             </span>
           </div>
           <ul class="right hide-on-med-and-down">
-            <!-- Nav user-->
+            <!-- Nav user -->
             <li ng-show="vm.authentication.user" class="item">
-              <a tooltipped href="#" ng-click="vm.authentication.signout();" data-position="bottom" data-delay="550" data-tooltip="Sign out"><i class="fa fa-sign-out"></i></a>
+              <a tooltipped href="#" ng-click="vm.authentication.signout();" data-position="bottom" data-delay="550" data-tooltip="Sign out"><i class="fa fa-sign-out red-text text-darken-4"></i></a>
             </li>
-            <!-- Nav default Simulation
+            <!-- Nav default Simulation -->
             <li ng-hide="vm.authentication.user" class="item">
-              <a ui-sref="authentication.signin"><i class="fa fa-sign-in"></i></a>
-            </li>-->
+              <a ui-sref="authentication.signin"><i class="fa fa-sign-in green-text text-darken-3"></i></a>
+            </li>
           </ul>
           <ul class="right hide-on-med-and-down" ng-if="vm.nav.shouldRender(vm.authentication.user);">
             <li ng-repeat="item in vm.nav.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), drop: item.type === 'dropdown' }" class="item center-align {{item.class}}" drop="item.type">

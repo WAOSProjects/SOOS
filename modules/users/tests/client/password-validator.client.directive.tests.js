@@ -5,37 +5,25 @@
   describe('PasswordValidatorDirective', function() {
     // Initialize global variables
     var scope,
-      $httpBackend,
       element,
       $compile,
-      form,
-      Authentication;
+      $httpBackend,
+      form;
 
     // Load the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
 
-    beforeEach(inject(function(_$rootScope_, _$compile_, _$httpBackend_, _Authentication_) {
+    beforeEach(inject(function(_$rootScope_, _$compile_, _$httpBackend_) {
       // Set a new global scope
       scope = _$rootScope_.$new();
-      $compile = _$compile_,
-      $httpBackend = _$httpBackend_,
-      Authentication = _Authentication_;
+      $compile = _$compile_;
+      $httpBackend = _$httpBackend_;
 
-      Authentication.user = {
-        username: 'Fred',
-        roles: ['user']
-      };
-      Authentication.token = '65d6sdq56sd21ds8qs7d53qs4d234ds8q7sd53q4sd24';
-
-      $httpBackend.expectGET(/api\/users|me/).respond({ user :Authentication.user, token: Authentication.token });
+      $httpBackend.whenGET('api/users/me').respond({});
 
       scope.passwordMock = {
         password: 'P@ssw0rd!!'
       };
-    }));
-
-    afterEach(inject(function (Authentication) {
-      Authentication.signout();
     }));
 
     function compileDirective(template) {

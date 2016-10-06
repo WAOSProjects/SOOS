@@ -4,6 +4,7 @@
   var applicationModuleName = 'mean';
 
   var service = {
+    applicationEnvironment: window.env,
     applicationModuleName: applicationModuleName,
     applicationModuleVendorDependencies: [
       'ngResource',
@@ -12,7 +13,8 @@
       'ngSanitize',
       'ngMaterial',
       'ui.router',
-      'angularFileUpload',
+      'ngFileUpload',
+      'ngImgCrop',
       'ui.materialize',
       '720kb.tooltips',
       'angular-loading-bar',

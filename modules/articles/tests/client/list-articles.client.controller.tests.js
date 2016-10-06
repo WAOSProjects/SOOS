@@ -57,9 +57,6 @@
       Authentication.user = {
         roles: ['user']
       };
-      Authentication.token = '65d6sdq56sd21ds8qs7d53qs4d234ds8q7sd53q4sd24';
-
-      $httpBackend.expectGET(/api\/auth|me/).respond({ user :Authentication.user, token: Authentication.token });
 
       // Initialize the Articles List controller.
       ArticlesListController = $controller('ArticlesListController as vm', {
@@ -68,6 +65,10 @@
 
       // Spy on state go
       spyOn($state, 'go');
+    }));
+
+    afterEach(inject(function (Authentication) {
+      Authentication.signout();
     }));
 
     describe('Instantiate', function () {
@@ -79,8 +80,11 @@
 
       it('should send a GET request and return all articles', inject(function (ArticlesService) {
         // Set POST response
-        $httpBackend.expectGET(/api\/articles/).respond(mockArticleList);
+        $httpBackend.expectGET('api/articles').respond(mockArticleList);
+
+
         $httpBackend.flush();
+
         // Test form inputs are reset
         expect($scope.vm.articles.length).toEqual(2);
         expect($scope.vm.articles[0]).toEqual(mockArticle);

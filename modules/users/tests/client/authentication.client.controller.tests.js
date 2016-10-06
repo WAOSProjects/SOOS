@@ -9,8 +9,7 @@
       $httpBackend,
       $stateParams,
       $state,
-      $location,
-      Authentication;
+      $location;
 
     beforeEach(function () {
       jasmine.addMatchers({
@@ -33,23 +32,16 @@
       // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
       // This allows us to inject a service but then attach it to a variable
       // with the same name as the service.
-      beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_) {
+      beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_) {
         // Set a new global scope
         scope = $rootScope.$new();
 
         // Point global variables to injected services
         $stateParams = _$stateParams_;
         $httpBackend = _$httpBackend_;
-        Authentication = _Authentication_;
         $location = _$location_;
 
-        Authentication.user = {
-          username: 'Fred',
-          roles: ['user']
-        };
-        Authentication.token = '65d6sdq56sd21ds8qs7d53qs4d234ds8q7sd53q4sd24';
-
-        $httpBackend.expectGET(/api\/users|me/).respond({ user :Authentication.user, token: Authentication.token });
+        $httpBackend.when('GET', 'api/users/me').respond(200, {});
 
         // Initialize the Authentication controller
         AuthenticationController = $controller('AuthenticationController as vm', {
@@ -57,20 +49,17 @@
         });
       }));
 
-      afterEach(inject(function (Authentication) {
-        //Authentication.signout();
-      }));
-
       describe('$scope.signin()', function () {
         it('should login with a correct user and password', function () {
           // Test expected GET request
-          $httpBackend.when('POST', '/api/auth/signin').respond(200, { user :Authentication.user, token: Authentication.token });
+          $httpBackend.when('POST', 'api/auth/signin').respond(200, { user: 'Fred' });
+          $httpBackend.when('GET', 'api/users/me').respond(200, 'Fred');
 
           scope.vm.signin(true);
           $httpBackend.flush();
 
           // Test scope value
-          expect(scope.vm.authentication.user.username).toEqual('Fred');
+          expect(scope.vm.authentication.user).toEqual('Fred');
           expect($location.url()).toEqual('/');
         });
 
@@ -89,7 +78,8 @@
             spyOn($state, 'go');
 
             // Test expected GET request
-            $httpBackend.when('POST', '/api/auth/signin').respond(200, { user :Authentication.user, token: Authentication.token });
+            $httpBackend.when('POST', 'api/auth/signin').respond(200, { user: 'Fred' });
+            $httpBackend.when('GET', 'api/users/me').respond(200, { user: 'Fred' });
 
             scope.vm.signin(true);
             $httpBackend.flush();
@@ -102,7 +92,7 @@
 
         it('should fail to log in with nothing', function () {
           // Test expected POST request
-          $httpBackend.expectPOST('/api/auth/signin').respond(400, {
+          $httpBackend.expectPOST('api/auth/signin').respond(400, {
             'message': 'Missing credentials'
           });
 
@@ -119,7 +109,7 @@
           scope.vm.credentials = 'Bar';
 
           // Test expected POST request
-          $httpBackend.expectPOST('/api/auth/signin').respond(400, {
+          $httpBackend.expectPOST('api/auth/signin').respond(400, {
             'message': 'Unknown user'
           });
 
@@ -134,21 +124,22 @@
       describe('$scope.signup()', function () {
         it('should register with correct data', function () {
           // Test expected GET request
-          scope.vm.authentication.user.username = 'Fred';
-          $httpBackend.when('POST', '/api/auth/signup').respond(200, { user :Authentication.user, token: Authentication.token });
+          scope.vm.authentication.user = 'Fred';
+          $httpBackend.when('POST', 'api/auth/signup').respond(200, { user: 'Fred' });
+          $httpBackend.when('GET', 'api/users/me').respond(200, { user: 'Fred' });
 
           scope.vm.signup(true);
           $httpBackend.flush();
 
           // test scope value
-          expect(scope.vm.authentication.user.username).toEqual('Fred');
+          expect(scope.vm.authentication.user).toBe('Fred');
           expect(scope.vm.error).toEqual(null);
           expect($location.url()).toBe('/');
         });
 
         it('should fail to register with duplicate Username', function () {
           // Test expected POST request
-          $httpBackend.when('POST', '/api/auth/signup').respond(400, {
+          $httpBackend.when('POST', 'api/auth/signup').respond(400, {
             'message': 'Username already exists'
           });
 
@@ -167,6 +158,8 @@
 
         $location = _$location_;
         $location.path = jasmine.createSpy().and.returnValue(true);
+
+        $httpBackend.when('GET', 'api/users/me').respond(200, {});
 
         // Mock logged in user
         _Authentication_.user = {

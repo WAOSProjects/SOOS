@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
   'use strict';
 
@@ -48,6 +46,8 @@
       Authentication = _Authentication_;
       ArticlesService = _ArticlesService_;
 
+      $httpBackend.whenGET('api/users/me').respond({});
+
       // create mock article
       mockArticle = new ArticlesService({
         _id: '525a8422f6d0f87f0e407a33',
@@ -59,7 +59,6 @@
       Authentication.user = {
         roles: ['user']
       };
-      Authentication.token = '65d6sdq56sd21ds8qs7d53qs4d234ds8q7sd53q4sd24';
 
       // Initialize the Articles controller.
       ArticlesController = $controller('ArticlesController as vm', {
@@ -67,110 +66,8 @@
         articleResolve: {}
       });
 
-      // Authentication
-      $httpBackend.expectGET(/api\/auth|me/).respond({ user :Authentication.user, token: Authentication.token });
-
       // Spy on state go
       spyOn($state, 'go');
     }));
-
-    describe('vm.save() as create', function () {
-      var sampleArticlePostData;
-
-      beforeEach(function () {
-        // Create a sample article object
-        sampleArticlePostData = new ArticlesService({
-          title: 'An Article about MEAN',
-          content: 'MEAN rocks!'
-        });
-
-        $scope.vm.article = sampleArticlePostData;
-      });
-
-      it('should send a POST request with the form input values and then locate to new object URL', inject(function (ArticlesService) {
-        // Set POST response
-        $httpBackend.expectPOST(/api\/articles/, sampleArticlePostData).respond(mockArticle);
-        // Run controller functionality
-        $scope.vm.save(true);
-        $httpBackend.flush();
-        // Test URL redirection after the article was created
-        expect($state.go).toHaveBeenCalledWith('articles.view', {
-          articleId: mockArticle._id
-        });
-      }));
-
-      it('should set $scope.vm.error if error', function () {
-        var errorMessage = 'this is an error message';
-        $httpBackend.expectPOST(/api\/articles/, sampleArticlePostData).respond(400, {
-          message: errorMessage
-        });
-
-        $scope.vm.save(true);
-        $httpBackend.flush();
-
-        expect($scope.vm.error).toBe(errorMessage);
-      });
-    });
-
-    describe('vm.save() as update', function () {
-      beforeEach(function () {
-        // Mock article in $scope
-        $scope.vm.article = mockArticle;
-      });
-
-      it('should update a valid article', inject(function (ArticlesService) {
-        // Set PUT response
-        $httpBackend.expectPUT(/api\/articles\/([0-9a-fA-F]{24})$/).respond();
-
-        // Run controller functionality
-        $scope.vm.save(true);
-        $httpBackend.flush();
-
-        // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('articles.view', {
-          articleId: mockArticle._id
-        });
-      }));
-
-      it('should set $scope.vm.error if error', inject(function (ArticlesService) {
-        var errorMessage = 'error';
-        $httpBackend.expectPUT(/api\/articles\/([0-9a-fA-F]{24})$/).respond(400, {
-          message: errorMessage
-        });
-
-        $scope.vm.save(true);
-        $httpBackend.flush();
-
-        expect($scope.vm.error).toBe(errorMessage);
-      }));
-    });
-
-    describe('vm.remove()', function () {
-      beforeEach(function () {
-        // Setup articles
-        $scope.vm.article = mockArticle;
-      });
-
-      it('should delete the article and redirect to articles', function () {
-        // Return true on confirm message
-        spyOn(window, 'confirm').and.returnValue(true);
-
-        $httpBackend.expectDELETE(/api\/articles\/([0-9a-fA-F]{24})$/).respond(204);
-
-        $scope.vm.remove();
-        $httpBackend.flush();
-
-        expect($state.go).toHaveBeenCalledWith('articles.list');
-      });
-
-      it('should should not delete the article and not redirect', function () {
-        // Return false on confirm message
-        spyOn(window, 'confirm').and.returnValue(false);
-
-        $scope.vm.remove();
-
-        expect($state.go).not.toHaveBeenCalled();
-      });
-    });
   });
 }());

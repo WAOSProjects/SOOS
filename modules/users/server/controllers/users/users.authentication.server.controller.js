@@ -19,7 +19,7 @@ var noReturnUrls = [
 /**
  * Signup
  */
-exports.signup = function (req, res) {
+exports.signup = function(req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -29,7 +29,7 @@ exports.signup = function (req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
 
   // Then save the user
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -40,7 +40,10 @@ exports.signup = function (req, res) {
       user.salt = undefined;
 
       var token = authorization.signToken(user);
-      res.json({ user: user, token: token });
+      res.json({
+        user: user,
+        token: token
+      });
     }
   });
 };
@@ -48,17 +51,20 @@ exports.signup = function (req, res) {
 /**
  * Signin after passport authentication
  */
-exports.signin = function (req, res, next) {
-  passport.authenticate('local', function (err, user) {
+exports.signin = function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
     if (err || !user) {
-      res.status(400).send(err);
+      res.status(400).send(info);
     } else {
       // Remove sensitive data before login
       user.password = undefined;
       user.salt = undefined;
 
       var token = authorization.signToken(user);
-      res.json({ user: user, token: token });
+      res.json({
+        user: user,
+        token: token
+      });
     }
   })(req, res, next);
 };
@@ -66,7 +72,7 @@ exports.signin = function (req, res, next) {
 /**
  * Signout
  */
-exports.signout = function (req, res) {
+exports.signout = function(req, res) {
   req.logout();
   res.redirect('/');
 };
@@ -74,13 +80,8 @@ exports.signout = function (req, res) {
 /**
  * OAuth provider call
  */
-exports.oauthCall = function (strategy, scope) {
-  return function (req, res, next) {
-    // Set redirection path on session.
-    // Do not redirect to a signin or signup page
-    if (noReturnUrls.indexOf(req.query.redirect_to) === -1) {
-      req.session.redirect_to = req.query.redirect_to;
-    }
+exports.oauthCall = function(strategy, scope) {
+  return function(req, res, next) {
     // Authenticate
     passport.authenticate(strategy, scope)(req, res, next);
   };
@@ -89,13 +90,11 @@ exports.oauthCall = function (strategy, scope) {
 /**
  * OAuth callback
  */
-exports.oauthCallback = function (strategy) {
-  return function (req, res, next) {
-    // Pop redirect URL from session
-    var sessionRedirectURL = req.session.redirect_to;
-    delete req.session.redirect_to;
+exports.oauthCallback = function(strategy) {
+  return function(req, res, next) {
 
-    passport.authenticate(strategy, function (err, user, redirectURL) {
+    // info.redirect_to contains inteded redirect path
+    passport.authenticate(strategy, function(err, user, info) {
       if (err) {
         return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
       }
@@ -104,7 +103,7 @@ exports.oauthCallback = function (strategy) {
       }
 
       var token = authorization.signToken(user);
-      return res.redirect((redirectURL || sessionRedirectURL || '/') + '?token=' + token);
+      return res.redirect((info.redirect_to || '/') + '?token=' + token);
     })(req, res, next);
   };
 };
@@ -112,7 +111,7 @@ exports.oauthCallback = function (strategy) {
 /**
  * Helper function to save or update a OAuth user profile
  */
-exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
+exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
   if (!req.user) {
     // Define a search query fields
     var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
@@ -132,32 +131,45 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
     };
 
-    User.findOne(searchQuery, function (err, user) {
+    // Setup info object
+    var info = {};
+
+    // Set redirection path on session.
+    // Do not redirect to a signin or signup page
+    if (noReturnUrls.indexOf(req.query.redirect_to) === -1) {
+      info.redirect_to = req.query.redirect_to;
+    }
+
+    User.findOne(searchQuery, function(err, user) {
       if (err) {
         return done(err);
       } else {
         if (!user) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-          User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+          User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
             user = new User({
               firstName: providerUserProfile.firstName,
               lastName: providerUserProfile.lastName,
               username: availableUsername,
               displayName: providerUserProfile.displayName,
-              email: providerUserProfile.email,
               profileImageURL: providerUserProfile.profileImageURL,
               provider: providerUserProfile.provider,
               providerData: providerUserProfile.providerData
             });
 
+            // Email intentionally added later to allow defaults (sparse settings) to be applid.
+            // Handles case where no email is supplied.
+            // See comment: https://github.com/meanjs/mean/pull/1495#issuecomment-246090193
+            user.email = providerUserProfile.email;
+
             // And save the user
-            user.save(function (err) {
-              return done(err, user);
+            user.save(function(err) {
+              return done(err, user, info);
             });
           });
         } else {
-          return done(err, user);
+          return done(err, user, info);
         }
       }
     });
@@ -178,7 +190,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       user.markModified('additionalProvidersData');
 
       // And save the user
-      user.save(function (err) {
+      user.save(function(err) {
         return done(err, user, '/settings/accounts');
       });
     } else {
@@ -190,7 +202,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 /**
  * Remove OAuth provider
  */
-exports.removeOAuthProvider = function (req, res, next) {
+exports.removeOAuthProvider = function(req, res, next) {
   var user = req.user;
   var provider = req.query.provider;
 
@@ -210,7 +222,7 @@ exports.removeOAuthProvider = function (req, res, next) {
     user.markModified('additionalProvidersData');
   }
 
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

@@ -19,10 +19,6 @@ function seedDB() {
 // Initialize Models
 mongoose.loadModels(seedDB);
 
-module.exports.loadModels = function loadModels() {
-  mongoose.loadModels();
-};
-
 module.exports.init = function init(callback) {
   mongoose.connect(function (db) {
     // Initialize express
@@ -49,8 +45,10 @@ module.exports.start = function start(callback) {
       console.log(chalk.green('Server:          ' + server));
       console.log(chalk.green('Database:        ' + config.db.uri));
       console.log(chalk.green('App version:     ' + config.meanjs.version));
+      if (config.meanjs['roMEANet-version'])
+        console.log(chalk.green('roMEANet v:      ' + config.meanjs['roMEANet-version']));
       if (config.meanjs['meanjs-version'])
-        console.log(chalk.green('MEAN.JS version: ' + config.meanjs['meanjs-version']));
+        console.log(chalk.green('MEAN.JS v:       ' + config.meanjs['meanjs-version']));
       console.log('--');
 
       if (callback) callback(app, db, config);

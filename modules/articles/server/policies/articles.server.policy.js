@@ -15,28 +15,28 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/',
+      resources: '/api/articles',
       permissions: '*'
     }, {
-      resources: '/:articleId',
+      resources: '/api/articles/:articleId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/',
-      permissions: ['get', 'post']
+      resources: '/api/articles',
+      permissions: ['get']
     }, {
-      resources: '/:articleId',
+      resources: '/api/articles/:articleId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/',
+      resources: '/api/articles',
       permissions: ['get']
     }, {
-      resources: '/:articleId',
+      resources: '/api/articles/:articleId',
       permissions: ['get']
     }]
   }]);
@@ -47,7 +47,6 @@ exports.invokeRolesPolicies = function () {
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
-  console.log('toto', req.route.path);
 
   // If an article is being processed and the current user created it then allow any manipulation
   if (req.article && req.user && req.article.user && req.article.user.id === req.user.id) {
@@ -56,10 +55,6 @@ exports.isAllowed = function (req, res, next) {
 
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
-    console.log('toto', roles);
-    console.log('toto', req.route.path);
-    console.log('toto', req.method.toLowerCase());
-
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');
@@ -68,7 +63,6 @@ exports.isAllowed = function (req, res, next) {
         // Access granted! Invoke next middleware
         return next();
       } else {
-        console.log('loool');
         return res.status(403).json({
           message: 'User is not authorized'
         });

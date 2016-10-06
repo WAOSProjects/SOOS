@@ -21,9 +21,9 @@ module.exports = function () {
         return done(err);
       }
       if (!user || !user.authenticate(password)) {
-        return done({
-          message: 'Invalid username or password'
-        }, false);
+        return done(null, false, {
+          message: 'Invalid username or password (' + (new Date()).toLocaleTimeString() + ')'
+        });
       }
 
       return done(null, user);

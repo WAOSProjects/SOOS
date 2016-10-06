@@ -68,6 +68,14 @@ var validateEnvironmentVariable = function () {
   console.log(chalk.white(''));
 };
 
+/** Validate config.domain is set
+ */
+var validateDomainIsSet = function (config) {
+  if (!config.app.domain) {
+    console.log(chalk.red('+ Important warning: config.domain is empty. It should be set to the fully qualified domain of the app.'));
+  }
+};
+
 /**
  * Validate Secure=true parameter can actually be turned on
  * because it requires certs and key files to be available
@@ -98,7 +106,7 @@ var validateSessionSecret = function (config, testing) {
     return true;
   }
 
-  if (config.sessionSecret === 'MEAN') {
+  if (config.sessionSecret === 'roMEANet') {
     if (!testing) {
       console.log(chalk.red('+ WARNING: It is strongly recommended that you change sessionSecret config while running in production!'));
       console.log(chalk.red('  Please add `sessionSecret: process.env.SESSION_SECRET || \'super amazing secret\'` to '));
@@ -203,6 +211,9 @@ var initGlobalConfig = function () {
 
   // Validate session secret
   validateSessionSecret(config);
+
+  // Print a warning if config.domain is not set
+  validateDomainIsSet(config);
 
   // Expose configuration utilities
   config.utils = {

@@ -12,16 +12,20 @@
     .config(bootstrapConfig)
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
       cfpLoadingBarProvider.includeSpinner = false;
-      cfpLoadingBarProvider.loadingBarTemplate = '<div id="loading-bar"><div class="loading-bar"><div class="bar"><div class="peg"></div></div></div>';
+      cfpLoadingBarProvider.loadingBarTemplate = '<div id="loading-bar"><div class="loading-bar bar"><div class="peg"></div></div></div>';
     }]);
 
-  function bootstrapConfig($locationProvider, $httpProvider) {
+  function bootstrapConfig($compileProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     $httpProvider.interceptors.push('authInterceptor');
+
+    // Disable debug data for production environment
+    // @link https://docs.angularjs.org/guide/production
+    $compileProvider.debugInfoEnabled(app.applicationEnvironment !== 'production');
   }
 
-  bootstrapConfig.$inject = ['$locationProvider', '$httpProvider'];
+  bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider'];
 
   // Then define the init function for starting up the application
   angular.element(document).ready(init);

@@ -18,7 +18,7 @@
       login: login,
       signout: signout,
       refresh: refresh,
-      readyPromise: $q.defer(),
+      readyPromise: $q.defer()
     };
 
     // Initialize service
@@ -61,7 +61,7 @@
     function refresh(requestFromServer, callback) {
       readyPromise = $q.defer();
 
-      UsersService.me().$promise
+      UsersService.me(auth.user).$promise
       .then(function (user) {
         auth.user = user;
         auth.readyPromise.resolve(auth);

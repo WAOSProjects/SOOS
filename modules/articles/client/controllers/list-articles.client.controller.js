@@ -5,12 +5,10 @@
     .module('articles')
     .controller('ArticlesListController', ArticlesListController);
 
-  ArticlesListController.$inject = ['ArticlesService', 'Authentication'];
+  ArticlesListController.$inject = ['ArticlesService'];
 
-  function ArticlesListController(ArticlesService, Authentication) {
+  function ArticlesListController(ArticlesService) {
     var vm = this;
-
-    vm.authentication = Authentication;
 
     vm.articles = ArticlesService.query();
   }

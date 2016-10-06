@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -8,9 +8,15 @@
   routeFilter.$inject = ['$rootScope', '$state', 'Authentication'];
 
   function routeFilter($rootScope, $state, Authentication) {
+    $rootScope.location = {
+      view: 'home',
+      states: [{
+        value: 'Home'
+      }]
+    };
 
     Authentication.readyPromise.promise
-      .then(function (auth) {
+      .then(function(auth) {
         $rootScope.$on('$stateChangeStart', stateChangeStart);
       });
 
@@ -30,10 +36,10 @@
 
         if (!allowed) {
           event.preventDefault();
-          if (Authentication.user !== undefined && typeof Authentication.user === 'object') {
+          if (Authentication.user !== null && typeof Authentication.user === 'object') {
             $state.transitionTo('forbidden');
           } else {
-            $state.go('authentication.signin').then(function () {
+            $state.go('authentication.signin').then(function() {
               // Record previous state
               storePreviousState(toState, toParams);
             });
@@ -43,34 +49,13 @@
     }
 
     function stateChangeSuccess(event, toState, toParams, fromState, fromParams) {
-
+      storePreviousState(fromState, fromParams);
       if (toState.redirectTo) {
         event.preventDefault();
         $state.go(toState.redirectTo, toParams, {
           location: 'replace'
-        })
+        });
       }
-
-      // FIXME
-      var views = [];
-      if (window._.findIndex(views, $state.href(toState, toParams).split('/')[1]) === -1) {
-        $rootScope.view = 'home';
-      } else {
-        $rootScope.view = $state.href(toState, toParams).split('/')[1];
-      }
-      storePreviousState(fromState, fromParams);
-      $rootScope.location = toState.name.split('.').map(function(val) {
-        if (val !== '') {
-          return {
-            'value': val.charAt(0).toUpperCase() + val.slice(1) + ' / ',
-            'state': val
-          };
-        } else {
-          return '';
-        }
-      });
-      $rootScope.location[$rootScope.location.length - 1].state = '';
-      $rootScope.location[$rootScope.location.length - 1].value = $rootScope.location[$rootScope.location.length - 1].value.slice(0, -2);
     }
 
     // Store previous state

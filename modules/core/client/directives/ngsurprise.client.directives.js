@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /* ng-surprise v0.2.0
 ** (c)2015 Rafael Camargo
 ** http://rafaelcamargo.github.io/ng-surprise

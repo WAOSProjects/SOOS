@@ -1,16 +1,46 @@
-# ================================
-# ============== OS ==============
-# ================================
-
+# OS
+# ===========
 .DS_Store
 ehthumbs.db
 Icon?
 Thumbs.db
 
+# Node and related ecosystem
+# ==========================
+.nodemonignore
+.sass-cache/
+node_modules/
+public/lib/
+app/tests/coverage/
+.bower-*/
+.idea/
+coverage/
+.coveralls.yml
 
-# ================================
-# ============ EDITOR ============
-# ================================
+# MEAN.js app and assets
+# ======================
+public/dist/
+uploads
+modules/users/client/img/profile/uploads
+config/env/local.js
+*.pem
+
+# Ignoring MEAN.JS's gh-pages branch for documenation
+_site/
+
+# General
+# =======
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.tmp
+*.bak
+*.swp
+logs/
+build/
 
 # Sublime editor
 # ==============
@@ -25,17 +55,17 @@ Thumbs.db
 .*.md.html
 .metadata
 *~.nib
-client/local.properties
+local.properties
 
 # IntelliJ
 # ========
 *.iml
-.idea
+
 # Cloud9 IDE
 # =========
 .c9/
-client/data/
-client/mongod
+data/
+mongod
 
 # Visual Studio
 # =========
@@ -43,52 +73,3 @@ client/mongod
 *.ntvs*
 *.njsproj
 *.sln
-
-
-# ================================
-# ============= ALL ==============
-# ================================
-
-node_modules/
-coverage/
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-*.tmp
-*.bak
-*.swp
-*.pem
-
-
-# ================================
-# ============ CLIENT ============
-# ================================
-
-# Node and related ecosystem
-# ==========================
-.nodemonignore
-.sass-cache/
-public/lib/
-app/tests/coverage/
-.bower-*/
-.idea/
-coverage/
-
-# MEAN.js app and assets
-# ======================
-public/dist/
-uploads
-modules/users/client/img/profile/uploads
-config/env/local.js
-modules/core/client/app/env.js
-
-# Ignoring MEAN.JS's gh-pages branch for documenation
-_site/
-
-# General
-# =======
-logs/
-build/
