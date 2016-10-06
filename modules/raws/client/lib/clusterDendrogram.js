@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(){
 
   var tree = raw.models.tree();
@@ -24,7 +26,7 @@
         .defaultValue(500)
 
   chart.draw(function (selection, data){
-      
+
     var g = selection
             .attr('width', +width())
             .attr('height', +height())

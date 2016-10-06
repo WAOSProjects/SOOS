@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(){
 
   var points = raw.models.points();
@@ -30,7 +32,7 @@
 
     var x = d3.scale.linear().range([0,+width()-stroke()]).domain(d3.extent(data, function (d){ return d.x; })),
       y = d3.scale.linear().range([+height()-stroke(), 0]).domain(d3.extent(data, function (d){ return d.y; }));
-        
+
     var vertices = data.map(function (d){
       return [ x(d.x), y(d.y) ]
     })

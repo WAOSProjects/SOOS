@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(){
 
   var nodes = raw.model();
@@ -21,16 +23,16 @@
     var nodeClusters = d3.nest()
             .key(function (d) { return cluster(d); })
             .rollup(function (d){
-              return { 
+              return {
                 type: 'cluster',
                 cluster: cluster(d[0]),
                 size: 0,
-              } 
+              }
             })
             .map(data);
 
     var nodeElements = data.map(function (d) {
-      return { 
+      return {
         type : 'node',
         label : label(d),
         cluster: cluster(d),
@@ -163,7 +165,7 @@
           nx2 = d.x + r,
           ny1 = d.y - r,
           ny2 = d.y + r;
-            
+
         quadtree.visit(function(quad, x1, y1, x2, y2) {
           if (quad.point && (quad.point !== d)) {
             var x = d.x - quad.point.x,
@@ -182,7 +184,7 @@
         });
       };
     }
-  
+
   })
 
 })();

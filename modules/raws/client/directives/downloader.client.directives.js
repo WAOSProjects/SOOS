@@ -3,11 +3,12 @@
 
   angular
     .module('raws')
+    .constant('d3', window.d3)
     .directive('downloader', downloader);
 
-  downloader.$inject = ['$window'];
+  downloader.$inject = ['d3', '$window'];
 
-  function downloader($window) {
+  function downloader(d3, $window) {
     return {
       restrict: 'E',
       scope: {
@@ -18,21 +19,20 @@
       template: '<div layout="column" >' +
         '<md-input-container><label>Choose type</label><md-select ng-model="mode"> <md-option ng-repeat="m in modes" ng-value="m">{{m.label}}</md-option> </md-select> </md-input-container>' +
         '<md-input-container><label>Filename</label><input ng-model="filename"></md-input-container>' +
-        '<md-button class="download" ng-disabled="!mode.label" ng-click="mode.download()">Download</md-button>'+
+        '<md-button class="download" ng-disabled="!mode.label" ng-click="mode.download()">Download</md-button>' +
         '</div>',
 
       link: function postLink(scope, element, attrs) {
-
         var source = '#chart > svg';
 
         var getBlob = function() {
           return window.Blob || window.WebKitBlob || window.MozBlob;
-        }
+        };
 
         // Removing HTML entities from svg
         function decodeHtml(html) {
           var txt = document.createElement('textarea');
-          txt.innerHTML = html;samples
+          txt.innerHTML = html; // samples
           return txt.value;
         }
 
@@ -46,7 +46,7 @@
 
           html = decodeHtml(html);
 
-          var isSafari = (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1);
+          var isSafari = (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1);
 
           if (isSafari) {
             var img = 'data:image/svg+xml;utf8,' + html;
@@ -55,7 +55,8 @@
             var blob = new BB([html], {
               type: 'data:image/svg+xml'
             });
-            saveAs(blob, (element.find('input').val() || element.find('input').attr('placeholder')) + '.svg')
+            // TODO What is this saveAs from raw ? Rype.
+            // saveAs(blob, (element.find('input').val() || element.find('input').attr('placeholder')) + '.svg')
           }
 
         }
@@ -64,7 +65,7 @@
 
           var content = d3.select('body').append('canvas')
             .attr('id', 'canvas')
-            .style('display', 'none')
+            .style('display', 'none');
 
           var html = d3.select(source)
             .node().parentNode.innerHTML;
@@ -80,7 +81,7 @@
           image.onload = function() {
             context.drawImage(image, 0, 0);
 
-            var isSafari = (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1);
+            var isSafari = (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1);
 
             if (isSafari) {
               var img = canvas.toDataURL('image/png;base64');
@@ -98,8 +99,6 @@
             }
           };
 
-
-
           d3.select('#canvas').remove();
         }
 
@@ -108,8 +107,9 @@
           var blob = new Blob([json], {
             type: 'data:text/json;charset=utf-8'
           });
-          saveAs(blob, (scope.filename || element.find('input').attr('placeholder')) + '.json')
-        }
+          // TODO What is this saveAs from raw ? Rype.
+          // saveAs(blob, (scope.filename || element.find('input').attr('placeholder')) + '.json')
+        };
 
         scope.modes = [{
           label: 'Vector graphics (svg)',
@@ -120,8 +120,8 @@
         }, {
           label: 'Data model (json)',
           download: downloadData
-        }]
-          //scope.mode = scope.modes[0]
+        }];
+        // scope.mode = scope.modes[0]
 
       }
     };

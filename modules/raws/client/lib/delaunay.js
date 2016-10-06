@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function() {
 
   var points = raw.models.points();
@@ -49,6 +51,6 @@
 			.attr('d', polygon);
 
     function polygon(d) { if (!d) return;
-      var s = d.map(function(a) {return [x(a.x), y(a.y)]}) 
+      var s = d.map(function(a) {return [x(a.x), y(a.y)]})
       return 'M' + s.join('L') + 'Z';}})
 })();

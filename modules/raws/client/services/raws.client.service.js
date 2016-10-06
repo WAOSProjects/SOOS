@@ -1,4 +1,3 @@
-//Raws service used to communicate Raws REST endpoints
 (function () {
   'use strict';
 
@@ -16,11 +15,11 @@
         var deferred = $q.defer();
         $http.get(sample)
           .then(function(response) {
-            deferred.resolve(response.data); 
+            deferred.resolve(response.data);
           },
-            function() {
-              deferred.reject('An error occured while getting sample (' + sample.title + ')');
-            });
+          function() {
+            deferred.reject('An error occured while getting sample (' + sample.title + ')');
+          });
         return deferred.promise;
       },
 
@@ -49,8 +48,6 @@
           return deferred.promise;
         };
       }
-
-    }
-
+    };
   }
-})();
+}());

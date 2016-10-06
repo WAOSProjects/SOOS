@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function() {
 
   var sequence = raw.model();

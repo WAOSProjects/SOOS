@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function() {
 
   var tree = raw.models.tree();

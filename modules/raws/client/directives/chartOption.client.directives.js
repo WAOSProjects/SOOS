@@ -21,7 +21,7 @@
         scope.$watch('chart', fitWidth);
 
         function fitWidth(chart, old) {
-          if (chart == old) return;
+          if (chart === old) return;
           if (!scope.option.fitToWidth || !scope.option.fitToWidth()) return;
           scope.option.value = $('.flex-80').width();
         }

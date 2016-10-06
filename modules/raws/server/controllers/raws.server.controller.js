@@ -36,6 +36,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
+  /* eslint no-unneeded-ternary: 0 */
   raw.isCurrentUserOwner = req.user && raw.user && raw.user._id.toString() === req.user._id.toString() ? true : false;
 
   res.jsonp(raw);
@@ -45,9 +46,9 @@ exports.read = function(req, res) {
  * Update a Raw
  */
 exports.update = function(req, res) {
-  var raw = req.raw ;
+  var raw = req.raw;
 
-  raw = _.extend(raw , req.body);
+  raw = _.extend(raw, req.body);
 
   raw.save(function(err) {
     if (err) {
@@ -64,7 +65,7 @@ exports.update = function(req, res) {
  * Delete an Raw
  */
 exports.delete = function(req, res) {
-  var raw = req.raw ;
+  var raw = req.raw;
 
   raw.remove(function(err) {
     if (err) {
@@ -80,7 +81,7 @@ exports.delete = function(req, res) {
 /**
  * List of Raws
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
   Raw.find().sort('-created').populate('user', 'displayName').exec(function(err, raws) {
     if (err) {
       return res.status(400).send({
@@ -103,7 +104,7 @@ exports.rawByID = function(req, res, next, id) {
     });
   }
 
-  Raw.findById(id).populate('user', 'displayName').exec(function (err, raw) {
+  Raw.findById(id).populate('user', 'displayName').exec(function(err, raw) {
     if (err) {
       return next(err);
     } else if (!raw) {

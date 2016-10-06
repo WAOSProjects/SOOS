@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(){
 
   var tree = raw.models.tree();
@@ -13,8 +15,8 @@
         .thumbnail('./modules/raws/client/img/circularDendrogram.png')
         .category('Hierarchies')
         .model(tree)
-    
-  var diameter = chart.number ()  
+
+  var diameter = chart.number ()
         .title('Radius')
         .defaultValue(1000)
         .fitToWidth(true)
@@ -26,13 +28,13 @@
         .attr('height', +diameter())
         .append('g')
         .attr('transform', 'translate(' + diameter()/2 + ',' + diameter()/2 + ')');
-    
+
     var cluster = d3.layout.cluster()
         .size([360, diameter()/2-120]);
 
     var diagonal = d3.svg.diagonal.radial()
         .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
-    
+
     var nodes = cluster.nodes(data);
 
     var link = g.selectAll('path.link')
@@ -43,7 +45,7 @@
         .style('stroke','#cccccc')
         .style('stroke-width','1px')
         .attr('d', diagonal);
-    
+
     var node = g.selectAll('g.node')
         .data(nodes)
         .enter().append('g')

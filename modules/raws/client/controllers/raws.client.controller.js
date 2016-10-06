@@ -26,18 +26,18 @@
     }, {
       title: 'Cocktails (correlations)',
       url: '../assets/data/correlations.csv'
-    }]
+    }];
 
 
     vm.showHelp = function(ev) {
 
-      console.log('modal')
+      console.log('modal');
       $mdDialog.show({
         templateUrl: './modules/raws/client/templates/help.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true
-      })
+      });
 
     };
 
@@ -51,7 +51,7 @@
           vm.error = error;
         }
       );
-    }
+    };
 
     // init
     vm.raw = raw;
@@ -71,8 +71,6 @@
       vm.error = false;
       $scope.$apply();
 
-
-
       try {
         var parser = raw.parser();
         vm.data = parser(vm.text);
@@ -81,28 +79,25 @@
       } catch (e) {
         vm.data = [];
         vm.metadata = [];
-        vm.error = e.name == 'ParseError' ? +e.message : false;
+        /* eslint no-nested-ternary: 0 */
+        vm.error = e.name === 'ParseError' ? + e.message : false;
       }
       if (!vm.data.length && vm.model) vm.model.clear();
       vm.loading = false;
-    }
+    };
 
     /* Table custom renderer */
-
     vm.tableSettings = {
       contextMenu: true,
       stretchH: 'all'
     };
 
-
-
-    /*CodeMirror*/
+    /* CodeMirror */
     vm.codeMirrorOptions = {
       lineNumbers: true,
       lineWrapping: true,
       placeholder: 'Paste your text or drop a file here. No data on hand? Try one of our sample datasets!'
-    }
-
+    };
 
     vm.delayParse = RawsService.debounce(vm.parse, 500, false);
 
@@ -112,6 +107,7 @@
     });
 
     vm.charts = raw.charts.values().sort(function(a, b) {
+      /* eslint no-nested-ternary: 0 */
       return a.title() < b.title() ? -1 : a.title() > b.title() ? 1 : 0;
     });
     vm.chart = vm.charts[0];
@@ -128,23 +124,14 @@
       cm.scrollIntoView(error);
       vm.lastError = error;
 
-
-    })
-
-
-
-
-
-
+    });
 
     vm.selectChart = function(chart) {
-      if (chart == vm.chart) return;
+      if (chart === vm.chart) return;
       vm.model.clear();
       vm.chart = chart;
       vm.model = vm.chart.model();
-    }
-
-
+    };
 
   }
-})();
+}());

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(){
 
   var stream = raw.model();
@@ -32,7 +34,7 @@
                       return {
                         group : group(d[0]),
                         x : date(d[0]),
-                        y : size() ? d3.sum(d,size) : d.length 
+                        y : size() ? d3.sum(d,size) : d.length
                       }
                     })
                     .map(g);
@@ -98,7 +100,7 @@
       'Sankey curves' : interpolate,
       'Linear' : 'linear'
     }
-   
+
     var stack = d3.layout.stack()
             .offset(offset());
 
@@ -149,7 +151,7 @@
     var line = d3.svg.line()
             .interpolate(curves[curve()])
             .x(function(d) { return x(d.x); })
-            .y(function(d) { 
+            .y(function(d) {
               var y0 = y(d.y0), y1 = y(d.y0 + d.y);
               return y0 + (y1 - y0) * 0.5;
             });
@@ -173,7 +175,7 @@
             .enter().append('path')
             .attr('id', function(d,i) { return 'path-' + i; })
             .attr('d', line);
-        
+
     g.selectAll('text.label')
             .data(layers)
             .enter().append('text')

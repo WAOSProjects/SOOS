@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(){
 
   var stream = raw.model();
@@ -31,7 +33,7 @@
                       return {
                         group : group(d[0]),
                         date : date(d[0]),
-                        size : size() ? d3.sum(d,size) : d.length 
+                        size : size() ? d3.sum(d,size) : d.length
                       }
                     })
                     .map(g);

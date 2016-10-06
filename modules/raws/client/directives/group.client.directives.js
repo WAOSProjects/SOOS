@@ -14,16 +14,14 @@
         scope.$watch(attrs.watch, function(watch) {
           var last = element;
           element.children().each(function(i, o) {
-            if ((i) && (i) % attrs.every == 0) {
+            if ((i) && (i) % attrs.every === 0) {
               var oldLast = last;
               last = element.clone().empty();
               last.insertAfter(oldLast);
             }
-            $(o).appendTo(last)
-          })
-
-        }, true)
-
+            $(o).appendTo(last);
+          });
+        }, true);
       }
     };
   }

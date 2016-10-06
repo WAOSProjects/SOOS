@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function() {
 
   var graph = raw.models.graph();
