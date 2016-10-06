@@ -1,3 +1,6 @@
+// TODO FIX RAW VAR dependencie rype
+/* eslint no-undef: 0 */
+
 (function() {
   'use strict';
 
