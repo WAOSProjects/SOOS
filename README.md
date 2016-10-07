@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/weareopensource/roMEANet-SOOS.svg?branch=master)](https://travis-ci.org/weareopensource/roMEANet-SOOS)
 [![Dependencies Status](https://david-dm.org/weareopensource/roMEANet-SOOS.svg)](https://david-dm.org/weareopensource/roMEANet-SOOS)
-[![Coverage Status](https://coveralls.io/repos/weareopensource/roMEANet-SOOS/badge.svg?branch=master&service=github)](https://coveralls.io/github/weareopensource/roMEANet-SOOS?branch=master)
-
+[![Coverage Status](https://coveralls.io/repos/github/weareopensource/roMEANet-SOOS/badge.svg?branch=master)](https://coveralls.io/github/weareopensource/roMEANet-SOOS?branch=master)
 
 ## SOOS
 
