@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    title: 'roMEANet',
+    title: 'roMEANet-SOOS',
     description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js, on the top of MEAN.JS',
     keywords: 'mongodb, express, angularjs, node.js, mongoose, passport, meanjs',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
