@@ -1,11 +1,11 @@
 .raws h3 {
+  font-family: 'Karla', sans-serif;
+  font-size: 21px;
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 48px;
   margin: 0;
-  font-size: 21px;
   margin-bottom: 30px;
-  font-family: 'Karla', sans-serif;
 }
 
 .raws a {
@@ -49,15 +49,13 @@
 /* Alerts */
 
 .raws .alert {
+  background-color: transparent;
   border: none;
+  border-radius: 2px;
+  color: #5A5E5A;
   font-weight: 400;
   margin-top: 20px;
   padding: 10px 12px;
-  background-color: transparent;
-  color: #5A5E5A;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
 }
 
 .raws .alert-success {
@@ -66,8 +64,8 @@
 }
 
 .raws .alert-warning {
-  color: #444;
   background-color: rgb(255, 186, 0);
+  color: #444;
 }
 
 
@@ -78,26 +76,26 @@
 }
 
 .raws .chart-description h4 {
+  font-family: 'Karla', sans-serif;
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 1px;
-  font-family: 'Karla', sans-serif;
 }
 
 .raws .chart-description p {
-  margin-top: 9px;
-  font-size: 14px;
   font-family: 'Karla', sans-serif;
+  font-size: 14px;
   font-weight: 300;
+  margin-top: 9px;
 }
 
 .raws .chart-description hr {
   background-color: #3F403F;
   height: 1px;
-  width: 20px;
+  margin-bottom: 18px;
   margin-left: 0;
   margin-top: 10px;
-  margin-bottom: 18px;
+  width: 20px;
 }
 
 .raws .chart-description a {
@@ -108,9 +106,9 @@
 /* Dimensions */
 
 .raws .dimensions-container {
-  padding: 0;
-  min-height: 55px;
   margin-bottom: 0;
+  min-height: 55px;
+  padding: 0;
 }
 
 .raws .dimensions-wrapper {
@@ -118,18 +116,16 @@
 }
 
 .raws .dimensions-model {
-  position: relative;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
   background-color: white;
-  padding: 10px;
-  overflow: hidden;
+  border-radius: 2px;
   margin-bottom: 5px;
-  -webkit-transition: border .15s ease-in-out;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
   -moz-transition: border .15s ease-in-out;
   -ms-transition: border .15s ease-in-out;
   -o-transition: border .15s ease-in-out;
+  -webkit-transition: border .15s ease-in-out;
   transition: border .15s ease-in-out;
 }
 
@@ -139,20 +135,19 @@
 
 .raws .dimension-placeholder,
 .raws .dimension {
-  padding: 8px 10px;
-  position: relative;
-  margin-bottom: 3px;
+  border-radius: 2px;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  list-style: none;
+  margin-bottom: 3px;
   opacity: .85;
-  -webkit-transition: background .1s ease-in-out;
+  padding: 8px 10px;
+  position: relative;
   -moz-transition: background .1s ease-in-out;
   -ms-transition: background .1s ease-in-out;
   -o-transition: background .1s ease-in-out;
+  -webkit-transition: background .1s ease-in-out;
   transition: background .1s ease-in-out;
 }
 
@@ -161,19 +156,17 @@
 }
 
 .raws .layout {
-  position: relative;
   background-color: #406490;
-  cursor: pointer;
-  margin-bottom: 10px;
-  display: table;
-  width: 100%;
-  height: 120px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
   border-radius: 2px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  display: table;
+  height: 120px;
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
 }
 
 .raws .layout.selected {
@@ -181,111 +174,107 @@
 }
 
 .raws .layout-title {
-  font-family: 'Karla', sans-serif;
   color: white;
+  font-family: 'Karla', sans-serif;
   font-size: 18px;
   font-weight: 400;
 }
 
 .raws .layout-thumb {
+  background-color: #fff;
   background-position: center;
   background-size: 180%;
-  background-color: #fff;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
   border-radius: 2px;
-  position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
+  position: absolute;
   right: 0;
+  top: 0;
 }
 
 .raws .layout.selected .layout-thumb,
 .raws .layout:hover .layout-thumb {
   opacity: .15;
-  -webkit-transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -ms-transition: opacity .2s ease-in-out;
   -o-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
   transition: opacity .2s ease-in-out;
 }
 
 .raws .layout-inner {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
   border-radius: 2px;
-  text-align: center;
-  margin: 0;
+  bottom: 0;
+  -moz-box-align: center;
+  -ms-box-align: center;
+  -o-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
+  -o-box-pack: center;
+  -webkit-box-pack: center;
+  box-pack: center;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;      /* TWEENER - IE 10 */
   display: -o-flexbox;      /* TWEENER - IE 10 */
   display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -ms-box-pack: center;
-  -o-box-pack: center;
-  box-pack: center;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-box-align: center;
-  -o-box-align: center;
-  box-align: center;
-  -webkit-flex-pack: center;
-  -moz-flex-pack: center;
-  -ms-flex-pack: center;
-  -o-flex-pack: center;
-  flex-pack: center;
-  -webkit-flex-align: center;
   -moz-flex-align: center;
   -ms-flex-align: center;
   -o-flex-align: center;
+  -webkit-flex-align: center;
   flex-align: center;
+  -moz-flex-pack: center;
+  -ms-flex-pack: center;
+  -o-flex-pack: center;
+  -webkit-flex-pack: center;
+  flex-pack: center;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
 }
 
 .raws .layout.selected .layout-inner,
 .raws .layout:hover .layout-inner {
   opacity: 1;
-  -webkit-transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -ms-transition: opacity .2s ease-in-out;
   -o-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
   transition: opacity .2s ease-in-out;
 }
 
 .raws .layout.yours {
   background-color: transparent;
   border: 2px dashed #ddd;
-  -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
 .raws .layout.yours .layout-thumb {
   background-color: transparent;
-  text-align: center;
   font-size: 60px;
+  height: 76px;
   line-height: 118px;
   opacity: .1;
-  height: 76px;
+  text-align: center;
 }
 
 /*.raws .layout.yours:hover .layout-thumb {}*/
 
 .raws .dimension-placeholder,
 .raws .dimension {
-  cursor: move;
-  color: #ffffff;
   background-color: #406490;
   border-bottom: 1px solid rgb(0, 0, 0);
   border-bottom: 1px solid rgba(0, 0, 0, .1);
+  color: #ffffff;
+  cursor: move;
 }
 
 .raws .layout:hover,
@@ -295,17 +284,17 @@
 }
 
 .raws .dimension-multiple {
+  color: #bbbbbb;
+  left: 10px;
   position: absolute;
   top: 10px;
-  left: 10px;
-  color: #bbbbbb;
 }
 
 .raws .dimension-required {
-  position: absolute;
-  top: 12px;
-  right: 10px;
   color: #406490;
+  position: absolute;
+  right: 10px;
+  top: 12px;
 }
 
 .raws .dimension-type {
@@ -317,46 +306,44 @@
 }
 
 .raws .dimension-type-valid {
-  font-size: 9px;
   color: #999;
+  font-size: 9px;
   letter-spacing: 1px;
   line-height: 18px;
   text-transform: uppercase;
 }
 
 .raws .dimension-title {
-  text-align: center;
-  padding-bottom: 5px;
-  margin: 10px 0 5px 0;
   color: #000;
   font-size: 18px;
   font-weight: 400;
+  margin: 10px 0 5px 0;
+  padding-bottom: 5px;
+  text-align: center;
 }
 
 .raws .remove {
-  position: absolute;
+  cursor: pointer;
   font-size: 16px;
   font-weight: 200;
-  top: 8px;
+  position: absolute;
   right: 10px;
-  cursor: pointer;
+  top: 8px;
 }
 
 .raws .drop {
-  padding: 8px 10px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
   background-color: #ddd;
+  border-radius: 2px;
+  border-top: 1px solid rgb(100, 100, 100);
+  border-top: 1px solid rgba(100, 100, 100, .1);
+  color: #fff;
+  display: block;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #fff;
   margin-bottom: 3px;
-  display: block;
+  padding: 8px 10px;
   width: 100%;
-  border-top: 1px solid rgb(100, 100, 100);
-  border-top: 1px solid rgba(100, 100, 100, .1);
 }
 
 .raws .dimension.invalid {
@@ -374,11 +361,11 @@
 }
 
 .raws .dimension-info {
-  position: absolute;
-  cursor: pointer;
-  top: 10px;
-  right: 10px;
   color: #bbbbbb;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .raws .dimension-icon {
@@ -386,42 +373,42 @@
 }
 
 .raws .dimension-description {
-  position: absolute;
-  left: 0;
-  padding: 10px;
   background: #ffffff;
-  height: 100%;
-  width: 100%;
-  top: 37px;
   bottom: 0;
-  opacity: 0;
   font-size: 14px;
   font-weight: 400;
-  -webkit-transform: translateY(100%);
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  top: 37px;
   -moz-transform: translateY(100%);
   -ms-transform: translateY(100%);
   -o-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
   transform: translateY(100%);
-  -webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
   -moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
   -ms-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
   -o-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
+  -webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
   transition: transform 0.4s, opacity 0.1s 0.3s;
+  width: 100%;
 }
 
 .raws .dimension-description .open {
   opacity: .95;
-  z-index: 1005;
-  -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
   -o-transform: translateY(0px);
+  -webkit-transform: translateY(0px);
   transform: translateY(0px);
-  -webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
   -moz-transition: -webkit-transform 0.4s, opacity 0.1s;
   -ms-transition: -moz-transform 0.4s, opacity 0.1s;
   -o-transition: -webkit-transform 0.4s, opacity 0.1s;
+  -webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
   transition: transform 0.4s, opacity 0.1s;
+  z-index: 1005;
 }
 
 .raws .msg {
@@ -433,53 +420,53 @@
 }
 
 .raws .idChart {
-  padding: 10px;
   background: #fff;
+  padding: 10px;
 }
 
 .raws .chart-resize {
-  padding: 0;
+  -moz-box-align: center;
+  -ms-box-align: center;
+  -o-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
+  -o-box-pack: center;
+  -webkit-box-pack: center;
+  box-pack: center;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;      /* TWEENER - IE 10 */
   display: -o-flexbox;      /* TWEENER - IE 10 */
-  display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -ms-box-pack: center;
-  -o-box-pack: center;
-  box-pack: center;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-box-align: center;
-  -o-box-align: center;
-  box-align: center;
-  -webkit-flex-pack: center;
-  -moz-flex-pack: center;
-  -ms-flex-pack: center;
-  -o-flex-pack: center;
-  flex-pack: center;
-  -webkit-flex-align: center;
+  display: flex;          /* NEW, Spec - Opera 12.1, Firefox 20+ */
   -moz-flex-align: center;
   -ms-flex-align: center;
   -o-flex-align: center;
+  -webkit-flex-align: center;
   flex-align: center;
+  -moz-flex-pack: center;
+  -ms-flex-pack: center;
+  -o-flex-pack: center;
+  -webkit-flex-pack: center;
+  flex-pack: center;
+  padding: 0;
 }
 
 
 /* CodeMirror */
 
 .CodeMirror {
+  background-color: #ffffff;
+  border-radius: 2px;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   font-family: Menlo, Monaco, Courier, monospace;
   font-size: 10px;
-  background-color: #ffffff;
-  line-height: 18px;
-  border-radius: 2px;
-  margin: 0;
   height: 275px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  line-height: 18px;
+  margin: 0;
 }
 
 .CodeMirror-activeline {
@@ -500,10 +487,10 @@ pre.CodeMirror-placeholder {
 }
 
 .CodeMirror-gutters {
-  height: 100%;
-  border: none;
   background-color: #fff;
+  border: none;
   border-right: 1px solid #eee;
+  height: 100%;
 }
 
 .CodeMirror-linenumber {
@@ -526,11 +513,11 @@ pre.CodeMirror-placeholder {
 }
 
 .raws md-virtual-repeat-container {
-  position: relative;
   display: block;
-  width: 100%;
   height: 450px;
   padding: 10px;
+  position: relative;
+  width: 100%;
 }
 
 .raws .md-grid-text {
@@ -550,9 +537,9 @@ md-content.md-default-theme, md-content  {
 }
 
 md-pagination-wrapper.md-center-tabs {
+    margin: 0 auto;
     position: relative;
     width: initial;
-    margin: 0 auto;
 
 
 }
@@ -562,50 +549,52 @@ md-pagination-wrapper.md-center-tabs {
 
 }
 .md-tab.md-active {
-    cursor: default;
     background-color: #fff;
     border-bottom: 0;
+    cursor: default;
 }
 
 md-content{
-  box-shadow: #CED2DB 0 1px 2px 0;
       border-top: 1px solid #e2e2e2;
+  box-shadow: #CED2DB 0 1px 2px 0;
 
 }
 md-tabs md-ink-bar {
-    color: rgb(63,81,181);
     background: rgb(63,81,181);
+    color: rgb(63,81,181);
 }
 
 .raws .download{
+    background: #406490;
   border: 1px solid #406490;
     color: #fff;
-    background: #406490;
 
     }
 
 
 .raws .download:disabled{
-    color: #fff;
     background: grey;
+    color: #fff;
 
     }
 
   .raws label {
-   font-size: 1.2rem;
     color: #9e9e9e;
+   font-size: 1.2rem;
 }
 
 .raws .list-unstyled md-input-container {
     display: inline-block;
-    position: relative;
-    padding: 2px;
     margin: 0;
+    padding: 2px;
+    position: relative;
     vertical-align: middle;
 }
 .raws .md-block{
     display: block;
-    position: relative;
-    padding: 2px;
     margin: 0;
+    max-height: 300px;
+    overflow: auto;
+    padding: 2px;
+    position: relative;
 }

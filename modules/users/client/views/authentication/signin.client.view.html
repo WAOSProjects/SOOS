@@ -1,30 +1,33 @@
-<div class="col m12">
-  <div class="base">
-    <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
-      <div class="form-group" show-errors>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" placeholder="Username" lowercase required>
-        <div ng-messages="vm.userForm.username.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Username is required.</p>
-        </div>
-      </div>
-      <div class="form-group" show-errors>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" required>
-        <div ng-messages="vm.userForm.password.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Password is required.</p>
-        </div>
-      </div>
-      <div class="center-align form-group">
-        <button type="submit" class="btn btn-default">Sign in</button>
-        <a ui-sref="authentication.signup">Sign up</a>
-      </div>
-      <div class="center-align forgot-password">
-        <a ui-sref="password.forgot">Forgot your password?</a>
-      </div>
-      <div type="danger" ng-show="vm.error" class="center-align text-danger">
-        <span ng-bind="vm.error"></span>
-      </div>
-    </form>
+<form flex="100" class="base" name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" novalidate autocomplete="off">
+
+  <md-input-container class="md-icon-float md-block" show-errors>
+    <md-icon><i class="fa fa-user"></i></md-icon>
+    <input ng-model="vm.credentials.usernameOrEmail" type="text" placeholder="Username or Email" id="usernameOrEmail" name="usernameOrEmail" lowercase required autofocus />
+    <div ng-messages="vm.userForm.usernameOrEmail.$error" role="alert">
+      <p ng-message="required" class="error-text">Username or Email is required.</p>
+    </div>
+  </md-input-container>
+
+  <md-input-container md-no-float class="md-block" show-errors>
+    <md-icon><i class="fa fa-lock"></i></md-icon>
+    <input ng-model="vm.credentials.password" type="password" placeholder="Password" id="password" name="password" required />
+    <div ng-messages="vm.userForm.password.$error" role="alert">
+      <p ng-message="required" class="error-text">Password is required.</p>
+    </div>
+  </md-input-container>
+
+  <div class="center-align">
+    <md-button type="submit" class="md-raised md-primary">Sign in</md-button>
+    <a ui-sref="authentication.signup">
+      <md-button md-no-ink class="md-primary">Sign up</md-button>
+    </a>
   </div>
-</div>
+  <div class="center-align">
+    <a ui-sref="password.forgot">
+      <md-button md-no-ink class="md-primary">Forgot your password?</md-button>
+    </a>
+  </div>
+  <div type="danger" ng-show="vm.error" class="center-align text-danger">
+    <span ng-bind="vm.error"></span>
+  </div>
+</form>

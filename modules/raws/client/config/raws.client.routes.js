@@ -19,7 +19,7 @@
       })
       .state('soos.view', {
         url: '',
-        templateUrl: 'modules/raws/client/views/view-raw.client.view.html',
+        templateUrl: '/modules/raws/client/views/view-raw.client.view.html',
         controller: 'RawsController',
         controllerAs: 'vm',
         data: {

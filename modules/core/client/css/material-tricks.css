@@ -1,0 +1,64 @@
+/*
+ * Content
+ */
+
+.row {
+  margin: 10px 0 10px 0 !important;
+}
+
+
+/*
+ * Forms
+ */
+
+md-icon .fa {
+  padding-left: 6px !important;
+}
+
+
+/*
+ * base
+ */
+
+ /* md-subheader */
+ .base .md-subheader .rmt-subheader md-input-container {
+   margin: 0;
+ }
+ .base .md-subheader .rmt-subheader md-input-container md-select{
+   margin-top: -14px;
+ }
+ .base .md-subheader .rmt-subheader md-input-container .md-errors-spacer{
+   min-height: 12px;
+ }
+ .base .md-subheader .rmt-subheader .md-title {
+   -webkit-margin-after: 0.33em;
+   -webkit-margin-before: 0.33em;
+ }
+
+/* forms */
+form.base {
+  padding: 15px;
+}
+
+/* md list */
+md-list.base {
+    padding: 0;
+}
+/*
+ * md-toolbar
+ */
+
+/* font awesome icon */
+
+md-toolbar .md-icon-button .fa.fa-2x {
+  font-size: 1.5em;
+}
+
+/*
+ * md-list
+ */
+
+/* md-list-item */
+md-list-item .md-avatar {
+  background: #dedede;
+}

@@ -18,10 +18,11 @@
 
     return directive;
 
+    // TODO clean input-group if useless with angular material
     function compile(elem, attrs) {
       if (attrs.showErrors.indexOf('skipFormGroupCheck') === -1) {
-        if (!(elem.hasClass('form-group') || elem.hasClass('input-group'))) {
-          throw new Error('show-errors element does not have the \'form-group\' or \'input-group\' class');
+        if (!(elem.hasClass('md-block') || elem.hasClass('input-group'))) {
+          throw new Error('show-errors element does not have the \'md-block\' or \'input-group\' class');
         }
       }
 

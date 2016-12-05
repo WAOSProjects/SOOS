@@ -1,37 +1,41 @@
-<section>
-  <div class="col m12">
-    <div class="base">
-      <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
-        <div class="form-group" show-errors>
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required />
-          <div ng-messages="vm.userForm.firstName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">First name is required.</p>
-          </div>
+<section class="users">
+  <md-content class="md-no-momentum">
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2>User</h2>
+      </div>
+    </md-toolbar>
+    <form flex="100" class="base" name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate autocomplete="off">
+      <md-input-container class="md-icon-float md-block" show-errors>
+        <md-icon><i class="fa fa-user"></i></md-icon>
+        <input ng-model="vm.user.firstName" type="text" placeholder="First Name" id="firstName" name="firstName" required />
+        <div ng-messages="vm.userForm.firstName.$error" role="alert">
+          <p ng-message="required" class="error-text">First name is required.</p>
         </div>
-        <div class="form-group" show-errors>
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required />
-          <div ng-messages="vm.userForm.lastName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
-          </div>
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block" show-errors>
+        <md-icon><i class="fa fa-user"></i></md-icon>
+        <input ng-model="vm.user.lastName" type="text" placeholder="Last Name" id="lastName" name="lastName" required />
+        <div ng-messages="vm.userForm.lastName.$error" role="alert">
+          <p ng-message="required" class="error-text">Last name is required.</p>
         </div>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="roles">Roles</label>
-          <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
-            <div ng-messages="vm.userForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
-            </div>
-          </div>
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block" show-errors>
+        <md-icon><i class="fa fa-lock"></i></md-icon>
+        <input ng-model="vm.user.roles" type="text" placeholder="Roles" id="roles" name="roles" ng-list required />
+        <div ng-messages="vm.userForm.roles.$error" role="alert">
+          <p ng-message="required" class="error-text">At least one role is required.</p>
         </div>
-        <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-default">
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </form>
-    </div>
-  </div>
+      </md-input-container>
+
+      <div class="center-align">
+        <md-button type="submit" class="md-raised md-primary">Update</md-button>
+      </div>
+      <div type="danger" ng-show="vm.error" class="center-align text-danger">
+        <span ng-bind="vm.error"></span>
+      </div>
+    </form>
+  </md-content>
 </section>

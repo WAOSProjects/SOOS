@@ -2,11 +2,11 @@
   <div class="sidebar-nav">
     <div class="head">
       <a ui-sref="home">
-        <img src="modules/raws/client/img/brand/logo-soos-big.png" width="40px" class="logo"></img>
-        <span style="font-size:28px; color:#fff;">SOOS</span>
+        <img src="modules/core/client/img/brand/logo-white.png" width="50px" class="logo"></img>
+        <span style="font-size:28px; color:#fff;">roMEANet</span>
       </a>
     </div>
-    <div class="sidebar" style="max-height: calc(100vh - 180px); overflow-x: hidden;overflow-y: auto;">
+    <div class="sidebar">
       <ul ng-if="vm.sideNav.shouldRender(vm.authentication.user);">
         <li ng-repeat="item in vm.sideNav.items | orderBy: 'position'" ng-if="item.shouldRenderItem(vm.authentication.user);" ng-switch="item.view" ng-class="{ drop: item.type === 'dropdown' }" drop="item.type">
           <!-- if Dropdown  -->
@@ -25,12 +25,12 @@
       </ul>
     </div>
     <div class="user">
-      <li ng-show="vm.authentication.user">
+      <div ng-show="vm.authentication.user">
         <a ui-sref="settings.profile">
-          <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="image" />
+          <img ng-src="/{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="image" />
           <span>{{vm.authentication.user.displayName}}</span>
         </a>
-      </li>
+      </div>
     </div>
     <div class="foot">
       <a class="dropdown-toggle center-align" ng-click="setSideblock()">

@@ -1,34 +1,39 @@
-<section>
-  <div class="row">
-    <div class="col s12">
-      <ul class="collection with-header">
-        <li class="collection-header">
-          <div class="row">
-            <span class="col s10"><h4>Users list</h4></span>
-            <input class="col s2 form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-          </div>
-        </li>
-        <li ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="collection-item avatar">
-          <img ng-src="{{user.profileImageURL}}" alt="" class="circle">
-          <b class="title" ng-bind="user.username"></b> - <span ng-bind='user.displayName'></span>
-          <p class="list-group-item-text pull-right small">
-            <span class="chip" ng-repeat="item in user.roles">{{item}}</span>
+<section class="users">
+  <md-content>
+    <md-list class="base">
+      <md-subheader>
+        <div layout="row" layout-align="space-between center" class="rmt-subheader">
+          <h4 class="md-title">Users</h4>
+          <form>
+            <md-input-container md-no-float>
+              <md-select ng-model="vm.itemsPerPage">
+                <md-option ng-repeat="v in vm.itemsPerPageChoice" ng-value="v.abbrev">
+                  {{v.abbrev}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container md-no-float>
+              <input ng-model="vm.search" placeholder="Search">
+            </md-input-container>
+          </form>
+        </div>
+      </md-subheader>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line" dir-paginate="user in vm.users | filter: vm.search | itemsPerPage: vm.itemsPerPage" pagination-id="users" ui-sref="admin.user({userId: user._id})">
+        <img ng-src="{{user.profileImageURL}}" class="md-avatar" alt="{{user.displayName}}" />
+        <div class="md-list-item-text">
+          <b ng-bind="user.username"></b> - <span ng-bind='user.displayName'></span>
+          <p>
+            <span ng-bind="user.email"></span> -
+            <span>{{user.created | date:"MM/dd/yyyy"}}</span>
           </p>
-          <p class="list-group-item-text" ng-bind="user.email"></p>
-          <p class="list-group-item-text" >{{user.created | date:"MM/dd/yyyy"}}</p>
-        </li>
-      </ul>
-      <pagination
-          class="center"
-          page="vm.currentPage"
-          page-size="vm.itemsPerPage"
-          total="vm.filterLength"
-          show-prev-next="true"
-          dots="...."
-          hide-if-empty="true"
-          adjacent="2"
-          scroll-top="false"
-          pagination-action="vm.pageChanged(page)" />
-    </div>
-  </div>
+        </div>
+        <div class="md-secondary">
+          <span ng-repeat="item in user.roles">{{item}}  </span><br />
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <dir-pagination-controls boundary-links="true" template-url="../../modules/core/client/templates/pagination.html" pagination-id="users"></dir-pagination-controls>
+    </md-list>
+  </md-content>
 </section>

@@ -56,7 +56,7 @@
 
   var chart = raw.chart()
         .title('Bump Chart')
-        .thumbnail('./modules/raws/client/img/bumpChart.png')
+        .thumbnail('../../modules/raws/client/img/bumpChart.png')
         .description(
             'For continuous data such as time series, a bump chart can be used in place of stacked bars. Based on New York Times\'s <a href=\'http://www.nytimes.com/interactive/2014/08/13/upshot/where-people-in-each-state-were-born.html\'>interactive visualization.</a>')
         .category('Time Series')

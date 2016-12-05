@@ -10,8 +10,8 @@
 FROM ubuntu:latest
 MAINTAINER MEAN.JS
 
-# 80 = HTTP, 443 = HTTPS, 3000 = MEAN.JS server, 35729 = livereload
-EXPOSE 80 443 3000 35729
+# 80 = HTTP, 443 = HTTPS, 3000 = MEAN.JS server, 35729 = livereload, 8080 = node-inspector
+EXPOSE 80 443 3000 35729 8080
 
 # Set development environment as default
 ENV NODE_ENV development
@@ -50,11 +50,8 @@ RUN sudo apt-get install -yq nodejs \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install gem sass for grunt-contrib-sass
-RUN gem install sass
-
 # Install MEAN.JS Prerequisites
-RUN npm install --quiet -g grunt-cli gulp bower yo mocha karma-cli pm2 && npm cache clean
+RUN npm install --quiet -g gulp bower yo mocha karma-cli pm2 && npm cache clean
 
 RUN mkdir -p /opt/mean.js/public/lib
 WORKDIR /opt/mean.js

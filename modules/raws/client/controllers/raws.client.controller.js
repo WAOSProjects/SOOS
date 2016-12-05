@@ -33,15 +33,13 @@
 
 
     vm.showHelp = function(ev) {
-
       console.log('modal');
       $mdDialog.show({
-        templateUrl: './modules/raws/client/templates/help.html',
+        templateUrl: '/modules/raws/client/templates/help.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true
       });
-
     };
 
     vm.selectSample = function(sample) {

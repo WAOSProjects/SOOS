@@ -107,7 +107,7 @@
                   <div ng-class="{selected: c == vm.chart}" class="layout" ng-click="vm.selectChart(c)">
                     <div class="layout-thumb" ng-style="{'background-image':'url(' + c.thumbnail() + ')'}">
                     </div>
-                    <p class="layout-inner">
+                    <p class="layout-inner" layout-align="center center">
                       <span class="layout-title">{{c.title()}}</span>
                     </p>
                   </div>

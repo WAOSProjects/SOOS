@@ -1,0 +1,59 @@
+
+/*
+ * general
+ */
+
+/* inherit color */
+.inherit-color {
+  color: inherit;
+}
+
+/*
+ * Text
+ */
+
+/* text color */
+.text-danger {
+  color: #c0392b;
+}
+.text-success	{
+  color: #27ae60;
+}
+.text-info	{
+  color: #2980b9;
+}
+.text-warning {
+  color: #f39c12;
+}
+
+/* text center */
+.center-align {
+  text-align: center;
+}
+
+/* Separators */
+hr.separator {
+  border: none;
+  border-top: 1px solid #ddd;
+  width: 100%;
+}
+
+/*
+ * mouse
+ */
+
+/* mouse */
+.mouse-hand {
+  cursor: pointer;
+}
+.mouse-hand.icon:hover {
+  color: rgb(252, 13, 27);
+}
+
+/*
+ * img
+ */
+
+ .circle {
+   border-radius: 50%;
+ }

@@ -1,17 +1,15 @@
-<section>
-  <div class="row">
-    <div class="col s12">
-      <div class="base">
-        <ul class="tabs" tabs>
-            <li class="tab"><a ui-sref="settings.profile">Edit Profile</a></li>
-            <li class="tab"><a ui-sref="settings.picture">Change Profile Picture</a></li>
-            <li class="tab"  ng-show="vm.user.provider === 'local'"><a ui-sref="settings.password">Change Password</a></li>
-            <li class="tab"><a ui-sref="settings.accounts">Manage Social Accounts</a></li>
-        </ul>
-        <br />
-        <div class="settings-view">
-          <div ui-view></div>
-        </div>
+<section class="users">
+  <md-content>
+    <div layout="row" class="row" layout-align="center">
+      <div flex="100" class="center-align">
+        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+          <md-nav-item md-nav-sref="settings.profile" name="profile">Edit Profile</md-nav-item>
+          <md-nav-item md-nav-sref="settings.picture" name="picture">Change Profile Picture</md-nav-item>
+          <md-nav-item  ng-show="vm.user.provider === 'local'" md-nav-sref="settings.password" name="password">Change Password</md-nav-item>
+          <md-nav-item md-nav-sref="settings.accounts" name="accounts">Manage Social Accounts</md-nav-item>
+        </md-nav-bar>
       </div>
-  </div>
+    </div>
+    <div ui-view> </div>
+  </md-content>
 </section>

@@ -1,4 +1,8 @@
 <div class="lost">
   <h1 class="center-align"><b>404</b></h1>
-  <h3 class="center-align"><i class="fa fa-exclamation"></i> Page not found</h3>
+  <h3 class="center-align">
+    <i class="fa fa-exclamation"></i>
+    <span ng-if="vm.errorMessage" ng-bind="vm.errorMessage"></span>
+    <span ng-if="!vm.errorMessage">Page Not Found</span>
+  </h3>
 </div>

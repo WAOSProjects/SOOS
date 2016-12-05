@@ -29,7 +29,7 @@ exports.update = function(req, res) {
 
     user.save(function(err) {
       if (err) {
-        return res.status(400).send({
+        return res.status(422).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
@@ -37,7 +37,7 @@ exports.update = function(req, res) {
       }
     });
   } else {
-    res.status(400).send({
+    res.status(401).send({
       message: 'User is not signed in'
     });
   }
@@ -64,10 +64,10 @@ exports.changeProfilePicture = function(req, res) {
         res.json(user);
       })
       .catch(function(err) {
-        res.status(400).send(err);
+        res.status(422).send(err);
       });
   } else {
-    res.status(400).send({
+    res.status(401).send({
       message: 'User is not signed in'
     });
   }
@@ -89,7 +89,7 @@ exports.changeProfilePicture = function(req, res) {
       user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
       user.save(function(err, theuser) {
         if (err) {
-          reject(err);
+          res.status(400).send(err);
         } else {
           resolve();
         }

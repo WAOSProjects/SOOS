@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -14,6 +14,7 @@
     vm.user = user;
     vm.remove = remove;
     vm.update = update;
+    vm.isContextUserSelf = isContextUserSelf;
 
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
@@ -22,7 +23,7 @@
 
           vm.users.splice(vm.users.indexOf(user), 1);
         } else {
-          vm.user.$remove(function () {
+          vm.user.$remove(function() {
             $state.go('admin.users');
           });
         }
@@ -38,13 +39,17 @@
 
       var user = vm.user;
 
-      user.$update(function () {
+      user.$update(function() {
         $state.go('admin.user', {
           userId: user._id
         });
-      }, function (errorResponse) {
+      }, function(errorResponse) {
         vm.error = errorResponse.data.message;
       });
+    }
+
+    function isContextUserSelf() {
+      return vm.user.username === vm.authentication.user.username;
     }
   }
 }());

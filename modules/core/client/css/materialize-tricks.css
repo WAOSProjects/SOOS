@@ -1,7 +1,7 @@
 
-/****************************
+/*
  * HEAD
- ***************************/
+ */
 
 /* Navbar */
 nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
@@ -25,9 +25,9 @@ nav .input-field input {
     padding-left: 0;
 }
 
-/****************************
+/*
  * Side
- ***************************/
+ */
 
 /* SideNav  */
 .container {
@@ -37,18 +37,18 @@ nav .input-field input {
 }
 
 
-/****************************
+/*
  *  Content
- ***************************/
+ */
 
 /* row */
 .row {
   color: #4b4f54;
 }
 
-/****************************
+/*
  * Tools
- **************************/
+ */
 
 /* Slider */
 .slider{
@@ -66,9 +66,9 @@ nav .input-field input {
   border: 1px solid #dddddd;
 }
 
-/****************************
+/*
  * Inputs
- ***************************/
+ */
 
 input:not([type]):focus:not([readonly]),
 input[type=text]:focus:not([readonly]),

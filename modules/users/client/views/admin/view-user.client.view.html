@@ -1,51 +1,36 @@
-<section>
-  <div class="row">
-    <div class="col s12">
-      <div class="base">
-        <div class="row">
-          <div class="col s10">
-            <h1 ng-bind="vm.user.username"></h1>
-          </div>
-          <div class="col s2">
-            <a class="btn btn-primary right" ui-sref="admin.user-edit({userId: vm.user._id})">
-              <i class="fa fa-pencil"></i>
-            </a>
-            <a class="btn btn-primary right" ng-click="vm.remove();" ng-if="vm.user._id !== vm.authentication.user._id">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col m3"><strong>First Name</strong></div>
-          <div class="col m6" ng-bind="vm.user.firstName"></div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col m3"><strong>Last Name</strong></div>
-          <div class="col m6" ng-bind="vm.user.lastName"></div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col m3"><strong>Email</strong></div>
-          <div class="col m6" ng-bind="vm.user.email"></div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col m3"><strong>Provider</strong></div>
-          <div class="col m6" ng-bind="vm.user.provider"></div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col m3"><strong>Created</strong></div>
-          <div class="col m6" ng-bind="vm.user.created"></div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col m3"><strong>Roles</strong></div>
-          <div class="col m6" ng-bind="vm.user.roles"></div>
-        </div>
+<section class="users">
+  <md-content>
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2>Article</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ui-sref="admin.user-edit({userId: vm.user._id})" aria-label="Favorite">
+          <i class="fa fa-pencil fa-2x"></i>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.remove();"  ng-if="!vm.isContextUserSelf()" aria-label="More">
+          <i class="fa fa-trash-o fa-2x"></i>
+        </md-button>
       </div>
-    </div>
-  </div>
+    </md-toolbar>
+    <md-list class="base">
+      <md-list-item>
+        <strong flex="10">First Name : </strong> <span ng-bind="vm.user.firstName"></span>
+      </md-list-item>
+      <md-list-item>
+        <strong flex="10">Last Name : </strong> <span ng-bind="vm.user.lastName"></span>
+      </md-list-item>
+      <md-list-item>
+        <strong flex="10">Email : </strong> <span ng-bind="vm.user.email"></span>
+      </md-list-item>
+      <md-list-item>
+        <strong flex="10">Provider : </strong> <span ng-bind="vm.user.provider"></span>
+      </md-list-item>
+      <md-list-item>
+        <strong flex="10">Created : </strong> <span ng-bind="vm.user.created"></span>
+      </md-list-item>
+      <md-list-item>
+        <strong flex="10">Roles : </strong> <span ng-bind="vm.user.roles"></span>
+      </md-list-item>
+    </md-list>
+  </md-content>
 </section>

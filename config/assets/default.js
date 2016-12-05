@@ -5,12 +5,12 @@ module.exports = {
     lib: {
       css: [
         // bower:css
-        'public/lib/materialize/dist/css/materialize.css',
+        'public/lib/angular-material/angular-material.css',
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/angular-tooltips/dist/angular-tooltips.css',
         'public/lib/angular-loading-bar/build/loading-bar.css',
-        'public/lib/angular-material/angular-material.css',
+        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/codemirror/lib/codemirror.css',
         'public/lib/handsontable/dist/handsontable.full.css',
         'public/lib/angular-color-picker/dist/angularjs-color-picker.css'
@@ -30,13 +30,12 @@ module.exports = {
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-ui-utils/ui-utils.js',
         'public/lib/angular-sanitize/angular-sanitize.js',
-        'public/lib/materialize/dist/js/materialize.min.js',
-        'public/lib/angular-materialize/src/angular-materialize.js',
         'public/lib/lodash/dist/lodash.js',
         'public/lib/angular-tooltips/dist/angular-tooltips.js',
         'public/lib/angular-loading-bar/build/loading-bar.js',
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-material/angular-material.js',
+        'public/lib/angularUtils-pagination/dirPagination.js',
         'public/lib/d3/d3.js',
         'public/lib/d3-plugins/**/!(*-test).js',
         'public/lib/angular-ui-codemirror/ui-codemirror.js',

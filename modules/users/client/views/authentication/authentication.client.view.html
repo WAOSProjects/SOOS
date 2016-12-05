@@ -1,12 +1,28 @@
-<section class="row">
-  <h3 class="col s12 center-align">Sign in using your social accounts</h3>
-  <div class="row col s12 center-align">
-    <div class="social-account-container social-button"><a><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/facebook')" ng-src="/modules/users/client/img/buttons/facebook.png"></a></div>
-    <div class="social-account-container social-button"><a><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/twitter')" ng-src="/modules/users/client/img/buttons/twitter.png"></a></div>
-    <div class="social-account-container social-button"><a><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/google')" ng-src="/modules/users/client/img/buttons/google.png"></a></div>
-    <div class="social-account-container social-button"><a><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/linkedin')" ng-src="/modules/users/client/img/buttons/linkedin.png"></a></div>
-    <div class="social-account-container social-button"><a><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/github')" ng-src="/modules/users/client/img/buttons/github.png"></a></div>
-    <div class="social-account-container social-button"><a><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/paypal')"  ng-src="/modules/users/client/img/buttons/paypal.png"></a></div>
-  </div>
-  <div ui-view></div>
+<section class="users">
+  <md-content>
+    <div layout="row" class="row" layout-align="center">
+      <div flex="100" class="center-align">
+        <h3>Sign in using your social accounts</h3>
+        <a>
+          <div class="social-button" ng-click="vm.callOauthProvider('/api/auth/facebook')" style="background:url('/modules/users/client/img/buttons/facebook.png');"></div>
+        </a>
+        <a>
+          <div class="social-button" ng-click="vm.callOauthProvider('/api/auth/twitter')" style="background:url('/modules/users/client/img/buttons/twitter.png');"></div>
+        </a>
+        <a>
+          <div class="social-button" ng-click="vm.callOauthProvider('/api/auth/google')" style="background:url('/modules/users/client/img/buttons/google.png');"></div>
+        </a>
+        <a>
+          <div class="social-button" ng-click="vm.callOauthProvider('/api/auth/linkedin')" style="background:url('/modules/users/client/img/buttons/linkedin.png');"></div>
+        </a>
+        <a>
+          <div class="social-button" ng-click="vm.callOauthProvider('/api/auth/github')" style="background:url('/modules/users/client/img/buttons/github.png');"></div>
+        </a>
+        <a>
+          <div class="social-button" ng-click="vm.callOauthProvider('/api/auth/paypal')" style="background:url('/modules/users/client/img/buttons/paypal.png');"></div>
+        </a>
+      </div>
+    </div>
+    <div ui-view> </div>
+  </md-content>
 </section>

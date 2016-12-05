@@ -41,7 +41,10 @@
         $location = _$location_;
         $location.path = jasmine.createSpy().and.returnValue(true);
 
-        $httpBackend.whenGET('api/users/me').respond({ user: { username: 'test', roles: ['user'] } });
+        $httpBackend.whenGET('/api/users/me').respond({ user: { username: 'test', roles: ['user'] } });
+
+        // Ignore parent template gets on state transition
+        $httpBackend.whenGET('/modules/core/client/views/404.client.view.html').respond(200);
 
         // Mock logged in user
         Authentication.user = {
@@ -77,7 +80,11 @@
         $location.path = jasmine.createSpy().and.returnValue(true);
         Authentication.user = null;
 
-        $httpBackend.whenGET('api/users/me').respond({ user: null });
+        $httpBackend.whenGET('/api/users/me').respond({ user: null });
+
+        // Ignore parent template gets on state transition
+        $httpBackend.whenGET('/modules/core/client/views/404.client.view.html').respond(200);
+        $httpBackend.whenGET('/modules/core/client/views/400.client.view.html').respond(200);
 
         // Initialize the Authentication controller
         PasswordController = $controller('PasswordController as vm', {
