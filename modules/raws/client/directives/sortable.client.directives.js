@@ -14,7 +14,8 @@
         title: '=',
         value: '=',
         types: '=',
-        multiple: '='
+        multiple: '=',
+        open: '='
       },
       template: '<div class="msg">{{messageText}}</div>',
       link: function postLink(scope, element, attrs) {
@@ -44,7 +45,7 @@
             html = isValidType(dimension) ? '<i class="fa fa-arrow-circle-down breath-right"></i>Drop here' : '<i class="fa fa-times-circle breath-right"></i>Don\'t drop here';
           element.find('.drop').html(html);
           element.parent().css('overflow', 'visible');
-          angular.element(element).scope().open = false;
+          scope.open = false;
         }
 
         function onUpdate(e, ui) {
