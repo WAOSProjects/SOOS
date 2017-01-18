@@ -17,8 +17,6 @@
     "angular-sanitize": "^1.5.5",
     "angular-tooltips": "^1.0.9",
     "angular-material": "1.1.0",
-    "angular-materialize": "^0.1.8",
-    "materialize": "~0.97.6",
     "font-awesome": "fontawesome#^4.5.0",
     "lodash": "^4.6.1",
     "angular-loading-bar": "^0.9.0",

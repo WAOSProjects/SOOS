@@ -172,12 +172,30 @@
 
                     <div class="dimension-multiple">
 
-                      <i class="fa fa-tag" data-toggle="tooltip" data-title="You can drag only one dimension here" data-ng-show="!dimension.multiple()"></i>
+                      <md-button class="md-icon-button" data-ng-show="!dimension.multiple()">
+                        <md-tooltip md-direction="bottom">
+                          You can drag only one dimension here
+                        </md-tooltip>
+                        <md-icon md-font-icon="fa fa-tag" >
+                        </md-icon>
+                      </md-button>
 
-                      <i class="fa fa-tags" data-toggle="tooltip" data-title="You can drag more than one dimension here" data-ng-show="dimension.multiple()"></i>
+                      <md-button class="md-icon-button" data-ng-show="dimension.multiple()">
+                        <md-tooltip md-direction="right">
+                          You can drag more than one dimension here
+                        </md-tooltip>
+                        <md-icon md-font-icon="fa fa-tags" >
+                        </md-icon>
+                      </md-button>
                     </div>
 
-                    <i class="fa fa-asterisk dimension-required" data-toggle="tooltip" data-title="Required" data-ng-show="dimension.required()"></i>
+                    <md-button class="md-icon-button dimension-required" data-ng-show="dimension.required()">
+                      <md-icon md-font-icon="fa fa-asterisk">
+                      </md-icon>
+                      <md-tooltip md-direction="right">
+                        Required
+                      </md-tooltip>
+                    </md-button>
 
 
                     <p class="dimension-title">{{dimension.title()}}</p>

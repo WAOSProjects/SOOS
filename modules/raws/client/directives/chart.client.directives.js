@@ -21,10 +21,6 @@
 
         function update() {
 
-          $('*[data-toggle="tooltip"]').tooltip({
-            container: 'body'
-          });
-
           d3.select(element[0]).select('*').remove();
           if (!scope.chart || !scope.data.length) {
             d3.select(element[0]).append('span').text('Please, review your data');
