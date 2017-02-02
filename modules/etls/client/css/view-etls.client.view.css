@@ -1,0 +1,52 @@
+.addgeo .drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 170px;
+    text-align: center;
+    padding: 50px 10px;
+    margin-left: 10px;
+}
+
+/* Column headers */
+.ht_clone_top th {
+  background-color: white;
+}
+
+
+
+/* Every odd row */
+.ht_master tr:nth-of-type(odd) > td {
+  background-color: white;
+}
+
+/* Every even row */
+.ht_master tr:nth-of-type(even) > td {
+  background-color: #f9f9f9;
+}
+
+/* Selected row  */
+/* Add a custom class name in the configuration: currentRowClassName: "foo"; */
+.ht_master tr.foo > td {
+  background-color: #f00;
+}
+
+/* Bottom */
+.ht_master tr > td {
+  border-bottom:none;
+}
+
+/* Right */
+.ht_master tr > td {
+  border-right: 1px solid #DDD;
+}
+
+.ht_master td {
+    height: 30px;
+    empty-cells: show;
+    line-height: 30px;
+    padding: 0 4px 0 4px;
+    vertical-align: top;
+    overflow: hidden;
+    outline-width: 0;
+    white-space: pre-line;
+}
