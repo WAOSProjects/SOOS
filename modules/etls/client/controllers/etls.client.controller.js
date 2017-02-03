@@ -14,8 +14,8 @@
     vm.authentication = Authentication;
     vm.etl = etl;
     vm.error = null;
-    vm.data = {};
-    vm.metadata = {};
+    vm.title = title;
+    vm.file = {};
     vm.tableSettings = {
       manualColumnMove: true,
       manualColumnResize: true,
@@ -30,24 +30,39 @@
             autoColSize: false,*/
     };
 
-    alasql("CREATE TABLE example1 (a INT, b INT)");
 
-    alasql.tables.example1.data = [ // Insert data directly from javascript object...
-      {
-        a: 2,
-        b: 6
-      },
-      {
-        a: 3,
-        b: 4
-      }
-    ];
 
-    alasql("INSERT INTO example1 VALUES (1,5)"); // ...or you insert data with normal SQL
+    // Tablea header html
 
-    var res = alasql("SELECT * FROM example1 ORDER BY b DESC");
+    function title(column) {
+      var html;
+      html = '<div layout="column" layout-align="center center"><p class="md-body-2">' + column + '</p><div>' + 'type' + '</div></div>';
+      return html;
+    }
 
-    console.log(res); // [{a:2,b:6},{a:1,b:5},{a:3,b:4}]
+    
+    vm.upload = function (file) {
+
+      alasql('CREATE INDEXEDDB DATABASE IF NOT EXISTS data;\
+        ATTACH INDEXEDDB DATABASE data; \
+        USE data; \
+        DROP TABLE IF EXISTS etl; \
+        CREATE TABLE etl; \
+        SELECT * INTO etl FROM FILE(?, {headers:true})', [file.originalEvent], function () {
+        // Select data from IndexedDB
+        alasql.promise('SELECT * FROM etl LIMIT 100')
+          .then(function (res) {
+            vm.metadata = Object.keys(res[0]);
+            vm.data = res;
+            console.log('data', vm.data);
+            console.log('metadata', vm.metadata);
+          });
+      });
+
+
+    };
+
+
 
   }
 }());

@@ -50,7 +50,11 @@ module.exports = {
         'public/lib/ngHandsontable/dist/ngHandsontable.js',
         'public/lib/angular-color-picker/dist/angularjs-color-picker.js',
         'public/lib/tinycolor/dist/tinycolor-min.js',
-        'public/lib/canvas-toBlob.js/canvas-toBlob.js'
+        'public/lib/canvas-toBlob.js/canvas-toBlob.js',
+        'public/lib/alasql/dist/alasql.min.js',
+        'public/lib/js-xlsx/dist/xlsx.core.min.js',
+        'public/lib/js-xls/dist/xls.core.min.js'
+
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

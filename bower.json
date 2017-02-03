@@ -22,7 +22,6 @@
     "angular-loading-bar": "^0.9.0",
     "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
     "d3": "^3.5.16",
-    "angular-loading-bar": "^0.9.0",
     "d3-plugins": "*",
     "FileSaver": "*",
     "canvas-toBlob.js": "https://github.com/eligrey/canvas-toBlob.js.git",
@@ -33,7 +32,8 @@
     "ngclipboard": "^1.1.1",
     "angular-ui-codemirror": "^0.3.0",
     "ngHandsontable": "^0.12.0",
-    "angular-color-picker": "angularjs-color-picker#^1.1.6"
+    "angular-color-picker": "angularjs-color-picker#^1.1.6",
+    "alasql": "^0.3.6"
   },
   "resolutions": {
     "angular": "~1.5.0"
