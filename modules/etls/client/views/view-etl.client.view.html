@@ -1,38 +1,30 @@
 <section class="addgeo">
   <div flex layout="row" layout-align="space-around center">
+    <md-content flex>
+      <md-tabs md-selected="selectedIndex" md-border-bottom md-dynamic-height md-autoselect>
+        <md-tab label="Import">
+          <form>
+            <div ngf-select="vm.upload($event,$file)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
+              ngf-allow-dir="false">Select File
+              <span class=""> or Drop File</span></div>
+          </form>
+  </md-tab>
+  <md-tab ng-repeat="table in vm.listTable" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
+    <div flex layout="column" layout-align="space-around center">
+      <div layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
+      </div>
+       {{vm.data[tableid]}}
+      <hot-table settings="vm.tableSettings"  datarows="vm.data[tableid]" height="800"
+        width="1600">
+        <hot-column ng-repeat="column in vm.metadata[tableid]" data="{{column}}" title="column"></hot-column>
+        </hot-table>
 
-  <md-content flex>
-
-    <md-tabs md-selected="selectedIndex" md-border-bottom  md-dynamic-height md-autoselect>
-
-            <md-tab label="Import">
-                  <form>
-      <!--      <div  ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'"
-        ngf-multiple="false" ngf-allow-dir="false">Select File
-        <span class=""> or Drop File</span>
-      </div>-->
-      <div ngf-select="vm.upload($event)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
-        ngf-allow-dir="false">Select File
-        <span class=""> or Drop File</span>
-  </div>
-  </form>
-        <div>
-
-        </div>
-      </md-tab>
-      <md-tab ng-repeat="table in vm.listTable" label="{{table.tableid}}">
-        <div>
-              <hot-table settings="vm.tableSettings" hot-id="geoTable" datarows="vm.data" height="800" width="1600">
-      <hot-column ng-repeat="column in vm.metadata" data="{{column}}" title="vm.title(column)"></hot-column>
-    </hot-table>
-
-        </div>
-      </md-tab>
-    </md-tabs>
-
-
-
-
+       
+    </div>
+    
+  </md-tab>
+  </md-tabs>
   </md-content>
   </div>
 </section>
