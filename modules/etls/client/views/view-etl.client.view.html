@@ -1,30 +1,38 @@
 <section class="addgeo">
   <div flex layout="row" layout-align="space-around center">
-    <form>
-<!--      <div  ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'"
+
+  <md-content flex>
+
+    <md-tabs md-selected="selectedIndex" md-border-bottom  md-dynamic-height md-autoselect>
+
+            <md-tab label="Import">
+                  <form>
+      <!--      <div  ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'"
         ngf-multiple="false" ngf-allow-dir="false">Select File
         <span class=""> or Drop File</span>
       </div>-->
-
-
-
-      <div ngf-select="vm.upload($event)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'"
-        ngf-multiple="false" ngf-allow-dir="false">Select File
+      <div ngf-select="vm.upload($event)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
+        ngf-allow-dir="false">Select File
         <span class=""> or Drop File</span>
-      </div>
-
-
-    </form>
-    <md-content flex>
-
-            <hot-table settings="vm.tableSettings" hot-id="geoTable" datarows="vm.data" height="800" width="1600">
-        <hot-column ng-repeat="column in vm.metadata" data="{{column}}" title="vm.title(column)"></hot-column>
-      </hot-table>
-    </md-content>
-    <md-button ng-click="vm.deleteAllDb()" class="md-primary">Delete all db</md-button>
-   
-   <md-button ng-click="vm.calc()" class="md-primary">calc</md-button>
-
   </div>
+  </form>
+        <div>
 
+        </div>
+      </md-tab>
+      <md-tab ng-repeat="table in vm.listTable" label="{{table.tableid}}">
+        <div>
+              <hot-table settings="vm.tableSettings" hot-id="geoTable" datarows="vm.data" height="800" width="1600">
+      <hot-column ng-repeat="column in vm.metadata" data="{{column}}" title="vm.title(column)"></hot-column>
+    </hot-table>
+
+        </div>
+      </md-tab>
+    </md-tabs>
+
+
+
+
+  </md-content>
+  </div>
 </section>
