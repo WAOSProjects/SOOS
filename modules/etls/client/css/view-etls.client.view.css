@@ -7,6 +7,17 @@
     margin-left: 10px;
 }
 
+
+.header.label{
+  font-size: 14px;
+  font-weight: 600
+}
+
+.header.type{
+  font-size: 12px
+}
+
+
 /* Column headers */
 .ht_clone_top th {
   background-color: white;
@@ -24,20 +35,17 @@
   background-color: #f9f9f9;
 }
 
-/* Selected row  */
-/* Add a custom class name in the configuration: currentRowClassName: "foo"; */
-.ht_master tr.foo > td {
-  background-color: #f00;
+
+.colHeader{
+  text-align: left;
 }
 
-/* Bottom */
-.ht_master tr > td {
-  border-bottom:none;
-}
 
 /* Right */
 .ht_master tr > td {
   border-right: 1px solid #DDD;
+  font-size: 12px;
+  border-bottom:none;
 }
 
 .ht_master td {
@@ -49,4 +57,8 @@
     overflow: hidden;
     outline-width: 0;
     white-space: pre-line;
+}
+
+.handsontable input, .handsontable textarea {
+    line-height: 30px;
 }

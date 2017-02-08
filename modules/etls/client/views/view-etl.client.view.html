@@ -9,15 +9,15 @@
               <span class=""> or Drop File</span></div>
           </form>
   </md-tab>
-  <md-tab ng-repeat="table in vm.listTable" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
+  <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)" >
     <div flex layout="column" layout-align="space-around center">
       <div layout="row" layout-align="end center">
         <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
       </div>
-       {{vm.data[tableid]}}
-      <hot-table settings="vm.tableSettings"  datarows="vm.data[tableid]" height="800"
-        width="1600">
-        <hot-column ng-repeat="column in vm.metadata[tableid]" data="{{column}}" title="column"></hot-column>
+
+      <hot-table settings="vm.tableSettings"  datarows="vm.data[table.tableid]" height="800"
+        width="1600" >
+        <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
         </hot-table>
 
        

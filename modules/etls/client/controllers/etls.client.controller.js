@@ -16,17 +16,20 @@
     vm.error = null;
     vm.title = title;
     vm.file = {};
-    vm.data = {}
-    vm.metadata = {}
-    vm.listTable = {};
+    vm.data = [];
+    vm.metadata = [];
+
     vm.tableSettings = {
       /*      afterRender: function () {
               console.log('afterRender call');
             },*/
+      stretchH: 'all',
       manualColumnMove: true,
       manualColumnResize: true,
       contextMenu: false,
-      dropdownMenu: true
+      dropdownMenu: true,
+      correctFormatBoolean: true,
+      autoWrapRow: true
       // performance tip: set constant size
       /*       colWidths: 80,
                   rowHeights: 23,
@@ -74,25 +77,40 @@
       });
     };
 
+    vm.changeType = function(){
+
+    };
+
 
     vm.loadTable = function (tableid) {
-      vm.metadata[tableid] = {};
-      vm.data[tableid] = {};
-      console.log(tableid);
-      alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
+      if (!vm.metadata[tableid]) {
+        alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
         USE ' + vm.dashboardName + '; \
         ', function () {
-        // Select data from tableid
-        alasql.promise('SELECT * FROM ' + tableid + ' LIMIT 50')
-          .then(function (res) {
-            vm.metadata[tableid] = Object.keys(res[0]);
-            vm.data[tableid] = res;
-
-            console.log('finished loading', vm.data[tableid]);
-          }).catch(function (err) {
-            console.log('Error:', err);
-          });
-      });
+            // Select data from tableid
+            alasql.promise('SELECT * FROM ' + tableid + ' LIMIT 50')
+              .then(function (res) {
+                var i;
+                var metadata = [],
+                  item;
+                var label = Object.keys(res[0]);
+                console.log(label)
+                for (i in label) {
+                  item = {};
+                  item.label = label[i];
+                  /* take first line to infer type // todo: make it 10 */
+                  item.type = typeof (res[0][label[i]]);
+                  console.log('dede', res[0][label[i]])
+                  metadata.push(item);
+                }
+                vm.metadata[tableid] = metadata;
+                vm.data[tableid] = res;
+              }).catch(function (err) {
+                console.log('Error:', err);
+              });
+         
+        });
+         }
     };
 
 
@@ -108,19 +126,9 @@
         DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + '; \
         SELECT * INTO ' + tableName + ' FROM FILE(?, {headers:true})', [event.originalEvent], function () {
         // Select data from IndexedDB
-        vm.listTable.push({
+        vm.listTable.concat({
           tableid: tableName
         });
-        console.log(vm.listTable)
-        /*vm.loadTable(tableName);*/
-        /*        alasql.promise('SELECT * FROM ' + tableName + ' LIMIT 100')
-                  .then(function (res) {
-                    vm.metadata = Object.keys(res[0]);
-                    vm.data = res;
-
-                  }).catch(function (err) {
-                    console.log('Error:', err);
-                  });*/
       });
     };
 
@@ -145,7 +153,7 @@
 
     function title(column) {
       var html;
-      html = '<div layout="column" layout-align="center center"><p class="md-body-2">' + column + '</p><div>' + 'type' + '</div></div>';
+      html = '<div layout="column" layout-align="center center"><p class="header label">' + column.label + '</p><div class="header type">' + column.type + '</div></div>';
       return html;
     }
 
