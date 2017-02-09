@@ -6,19 +6,18 @@
     .module('etls')
     .controller('EtlsController', EtlsController);
 
-  EtlsController.$inject = ['$scope', '$state', 'Authentication', 'Upload'];
+  EtlsController.$inject = ['$scope', '$state', 'Authentication', 'Upload', 'alasql'];
 
-  function EtlsController($scope, $state, Authentication, Upload, etl) {
+  function EtlsController($scope, $state, Authentication, Upload, alasql) {
     var vm = this;
 
     vm.authentication = Authentication;
-    vm.etl = etl;
     vm.error = null;
     vm.title = title;
     vm.file = {};
     vm.data = [];
     vm.metadata = [];
-
+    vm.listTable = [];
     vm.tableSettings = {
       /*      afterRender: function () {
               console.log('afterRender call');
@@ -77,7 +76,7 @@
       });
     };
 
-    vm.changeType = function(){
+    vm.changeType = function () {
 
     };
 
@@ -87,30 +86,50 @@
         alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
         USE ' + vm.dashboardName + '; \
         ', function () {
-            // Select data from tableid
-            alasql.promise('SELECT * FROM ' + tableid + ' LIMIT 50')
-              .then(function (res) {
-                var i;
-                var metadata = [],
-                  item;
-                var label = Object.keys(res[0]);
-                console.log(label)
-                for (i in label) {
+
+          // Select data from tableid and get count record
+          alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 50',
+              'SELECT COUNT(*) FROM ' + tableid
+            ])
+            .then(function (res) {
+              console.log('promise', res)
+              var data = res[0];
+              var i;
+              var metadata = [],
+                item;
+              // get first 50 records
+
+              // select de result of the first query
+
+              var label = Object.keys(data[0]);
+
+              for (i in label) {
+                if (label) {
                   item = {};
                   item.label = label[i];
                   /* take first line to infer type // todo: make it 10 */
-                  item.type = typeof (res[0][label[i]]);
-                  console.log('dede', res[0][label[i]])
+                  item.type = typeof (data[0][label[i]]);
                   metadata.push(item);
                 }
                 vm.metadata[tableid] = metadata;
-                vm.data[tableid] = res;
-              }).catch(function (err) {
-                console.log('Error:', err);
-              });
-         
+                vm.data[tableid] = data;
+              }
+
+              // get basic info
+              for (i in vm.listTable) {
+                if (vm.listTable[i].tableid === tableid) {
+                  vm.listTable[i].colsCount = label.length;
+                  vm.listTable[i].rowsCount = res[1][0]['COUNT(*)'];
+                  break;
+                }
+              }
+            }).catch(function (err) {
+              console.log('Error:', err);
+            });
+
+
         });
-         }
+      }
     };
 
 
@@ -118,7 +137,6 @@
 
 
     vm.upload = function (event, file) {
-      console.log(file);
       var tableName = file.name.replace(/\.[^/.]+$/, '');
       console.log(tableName);
       alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \

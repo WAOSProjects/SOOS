@@ -7,22 +7,25 @@
             <div ngf-select="vm.upload($event,$file)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
               ngf-allow-dir="false">Select File
               <span class=""> or Drop File</span></div>
-          </form>
+  </form>
   </md-tab>
-  <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)" >
-    <div flex layout="column" layout-align="space-around center">
-      <div layout="row" layout-align="end center">
-        <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
+  <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
+   <md-content>
+    <div layout="column">
+      <div layout="row"   layout-align="space-between center">
+        <div>
+          <h4>Viewing Table {{table.tableid}} <i class="fa fa-pencil" ng-click="vm.renameTable()" aria-hidden="true"></i></h4>
+          <p>{{table.rowsCount}} rows, {{table.colsCount}} cols</p>
+        </div>
+        <div>
+          <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
+        </div>
       </div>
-
-      <hot-table settings="vm.tableSettings"  datarows="vm.data[table.tableid]" height="800"
-        width="1600" >
+      <hot-table settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800" width="1600">
         <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
-        </hot-table>
-
-       
+      </hot-table>
     </div>
-    
+    </md-content>
   </md-tab>
   </md-tabs>
   </md-content>

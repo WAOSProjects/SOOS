@@ -1,21 +1,23 @@
-(function(app) {
+(function (app) {
   'use strict';
 
   // Start by defining the main module and adding the module dependencies
   angular
     .module(app.applicationModuleName, app.applicationModuleVendorDependencies)
-    .constant('_', window._);
+    .constant('_', window._)
+    .constant('alasql', window.alasql);
+
 
 
   // Setting HTML5 Location Mode
   angular
     .module(app.applicationModuleName)
     .config(bootstrapConfig)
-    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
       cfpLoadingBarProvider.includeSpinner = false;
       cfpLoadingBarProvider.loadingBarTemplate = '<div id="loading-bar"><div class="loading-bar bar"><div class="peg"></div></div></div>';
     }])
-    .config(function($mdThemingProvider) {
+    .config(function ($mdThemingProvider) {
       $mdThemingProvider.definePalette('roMEANetPalette', {
         '50': 'a3b3c3',
         '100': '8a9cae',
