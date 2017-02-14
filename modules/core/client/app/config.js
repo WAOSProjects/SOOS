@@ -23,7 +23,8 @@
       'color.picker',
       'angular-loading-bar',
       'ngclipboard',
-      'ngSurprise'
+      'ngSurprise',
+      'dndLists'
     ],
     registerModule: registerModule
   };

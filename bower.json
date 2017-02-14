@@ -33,7 +33,8 @@
     "angular-ui-codemirror": "^0.3.0",
     "ngHandsontable": "^0.12.0",
     "angular-color-picker": "angularjs-color-picker#^1.1.6",
-    "alasql": "^0.3.6"
+    "alasql": "^0.3.6",
+    "angular-drag-and-drop-lists": "^2.1.0"
   },
   "resolutions": {
     "angular": "~1.5.0"

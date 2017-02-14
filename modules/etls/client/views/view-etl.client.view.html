@@ -3,6 +3,7 @@
     <md-content flex>
       <md-tabs md-selected="selectedIndex" md-border-bottom md-dynamic-height md-autoselect>
         <md-tab label="Import">
+          {{vm.message}}
           <form>
             <div ngf-select="vm.upload($event,$file)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
               ngf-allow-dir="false">Select File
@@ -10,21 +11,35 @@
   </form>
   </md-tab>
   <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
-   <md-content>
-    <div layout="column">
-      <div layout="row"   layout-align="space-between center">
-        <div>
-          <h4>Viewing Table {{table.tableid}} <i class="fa fa-pencil" ng-click="vm.renameTable()" aria-hidden="true"></i></h4>
-          <p>{{table.rowsCount}} rows, {{table.colsCount}} cols</p>
+    <md-content>
+      <div layout="column">
+        <div layout="row" layout-align="space-between center">
+          <div>
+            <h4>Viewing Table {{table.tableid}} <i class="fa fa-pencil" ng-click="vm.renameTable()" aria-hidden="true"></i></h4>
+            <p>{{table.rowsCount}} rows, {{table.colsCount}} cols</p>
+          </div>
+          <div>
+            <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
+          </div>
         </div>
-        <div>
-          <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
+        <hot-table settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800" width="1600">
+          <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
+        </hot-table>
+
+        <div layout="row">
+          <ul class="items">
+            <li class="item" ng-repeat="item in vm.metadata[table.tableid]" dnd-draggable="item"
+              dnd-effect-allowed="copy" >
+              {{item.label}}
+              </li>
+          </ul>
+          <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true"  >
+            <li class="title">{{group.name}}</li>
+            <li class="item" ng-repeat="item in group.items" dnd-moved="group.items.splice($index, 1)" dnd-draggable="item" dnd-effect-allowed="copyMove">{{ item.label }}</li>
+          </ul>
+          <pre> {{vm.modelAsJson}} </pre>
         </div>
       </div>
-      <hot-table settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800" width="1600">
-        <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
-      </hot-table>
-    </div>
     </md-content>
   </md-tab>
   </md-tabs>

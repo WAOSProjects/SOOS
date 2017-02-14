@@ -53,7 +53,8 @@ module.exports = {
         'public/lib/canvas-toBlob.js/canvas-toBlob.js',
         'public/lib/alasql/dist/alasql.min.js',
         'public/lib/js-xlsx/dist/xlsx.core.min.js',
-        'public/lib/js-xls/dist/xls.core.min.js'
+        'public/lib/js-xls/dist/xls.core.min.js',
+        'public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js'
 
         // endbower
       ],

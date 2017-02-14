@@ -18,24 +18,29 @@
     vm.data = [];
     vm.metadata = [];
     vm.listTable = [];
+    vm.count = 0;
+    vm.message = '';
     vm.tableSettings = {
-      /*      afterRender: function () {
-              console.log('afterRender call');
-            },*/
       stretchH: 'all',
       manualColumnMove: true,
       manualColumnResize: true,
-      contextMenu: false,
-      dropdownMenu: true,
-      correctFormatBoolean: true,
       autoWrapRow: true
-      // performance tip: set constant size
-      /*       colWidths: 80,
-                  rowHeights: 23,
-                  // performance tip: turn off calculations
-      /*            autoRowSize: false,
-                  autoColSize: false*/
     };
+
+    vm.groups = [{
+      name: 'Group 1',
+      items: []
+    },
+    {
+      name: 'Group 2',
+      items: []
+    }
+    ];
+
+
+    $scope.$watch('vm.groups', function(model) {
+      vm.modelAsJson = angular.toJson(model, true);
+    }, true);
 
     // Project info
 
@@ -44,7 +49,6 @@
     vm.dashboardName = 'dashboard_1';
 
     // Init IndexedDB database for dashboardName
-
 
     alasql('CREATE INDEXEDDB DATABASE IF NOT EXISTS ' + vm.dashboardName + '; ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + ' ; USE ' + vm.dashboardName + ';', function () {
       // List Table from dashboardName
@@ -92,7 +96,7 @@
               'SELECT COUNT(*) FROM ' + tableid
             ])
             .then(function (res) {
-              console.log('promise', res)
+              console.log('promise', res);
               var data = res[0];
               var i;
               var metadata = [],
@@ -135,20 +139,68 @@
 
 
 
-
     vm.upload = function (event, file) {
       var tableName = file.name.replace(/\.[^/.]+$/, '');
-      console.log(tableName);
-      alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
-        USE ' + vm.dashboardName + '; \
-        DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + '; \
-        SELECT * INTO ' + tableName + ' FROM FILE(?, {headers:true})', [event.originalEvent], function () {
-        // Select data from IndexedDB
-        vm.listTable.concat({
-          tableid: tableName
+      var rawdata;
+      var i;
+      vm.message = 'Inserting into database';
+      alasql.promise('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
+
+        // Web worker version
+        alasql.worker();
+        var data = res;
+        console.log('inserting', data);
+        alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; USE ' + vm.dashboardName + '; DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';SELECT * INTO ' + tableName + ' FROM ?', [data], function (data) {
+          console.log('success', data.length);
+
         });
+
+        vm.message = 'Done Inserting';
+
+
+        /*       alasql('INSERT INTO ? VALUES ?', [tableName,[data[i]]], function (res) {
+                 console.log(res);
+               });*/
+
+        /* }*/
+
+
       });
+
+
+
+
+
     };
+
+
+    /*     alasql('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent], function (data) {
+           rawdata = data;
+           console.log(rawdata);
+           alasql.worker();
+
+
+           for (i in rawdata) {
+             alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
+                 USE ' + vm.dashboardName + '; \
+                 SELECT * INTO ' + tableName + ' FROM ?', [rawdata[i]], function () {
+               // Select data from IndexedDB
+               console.log('yes');
+             });
+           }
+         });*/
+
+
+    /*      alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
+            USE ' + vm.dashboardName + '; \
+            DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + '; \
+            SELECT * INTO ' + tableName + ' FROM FILE(?, {headers:true})', [event.originalEvent], function () {
+            // Select data from IndexedDB
+            vm.listTable.concat({
+              tableid: tableName
+            });
+          });*/
+    /*   };*/
 
 
     /*    testcalc()
