@@ -24,7 +24,8 @@
       'angular-loading-bar',
       'ngclipboard',
       'ngSurprise',
-      'dndLists'
+      'dndLists',
+      'highcharts-ng'
     ],
     registerModule: registerModule
   };

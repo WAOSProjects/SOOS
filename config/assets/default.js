@@ -54,7 +54,9 @@ module.exports = {
         'public/lib/alasql/dist/alasql.min.js',
         'public/lib/js-xlsx/dist/xlsx.core.min.js',
         'public/lib/js-xls/dist/xls.core.min.js',
-        'public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js'
+        'public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+        'public/lib/highcharts-ng/dist/highcharts-ng.js',
+        'public/lib/highcharts/highcharts.js'
 
         // endbower
       ],

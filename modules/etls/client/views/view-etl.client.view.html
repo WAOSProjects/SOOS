@@ -1,4 +1,4 @@
-<section class="addgeo">
+<section class="elts">
   <div flex layout="row" layout-align="space-around center">
     <md-content flex>
       <md-tabs md-selected="selectedIndex" md-border-bottom md-dynamic-height md-autoselect>
@@ -25,19 +25,26 @@
         <hot-table settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800" width="1600">
           <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
         </hot-table>
-
         <div layout="row">
           <ul class="items">
-            <li class="item" ng-repeat="item in vm.metadata[table.tableid]" dnd-draggable="item"
-              dnd-effect-allowed="copy" >
+            <li class="item" ng-repeat="item in vm.metadata[table.tableid]" dnd-dragend="vm.buildQuery(table.tableid)" dnd-draggable="item"
+              dnd-effect-allowed="copy">
               {{item.label}}
               </li>
           </ul>
-          <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true"  >
+          <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true">
             <li class="title">{{group.name}}</li>
-            <li class="item" ng-repeat="item in group.items" dnd-moved="group.items.splice($index, 1)" dnd-draggable="item" dnd-effect-allowed="copyMove">{{ item.label }}</li>
+            <li class="item" ng-repeat="item in group.items" dnd-moved="group.items.splice($index, 1);vm.buildQuery(table.tableid)" dnd-draggable="item"
+              dnd-effect-allowed="copyMove">{{ item.label }}</li>
           </ul>
           <pre> {{vm.modelAsJson}} </pre>
+        </div>
+        <highchart id="chart1" config="vm.chartConfig" class=""></highchart>
+        <div layout="row">
+          <hot-table datarows="vm.item">
+            <hot-column ng-repeat="column in vm.itemMeta" data="{{column}}" title="column"></hot-column>
+          </hot-table>
+          
         </div>
       </div>
     </md-content>

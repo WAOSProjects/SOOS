@@ -1,111 +1,116 @@
-.addgeo .drop-box {
-    background: #F8F8F8;
-    border: 5px dashed #DDD;
-    width: 170px;
-    text-align: center;
-    padding: 50px 10px;
-    margin-left: 10px;
+.elts .drop-box {
+	background: #F8F8F8;
+	border: 5px dashed #DDD;
+	width: 170px;
+	text-align: center;
+	padding: 50px 10px;
+	margin-left: 10px;
 }
 
-
-.header.label{
-  font-size: 14px;
-  font-weight: 600
+.elts .header.label {
+	font-size: 14px;
+	font-weight: 600
 }
 
-.header.type{
-  font-size: 12px
+.elts .header.type {
+	font-size: 12px
 }
 
 
 /* Column headers */
-.ht_clone_top th {
-  background-color: white;
-}
 
+.elts .ht_clone_top th {
+	background-color: white;
+}
 
 
 /* Every odd row */
-.ht_master tr:nth-of-type(odd) > td {
-  background-color: white;
+
+.elts .ht_master tr:nth-of-type(odd)>td {
+	background-color: white;
 }
+
 
 /* Every even row */
-.ht_master tr:nth-of-type(even) > td {
-  background-color: #f9f9f9;
+
+.elts .ht_master tr:nth-of-type(even)>td {
+	background-color: #f9f9f9;
 }
 
-
-.colHeader{
-  text-align: left;
+.elts .colHeader {
+	text-align: left;
 }
 
 
 /* Right */
-.ht_master tr > td {
-  border-right: 1px solid #DDD;
-  font-size: 12px;
-  border-bottom:none;
+
+.elts .ht_master tr>td {
+	border-right: 1px solid #DDD;
+	font-size: 12px;
+	border-bottom: none;
 }
 
-.ht_master td {
-    height: 30px;
-    empty-cells: show;
-    line-height: 30px;
-    padding: 0 4px 0 4px;
-    vertical-align: top;
-    overflow: hidden;
-    outline-width: 0;
-    white-space: pre-line;
+.elts .ht_master td {
+	height: 30px;
+	empty-cells: show;
+	line-height: 30px;
+	padding: 0 4px 0 4px;
+	vertical-align: top;
+	overflow: hidden;
+	outline-width: 0;
+	white-space: pre-line;
 }
 
-.handsontable input, .handsontable textarea {
-    line-height: 30px;
-}
-ul[dnd-list] {
-  min-height: 150px;
-  border: 1px solid #ccc;
-  list-style: none;
-  padding: 0;
-  display: inline-block;
-  width: 30%;
-  margin-right: 5%;
+.elts .handsontable input,
+.handsontable textarea {
+	line-height: 30px;
 }
 
-ul[dnd-list]:nth-child(3n + 3) {
-  margin-right: 0;
+.elts ul[dnd-list] {
+	min-height: 150px;
+	border: 1px solid #ccc;
+	list-style: none;
+	padding: 0;
+	display: inline-block;
+	width: 30%;
+	margin-right: 5%;
 }
 
-.items {
-  margin: 10px 0 0;
-  padding: 0;
-  list-style: none;
+.elts ul[dnd-list]:nth-child(3n + 3) {
+	margin-right: 0;
 }
 
-.item {
-  padding: 10px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-bottom: 10px;
-  background: #fff;
+.elts .items {
+	margin: 10px 0 0;
+	padding: 0;
+	list-style: none;
 }
 
-.groups .title {
-  padding: 10px;
-  background: #ccc;
+.elts .item {
+	padding: 10px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	background: #fff;
 }
 
-.groups .dndPlaceholder {
-  background: #f4f4f4;
-  margin: 10px;
-  padding: 20px;
+.elts .groups .title {
+	padding: 10px;
+	background: #ccc;
 }
 
-.dndDraggingSource {
-  display: none;
+.elts .groups .dndPlaceholder {
+	background: #f4f4f4;
+	margin: 10px;
+	padding: 20px;
 }
 
-ul[dnd-list], ul[dnd-list] > li {
-    position: relative;
+.elts .dndDraggingSource {
+	display: none;
+}
+
+.elts ul[dnd-list],
+ul[dnd-list]>li {
+	position: relative;
 }

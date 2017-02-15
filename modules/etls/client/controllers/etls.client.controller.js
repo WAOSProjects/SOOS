@@ -28,17 +28,18 @@
     };
 
     vm.groups = [{
-      name: 'Group 1',
+      name: 'GroupBy',
       items: []
-    },
-    {
-      name: 'Group 2',
-      items: []
-    }
-    ];
+    }];
 
 
-    $scope.$watch('vm.groups', function(model) {
+
+
+
+
+
+
+    $scope.$watch('vm.groups', function (model) {
       vm.modelAsJson = angular.toJson(model, true);
     }, true);
 
@@ -135,6 +136,76 @@
         });
       }
     };
+
+
+    vm.buildQuery = function (tableid) {
+      alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
+            USE ' + vm.dashboardName + '; \
+            ', function () {
+        // Sconfigelect variables
+        var variables = [];
+        var i;
+        for (i in vm.groups[0].items) {
+          if (vm.groups[0].items[i].type === 'number') {
+            variables.push('SUM(' + vm.groups[0].items[i].label + ')');
+          } else {
+            variables.push(vm.groups[0].items[i].label);
+          }
+        }
+
+        variables = variables.join(', ');
+
+        // GroupBy TODO : reduce not filter
+        var groupBy = vm.groups[0].items.filter(function (elem) {
+          if (elem.type === 'number') {
+            console.log('thats a number');
+            return false;
+          }
+          return true;
+        }).map(function (elem) {
+          return elem.label;
+        });
+
+        switch (groupBy.length) {
+          case 0:
+            groupBy = null;
+            break;
+          case 1:
+            groupBy = ' GROUP BY ' + groupBy;
+            break;
+          default:
+            groupBy = ' GROUP BY ' + groupBy.join(', ');
+        }
+
+        // Select data from IndexedDB
+        alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
+          .then(function (res) {
+            console.log('result', res)
+            vm.item = res;
+            vm.itemMeta = Object.keys(res[0]);
+            console.log('vm.itemMeta', vm.itemMeta)
+          }).catch(function (err) {
+            console.log('Error:', err);
+          });
+
+      });
+    };
+
+
+    vm.chartConfig = {
+      chart: {
+        type: 'bar'
+      },
+      series: [{
+        data: [10, 15, 12, 8, 7],
+        id: 'series1'
+      }],
+      title: {
+        text: 'Hello'
+      }
+    };
+
+
 
 
 
