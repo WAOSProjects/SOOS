@@ -1,5 +1,30 @@
 <section class="elts">
   <div flex layout="row" layout-align="space-around center">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item name="data">
+        Data
+      </md-nav-item>
+      <md-nav-item name="page2">
+        Graphs
+      </md-nav-item>
+      <md-nav-item name="dashboard">
+       Dashboard
+      </md-nav-item>
+      <!-- these require actual routing with ui-router or ng-route, so they
+      won't work in the demo
+      <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+      <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+      You can also add options for the <code>ui-sref-opts</code> attribute.
+      <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
+        Page Six
+      </md-nav-item>
+      -->
+    </md-nav-bar>
+
+
+
+
+
     <md-content flex>
       <md-tabs md-selected="selectedIndex" md-border-bottom md-dynamic-height md-autoselect>
         <md-tab label="Import">
@@ -22,30 +47,33 @@
             <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
           </div>
         </div>
-        <hot-table settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800" width="1600">
+        <div ng-if="vm.loading[table.tableid]" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <hot-table ng-if="!vm.loading[table.tableid]" settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800"
+          width="1600">
           <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
-        </hot-table>
-        <div layout="row">
-          <ul class="items">
-            <li class="item" ng-repeat="item in vm.metadata[table.tableid]" dnd-dragend="vm.buildQuery(table.tableid)" dnd-draggable="item"
-              dnd-effect-allowed="copy">
-              {{item.label}}
-              </li>
-          </ul>
-          <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true">
-            <li class="title">{{group.name}}</li>
-            <li class="item" ng-repeat="item in group.items" dnd-moved="group.items.splice($index, 1);vm.buildQuery(table.tableid)" dnd-draggable="item"
-              dnd-effect-allowed="copyMove">{{ item.label }}</li>
-          </ul>
-          <pre> {{vm.modelAsJson}} </pre>
-        </div>
-        <highchart id="chart1" config="vm.chartConfig" class=""></highchart>
-        <div layout="row">
-          <hot-table datarows="vm.item">
-            <hot-column ng-repeat="column in vm.itemMeta" data="{{column}}" title="column"></hot-column>
           </hot-table>
-          
-        </div>
+          <div layout="row">
+            <ul class="items">
+              <li class="item" ng-repeat="item in vm.metadata[table.tableid]" dnd-dragend="vm.buildQuery(table.tableid)" dnd-draggable="item"
+                dnd-effect-allowed="copy">
+                {{item.label}}
+                </li>
+            </ul>
+            <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true">
+              <li class="title">{{group.name}}</li>
+              <li class="item" ng-repeat="item in group.items" dnd-moved="group.items.splice($index, 1);vm.buildQuery(table.tableid)" dnd-draggable="item"
+                dnd-effect-allowed="copyMove">{{ item.label }}</li>
+            </ul>
+            <pre> {{vm.modelAsJson}} </pre>
+          </div>
+          <highchart id="chart1" config="vm.chartConfig" class=""></highchart>
+          <div layout="row">
+            <hot-table datarows="vm.item">
+              <hot-column ng-repeat="column in vm.itemMeta" data="{{column}}" title="column"></hot-column>
+            </hot-table>
+          </div>
       </div>
     </md-content>
   </md-tab>

@@ -19,6 +19,7 @@
     vm.metadata = [];
     vm.listTable = [];
     vm.count = 0;
+    vm.loading = [];
     vm.message = '';
     vm.tableSettings = {
       stretchH: 'all',
@@ -88,16 +89,16 @@
 
     vm.loadTable = function (tableid) {
       if (!vm.metadata[tableid]) {
+        vm.loading[tableid] = true;
         alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
         USE ' + vm.dashboardName + '; \
         ', function () {
-
           // Select data from tableid and get count record
           alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 50',
               'SELECT COUNT(*) FROM ' + tableid
             ])
             .then(function (res) {
-              console.log('promise', res);
+              console.log('res',res)
               var data = res[0];
               var i;
               var metadata = [],
@@ -105,7 +106,6 @@
               // get first 50 records
 
               // select de result of the first query
-
               var label = Object.keys(data[0]);
 
               for (i in label) {
@@ -118,6 +118,7 @@
                 }
                 vm.metadata[tableid] = metadata;
                 vm.data[tableid] = data;
+                vm.loading[tableid] = false;
               }
 
               // get basic info
@@ -128,11 +129,11 @@
                   break;
                 }
               }
+              $scope.$apply();
+              console.log('done loading')
             }).catch(function (err) {
               console.log('Error:', err);
             });
-
-
         });
       }
     };
@@ -180,10 +181,7 @@
         // Select data from IndexedDB
         alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
           .then(function (res) {
-            console.log('result', res)
             vm.item = res;
-            vm.itemMeta = Object.keys(res[0]);
-            console.log('vm.itemMeta', vm.itemMeta)
           }).catch(function (err) {
             console.log('Error:', err);
           });
@@ -192,17 +190,49 @@
     };
 
 
+
+
     vm.chartConfig = {
       chart: {
         type: 'bar'
       },
-      series: [{
-        data: [10, 15, 12, 8, 7],
-        id: 'series1'
-      }],
       title: {
-        text: 'Hello'
-      }
+        text: 'Test Highchart'
+      },
+      xAxis: {
+        categories: '',
+        title: {
+          text: null
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Population (millions)',
+          align: 'high'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      tooltip: {
+        valueSuffix: ' millions'
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Year 2012',
+        data: [1052, 954, 4250, 740, 38]
+      }]
     };
 
 
@@ -227,8 +257,6 @@
         });
 
         vm.message = 'Done Inserting';
-
-
         /*       alasql('INSERT INTO ? VALUES ?', [tableName,[data[i]]], function (res) {
                  console.log(res);
                });*/
