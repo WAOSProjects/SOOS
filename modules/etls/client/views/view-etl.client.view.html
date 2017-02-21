@@ -1,6 +1,6 @@
 <section class="elts">
   <div flex layout="row" layout-align="space-around center">
-    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+<!--    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
       <md-nav-item name="data">
         Data
       </md-nav-item>
@@ -19,7 +19,7 @@
         Page Six
       </md-nav-item>
       -->
-    </md-nav-bar>
+    <!--</md-nav-bar>-->
 
 
 
@@ -28,7 +28,6 @@
     <md-content flex>
       <md-tabs md-selected="selectedIndex" md-border-bottom md-dynamic-height md-autoselect>
         <md-tab label="Import">
-          {{vm.message}}
           <form>
             <div ngf-select="vm.upload($event,$file)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
               ngf-allow-dir="false">Select File
@@ -36,7 +35,11 @@
   </form>
   </md-tab>
   <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
-    <md-content>
+            
+    <md-content >
+      <div ng-if="vm.loading[table.tableid]" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
       <div layout="column">
         <div layout="row" layout-align="space-between center">
           <div>
@@ -47,9 +50,7 @@
             <md-button class="md-raised md-primary" ng-click="vm.deleteTable(table.tableid)">Delete Table</md-button>
           </div>
         </div>
-        <div ng-if="vm.loading[table.tableid]" layout="row" layout-sm="column" layout-align="space-around">
-          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
+
         <hot-table ng-if="!vm.loading[table.tableid]" settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800"
           width="1600">
           <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
@@ -68,13 +69,14 @@
             </ul>
             <pre> {{vm.modelAsJson}} </pre>
           </div>
-          <highchart id="chart1" config="vm.chartConfig" class=""></highchart>
-          <div layout="row">
+<!--          <highchart id="chart1" config="vm.chartConfig" class=""></highchart>
+-->          <div layout="row">
             <hot-table datarows="vm.item">
               <hot-column ng-repeat="column in vm.itemMeta" data="{{column}}" title="column"></hot-column>
             </hot-table>
           </div>
       </div>
+
     </md-content>
   </md-tab>
   </md-tabs>

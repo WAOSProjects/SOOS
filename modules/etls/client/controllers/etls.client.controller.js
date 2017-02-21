@@ -6,9 +6,9 @@
     .module('etls')
     .controller('EtlsController', EtlsController);
 
-  EtlsController.$inject = ['$scope', '$state', 'Authentication', 'Upload', 'alasql'];
+  EtlsController.$inject = ['$scope', '$state', 'Authentication', 'Upload', 'alasql', '$mdToast'];
 
-  function EtlsController($scope, $state, Authentication, Upload, alasql) {
+  function EtlsController($scope, $state, Authentication, Upload, alasql, $mdToast) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -90,105 +90,154 @@
     vm.loadTable = function (tableid) {
       if (!vm.metadata[tableid]) {
         vm.loading[tableid] = true;
-        alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
-        USE ' + vm.dashboardName + '; \
-        ', function () {
-          // Select data from tableid and get count record
-          alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 50',
-              'SELECT COUNT(*) FROM ' + tableid
-            ])
-            .then(function (res) {
-              console.log('res',res)
-              var data = res[0];
-              var i;
-              var metadata = [],
-                item;
-              // get first 50 records
+        alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 50',
+            'SELECT COUNT(*) FROM ' + tableid
+          ])
+          .then(function (res) {
+            console.log('res', res)
+            var data = res[0];
+            var i;
+            var metadata = [],
+              item;
+            // get first 50 records
 
-              // select de result of the first query
-              var label = Object.keys(data[0]);
+            // select de result of the first query
+            var label = Object.keys(data[0]);
 
-              for (i in label) {
-                if (label) {
-                  item = {};
-                  item.label = label[i];
-                  /* take first line to infer type // todo: make it 10 */
-                  item.type = typeof (data[0][label[i]]);
-                  metadata.push(item);
-                }
-                vm.metadata[tableid] = metadata;
-                vm.data[tableid] = data;
-                vm.loading[tableid] = false;
+            for (i in label) {
+              if (label) {
+                item = {};
+                item.label = label[i];
+                /* take first line to infer type // todo: make it 10 */
+                item.type = typeof (data[0][label[i]]);
+                metadata.push(item);
               }
+              vm.metadata[tableid] = metadata;
+              vm.data[tableid] = data;
+              vm.loading[tableid] = false;
+            }
 
-              // get basic info
-              for (i in vm.listTable) {
-                if (vm.listTable[i].tableid === tableid) {
-                  vm.listTable[i].colsCount = label.length;
-                  vm.listTable[i].rowsCount = res[1][0]['COUNT(*)'];
-                  break;
-                }
+            // get basic info
+            for (i in vm.listTable) {
+              if (vm.listTable[i].tableid === tableid) {
+                vm.listTable[i].colsCount = label.length;
+                vm.listTable[i].rowsCount = res[1][0]['COUNT(*)'];
+                break;
               }
-              $scope.$apply();
-              console.log('done loading')
-            }).catch(function (err) {
-              console.log('Error:', err);
-            });
-        });
+            }
+            $scope.$apply();
+            console.log('done loading')
+          }).catch(function (err) {
+            console.log('Error:', err);
+          });
+
       }
     };
 
 
     vm.buildQuery = function (tableid) {
-      alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
-            USE ' + vm.dashboardName + '; \
-            ', function () {
-        // Sconfigelect variables
-        var variables = [];
-        var i;
-        for (i in vm.groups[0].items) {
-          if (vm.groups[0].items[i].type === 'number') {
-            variables.push('SUM(' + vm.groups[0].items[i].label + ')');
-          } else {
-            variables.push(vm.groups[0].items[i].label);
-          }
+      // Sconfigelect variables
+      var variables = [];
+      var i;
+      for (i in vm.groups[0].items) {
+        if (vm.groups[0].items[i].type === 'number') {
+          variables.push('SUM(' + vm.groups[0].items[i].label + ')');
+        } else {
+          variables.push(vm.groups[0].items[i].label);
         }
+      }
 
-        variables = variables.join(', ');
+      variables = variables.join(', ');
 
-        // GroupBy TODO : reduce not filter
-        var groupBy = vm.groups[0].items.filter(function (elem) {
-          if (elem.type === 'number') {
-            console.log('thats a number');
-            return false;
-          }
-          return true;
-        }).map(function (elem) {
-          return elem.label;
+      // GroupBy TODO : reduce not filter
+      var groupBy = vm.groups[0].items.filter(function (elem) {
+        if (elem.type === 'number') {
+          console.log('thats a number');
+          return false;
+        }
+        return true;
+      }).map(function (elem) {
+        return elem.label;
+      });
+
+      switch (groupBy.length) {
+        case 0:
+          groupBy = '';
+          break;
+        case 1:
+          groupBy = ' GROUP BY ' + groupBy;
+          break;
+        default:
+          groupBy = ' GROUP BY ' + groupBy.join(', ');
+      }
+
+      // Select data from IndexedDB
+      alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
+        .then(function (res) {
+          vm.item = res;
+          $scope.$apply();
+        }).catch(function (err) {
+          console.log('Error:', err);
         });
 
-        switch (groupBy.length) {
-          case 0:
-            groupBy = null;
-            break;
-          case 1:
-            groupBy = ' GROUP BY ' + groupBy;
-            break;
-          default:
-            groupBy = ' GROUP BY ' + groupBy.join(', ');
-        }
-
-        // Select data from IndexedDB
-        alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
-          .then(function (res) {
-            vm.item = res;
-          }).catch(function (err) {
-            console.log('Error:', err);
-          });
-
-      });
     };
 
+
+
+
+
+    /*
+
+          alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
+                USE ' + vm.dashboardName + '; \
+                ', function () {
+            // Sconfigelect variables
+            var variables = [];
+            var i;
+            for (i in vm.groups[0].items) {
+              if (vm.groups[0].items[i].type === 'number') {
+                variables.push('SUM(' + vm.groups[0].items[i].label + ')');
+              } else {
+                variables.push(vm.groups[0].items[i].label);
+              }
+            }
+
+            variables = variables.join(', ');
+
+            // GroupBy TODO : reduce not filter
+            var groupBy = vm.groups[0].items.filter(function (elem) {
+              if (elem.type === 'number') {
+                console.log('thats a number');
+                return false;
+              }
+              return true;
+            }).map(function (elem) {
+              return elem.label;
+            });
+
+            switch (groupBy.length) {
+              case 0:
+                groupBy = '';
+                break;
+              case 1:
+                groupBy = ' GROUP BY ' + groupBy;
+                break;
+              default:
+                groupBy = ' GROUP BY ' + groupBy.join(', ');
+            }
+
+            // Select data from IndexedDB
+            alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
+              .then(function (res) {
+                vm.item = res;
+                 $scope.$apply();
+              }).catch(function (err) {
+                console.log('Error:', err);
+              });
+
+          });*/
+    /*  };
+     */
 
 
 
@@ -242,81 +291,95 @@
 
     vm.upload = function (event, file) {
       var tableName = file.name.replace(/\.[^/.]+$/, '');
-      var rawdata;
+
       var i;
-      vm.message = 'Inserting into database';
-      alasql.promise('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
+      $mdToast.show(
+        $mdToast.simple()
+        .position('top right')
+        .textContent('Loading Table!')
+        .hideDelay('false')
+      );
 
-        // Web worker version
-        alasql.worker();
-        var data = res;
-        console.log('inserting', data);
-        alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; USE ' + vm.dashboardName + '; DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';SELECT * INTO ' + tableName + ' FROM ?', [data], function (data) {
-          console.log('success', data.length);
+      alasql.promise('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
+ alasql.worker();
 
-        });
+console.log('res',res)
+        var data = _.chunk(res[2], 1000);
+        console.log('chunck',data)
+        vm.count = 0;
+        for (i in data) {
+          if (data[i]) {
 
-        vm.message = 'Done Inserting';
-        /*       alasql('INSERT INTO ? VALUES ?', [tableName,[data[i]]], function (res) {
-                 console.log(res);
-               });*/
-
-        /* }*/
+            alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; USE ' + vm.dashboardName + '; INSERT INTO ' + tableName + ' SELECT * FROM ?', [data[i]], function (dat) {
+              console.log('imported')
+              vm.count = vm.count + 1;
+            });
 
 
+          }
+        }
+      }).catch(function (err) {
+        console.log('error:', err);
       });
-
-
 
 
 
     };
 
 
-    /*     alasql('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent], function (data) {
-           rawdata = data;
-           console.log(rawdata);
-           alasql.worker();
 
 
-           for (i in rawdata) {
-             alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
-                 USE ' + vm.dashboardName + '; \
-                 SELECT * INTO ' + tableName + ' FROM ?', [rawdata[i]], function () {
-               // Select data from IndexedDB
-               console.log('yes');
-             });
-           }
-         });*/
+    /*      alasql.promise('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
+
+            // Web worker version
+            
+            var data = _.chunk(res, 1000);
+            console.log('data', data);
+            for (i in data) {
+              if (data[i]) {
+                console.log('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';INSERT INTO ' + tableName + ' SELECT * FROM ?', data[i]);
+                alasql.promise('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';INSERT INTO ' + tableName + ' SELECT * FROM ?', data[i]);
+              }
+            }
+            return console.log('all good fool')
+            /* return alasql.promise('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; USE ' + vm.dashboardName + '; DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';INSERT INTO ' + tableName + ' SELECT * FROM ?', [data]);*/
+    /*}).catch(function (err) {
+      console.log('error:', err);
+    });*/
 
 
-    /*      alasql('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; \
-            USE ' + vm.dashboardName + '; \
-            DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + '; \
-            SELECT * INTO ' + tableName + ' FROM FILE(?, {headers:true})', [event.originalEvent], function () {
-            // Select data from IndexedDB
-            vm.listTable.concat({
-              tableid: tableName
-            });
-          });*/
-    /*   };*/
 
 
-    /*    testcalc()
 
-        function testcalc() {
-          alasql('ATTACH INDEXEDDB DATABASE data; \
-            USE data; \
-            ', function () {
-            // Select data from IndexedDB
-            alasql.promise('SELECT Order_Priority , SUM([Shipping Cost]) AS payout FROM etl GROUP BY Order_Priority ')
-              .then(function (res) {
-                console.log('result', res)
-              }).catch(function (err) {
-                console.log('Error:', err);
-              });
-          });
-        }*/
+    /*
+       vm.upload = function (event, file) {
+          var tableName = file.name.replace(/\.[^/.]+$/, '');
+          var rawdata;
+          var i;
+          $mdToast.show(
+            $mdToast.simple()
+            .position('top right')
+            .textContent('Loading Table!')
+            .hideDelay('false')
+          );
+          alasql.promise('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
+
+            // Web worker version
+            alasql.worker();
+            var data = _.chunk(res, 1000);
+            console.log('data', data);
+            for (i in data) {
+              if (data[i]) {
+                console.log('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';INSERT INTO ' + tableName + ' SELECT * FROM ?', data[i]);
+                alasql.promise('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';INSERT INTO ' + tableName + ' SELECT * FROM ?', data[i]);
+              }
+            }
+            return console.log('all good fool')
+             /* return alasql.promise('ATTACH INDEXEDDB DATABASE ' + vm.dashboardName + '; USE ' + vm.dashboardName + '; DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';INSERT INTO ' + tableName + ' SELECT * FROM ?', [data]);*/
+    /*  }).catch(function (err) {
+        console.log('error:', err);
+      });
+    };*/
 
     // Tablea header html
 
