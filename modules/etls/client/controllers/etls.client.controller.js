@@ -64,6 +64,52 @@
     });
 
 
+    //
+
+
+    vm.fetchMetadata = function (tableid) {
+      if (!vm.metadata[tableid]) {
+        alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 1'
+          ])
+          .then(function (res) {
+            console.log('res', res)
+            var data = res[0];
+            var i;
+            var metadata = [],
+              item;
+            // select de result of the first query
+            var label = Object.keys(data[0]);
+
+            for (i in label) {
+              if (label) {
+                item = {};
+                item.label = label[i];
+                /* take first line to infer type // todo: make it 10 */
+                item.type = typeof (data[0][label[i]]);
+                metadata.push(item);
+              }
+              vm.metadata[tableid] = metadata;
+              vm.data[tableid] = data;
+              vm.loading[tableid] = false;
+            }
+
+            // get basic info
+            for (i in vm.listTable) {
+              if (vm.listTable[i].tableid === tableid) {
+                vm.listTable[i].colsCount = label.length;
+                break;
+              }
+            }
+            console.log('done loading metadata',vm.metadata[tableid]);
+          }).catch(function (err) {
+            console.log('Error:', err);
+          });
+
+      }
+    };
+
+
+
 
 
     vm.deleteTable = function (table) {
@@ -88,7 +134,7 @@
 
 
     vm.loadTable = function (tableid) {
-      if (!vm.metadata[tableid]) {
+      if (!vm.metadata[tableid] || vm.metadata[tableid].length > 1) {
         vm.loading[tableid] = true;
         alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 50',
             'SELECT COUNT(*) FROM ' + tableid
@@ -126,7 +172,7 @@
               }
             }
             $scope.$apply();
-            console.log('done loading')
+            console.log('done loading');
           }).catch(function (err) {
             console.log('Error:', err);
           });

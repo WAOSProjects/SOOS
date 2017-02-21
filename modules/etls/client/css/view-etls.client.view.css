@@ -46,7 +46,7 @@
 
 .elts .ht_master tr>td {
 	border-right: 1px solid #DDD;
-	font-size: 12px;
+	font-size: 14px;
 	border-bottom: none;
 }
 
@@ -113,4 +113,9 @@
 .elts ul[dnd-list],
 ul[dnd-list]>li {
 	position: relative;
+}
+
+
+.elts  md-content {
+    background-color: #fff;
 }
