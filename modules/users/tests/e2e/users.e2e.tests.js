@@ -27,8 +27,11 @@ describe('Users E2E Tests:', function() {
   };
 
   describe('Signup Validation', function() {
+
     it('Should report missing first name', function() {
       browser.get('http://localhost:3001/authentication/signup');
+      // Enter First Name
+      element(by.model('vm.credentials.firstName')).sendKeys('');
       // Enter Last Name
       element(by.model('vm.credentials.lastName')).sendKeys(user1.lastName);
       // Enter Email
@@ -47,6 +50,8 @@ describe('Users E2E Tests:', function() {
       browser.get('http://localhost:3001/authentication/signup');
       // Enter First Name
       element(by.model('vm.credentials.firstName')).sendKeys(user1.firstName);
+      // Enter Last Name
+      element(by.model('vm.credentials.lastName')).sendKeys('');
       // Enter Email
       element(by.model('vm.credentials.email')).sendKeys(user1.email);
       // Enter Username
@@ -65,6 +70,8 @@ describe('Users E2E Tests:', function() {
       element(by.model('vm.credentials.firstName')).sendKeys(user1.firstName);
       // Enter Last Name
       element(by.model('vm.credentials.lastName')).sendKeys(user1.lastName);
+      // Enter Email
+      element(by.model('vm.credentials.email')).sendKeys('');
       // Enter Username
       element(by.model('vm.credentials.username')).sendKeys(user1.username);
       // Enter Password

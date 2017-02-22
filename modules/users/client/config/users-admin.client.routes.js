@@ -16,7 +16,7 @@
         controller: 'UserListController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Users List'
+          pageTitle: 'List'
         }
       })
       .state('admin.user', {
@@ -25,10 +25,11 @@
         controller: 'UserController',
         controllerAs: 'vm',
         resolve: {
-          userResolve: getUser
+          userResolve: getUser,
+          availableRolesResolve: getAvailableRoles
         },
         data: {
-          pageTitle: 'Edit {{ userResolve.displayName }}'
+          pageTitle: '{{ userResolve.displayName }}'
         }
       })
       .state('admin.user-edit', {
@@ -37,10 +38,11 @@
         controller: 'UserController',
         controllerAs: 'vm',
         resolve: {
-          userResolve: getUser
+          userResolve: getUser,
+          availableRolesResolve: getAvailableRoles
         },
         data: {
-          pageTitle: 'Edit User {{ userResolve.displayName }}'
+          pageTitle: '{{ userResolve.displayName }}'
         }
       });
 
@@ -50,6 +52,12 @@
       return AdminService.get({
         userId: $stateParams.userId
       }).$promise;
+    }
+
+    getAvailableRoles.$inject = ['AdminServiceRoles'];
+
+    function getAvailableRoles(AdminServiceRoles) {
+      return AdminServiceRoles.query().$promise;
     }
   }
 }());

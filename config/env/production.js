@@ -9,7 +9,7 @@ module.exports = {
     certificate: './config/sslcerts/cert.pem',
     caBundle: './config/sslcerts/cabundle.crt'
   },
-  port: process.env.PORT || 3008,
+  port: process.env.PORT || 3007,
   // Binding to 127.0.0.1 is safer in production.
   host: process.env.HOST || '0.0.0.0',
   db: {
@@ -40,7 +40,7 @@ module.exports = {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
     format: process.env.LOG_FORMAT || 'combined',
     fileLogger: {
-      directoryPath: process.env.LOG_DIR_PATH || process.cwd(),
+      directoryPath: process.env.LOG_DIR_PATH || (process.cwd() + '/logs'),
       fileName: process.env.LOG_FILE || 'app.log',
       maxsize: 10485760,
       maxFiles: 2,
@@ -53,6 +53,7 @@ module.exports = {
     callbackURL: '/api/auth/facebook/callback'
   },
   twitter: {
+    username: '@TWITTER_USERNAME',
     clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
     clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
     callbackURL: '/api/auth/twitter/callback'

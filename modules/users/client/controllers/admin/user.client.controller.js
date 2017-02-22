@@ -5,16 +5,21 @@
     .module('users.admin')
     .controller('UserController', UserController);
 
-  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve'];
+  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'availableRolesResolve', '$element'];
 
-  function UserController($scope, $state, $window, Authentication, user) {
+  function UserController($scope, $state, $window, Authentication, user, availableRoles, $element) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.user = user;
+    vm.availableRolesList = '';
     vm.remove = remove;
     vm.update = update;
     vm.isContextUserSelf = isContextUserSelf;
+
+    // Search in select
+    vm.searchTerm = '';
+    vm.clearSearchTerm = clearSearchTerm;
 
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
@@ -51,5 +56,16 @@
     function isContextUserSelf() {
       return vm.user.username === vm.authentication.user.username;
     }
+
+    function clearSearchTerm() {
+      vm.searchTerm = '';
+    }
+
+    /* VIEW INIT */
+    $element.find('input').on('keydown', function(ev) {
+      ev.stopPropagation();
+    });
+
+    vm.availableRolesList = availableRoles;
   }
 }());

@@ -7,10 +7,8 @@ module.exports = {
         // bower:css
         'public/lib/angular-material/angular-material.css',
         'public/lib/font-awesome/css/font-awesome.css',
-        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/angular-tooltips/dist/angular-tooltips.css',
         'public/lib/angular-loading-bar/build/loading-bar.css',
-        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/codemirror/lib/codemirror.css',
         'public/lib/handsontable/dist/handsontable.full.css',
         'public/lib/angular-color-picker/dist/angularjs-color-picker.css'
@@ -22,20 +20,19 @@ module.exports = {
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/ng-file-upload/ng-file-upload.js',
-        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-mocks/angular-mocks.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-ui-utils/ui-utils.js',
-        'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/lodash/dist/lodash.js',
         'public/lib/angular-tooltips/dist/angular-tooltips.js',
         'public/lib/angular-loading-bar/build/loading-bar.js',
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-material/angular-material.js',
         'public/lib/angularUtils-pagination/dirPagination.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/d3/d3.js',
         'public/lib/d3-plugins/**/!(*-test).js',
         'public/lib/angular-ui-codemirror/ui-codemirror.js',
@@ -56,7 +53,7 @@ module.exports = {
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
     css: [
-      'modules/*/client/css/*.css'
+      'modules/*/client/{css,less,scss}/*.css'
     ],
     less: [
       'modules/*/client/less/*.less'

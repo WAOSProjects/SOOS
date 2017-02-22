@@ -3,9 +3,45 @@
  * general
  */
 
+/* float */
+
+.left {
+  float: left!important;
+}
+
+.right {
+  float: right!important;
+}
+
+/* text-align */
+
+.left-align {
+  text-align: left;
+}
+
+.right-align {
+  text-align: right;
+}
+
+/* margin */
+
+.no-margin {
+  margin: 0!important;
+}
+
+/* padding */
+
+.no-padding {
+  padding: 0!important;
+}
+
 /* inherit color */
 .inherit-color {
   color: inherit;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 /*
@@ -16,10 +52,10 @@
 .text-danger {
   color: #c0392b;
 }
-.text-success	{
+.text-success {
   color: #27ae60;
 }
-.text-info	{
+.text-info {
   color: #2980b9;
 }
 .text-warning {
@@ -38,6 +74,10 @@ hr.separator {
   width: 100%;
 }
 
+.separator {
+  margin: 5px 0;
+}
+
 /*
  * mouse
  */
@@ -54,6 +94,6 @@ hr.separator {
  * img
  */
 
- .circle {
-   border-radius: 50%;
- }
+.circle {
+  border-radius: 50%;
+}

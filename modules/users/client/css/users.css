@@ -6,12 +6,29 @@
   width: 75px;
 }
 .users .user-profile-picture {
-  max-height: 150px;
-  min-height: 150px;
+  background: #dedede;
+  height: 150px;
+  width: 150px;
 }
-.users .cropArea {
-  background: #E4E4E4;
-  height: 300px;
-  margin: 10px auto 10px auto;
-  width: 300px;
+
+.users .SelectHeader .select-header-searchbox{
+	border: none;
+	height: 100%;
+	padding: 0;
+	width: 100%;
+}
+
+.users .SelectHeader .usersSelect-header {
+	align-items: center;
+	box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+	cursor: pointer;
+	display: flex;
+	height: 48px;
+	margin-left: 10.667px;
+	position: relative;
+	width: auto;
+}
+
+.users .SelectHeader md-content._md {
+	max-height: 240px;
 }

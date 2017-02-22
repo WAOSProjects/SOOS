@@ -19,21 +19,37 @@
         </div>
       </md-subheader>
       <md-divider></md-divider>
-      <md-list-item class="md-2-line" dir-paginate="user in vm.users | filter: vm.search | itemsPerPage: vm.itemsPerPage" pagination-id="users" ui-sref="admin.user({userId: user._id})">
-        <img ng-src="{{user.profileImageURL}}" class="md-avatar" alt="{{user.displayName}}" />
-        <div class="md-list-item-text">
-          <b ng-bind="user.username"></b> - <span ng-bind='user.displayName'></span>
-          <p>
-            <span ng-bind="user.email"></span> -
-            <span>{{user.created | date:"MM/dd/yyyy"}}</span>
-          </p>
+
+      <div ng-if="vm.users.$resolved" ng-switch="vm.users.$promise.$$state.status">
+        <div ng-switch-when="1">
+          <div ng-if="vm.users.length === 0" class="alert center-align md-padding">
+            No Users found.
+          </div>
+          <div ng-if="vm.users.length > 0">
+            <md-list-item class="md-2-line" dir-paginate="user in vm.users | filter: vm.search | itemsPerPage: vm.itemsPerPage" pagination-id="users" ui-sref="admin.user({userId: user._id})">
+              <img ng-src="{{user.profileImageURL}}" class="md-avatar" alt="{{user.displayName}}" />
+              <div class="md-list-item-text">
+                <b ng-bind="user.username"></b> - <span ng-bind='user.displayName'></span>
+                <p>
+                  <span ng-bind="user.email"></span> -
+                  <span>{{user.created | date:"MM/dd/yyyy"}}</span>
+                </p>
+              </div>
+              <div class="md-secondary">
+                <span ng-repeat="item in user.roles">{{item}}  </span><br />
+              </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <dir-pagination-controls boundary-links="true" template-url="/modules/core/client/templates/pagination.html" pagination-id="users"></dir-pagination-controls>
+          </div>
         </div>
-        <div class="md-secondary">
-          <span ng-repeat="item in user.roles">{{item}}  </span><br />
+        <div ng-switch-default>
+          <h6 class="center-align" ng-bind="vm.users.$promise.$$state.value.data.message"></h6>
         </div>
-      </md-list-item>
-      <md-divider></md-divider>
-      <dir-pagination-controls boundary-links="true" template-url="../../modules/core/client/templates/pagination.html" pagination-id="users"></dir-pagination-controls>
+      </div>
+
+      <div layout-padding ng-if="!vm.users.$resolved" ng-include="'/modules/core/client/templates/loader.client.template.html'"></div>
+
     </md-list>
   </md-content>
 </section>
