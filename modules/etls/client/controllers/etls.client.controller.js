@@ -57,7 +57,7 @@
       alasql.promise('SHOW TABLES FROM ' + vm.dashboardName)
         .then(function (res) {
           vm.listTable = res;
-          console.log(vm.listTable);
+          console.log('vm.listTable', vm.listTable);
         }).catch(function (err) {
           console.log('Error:', err);
         });
@@ -121,7 +121,7 @@
           .then(function (res) {
             var index = vm.listTable.indexOf(table);
             vm.listTable.splice(index, 1);
-            console.log(vm.listTable);
+            console.log('vm.listTable from vm.deleteTable', vm.listTable);
           }).catch(function (err) {
             console.log('Error:', err);
           });
@@ -140,7 +140,7 @@
             'SELECT COUNT(*) FROM ' + tableid
           ])
           .then(function (res) {
-            console.log('res', res)
+            console.log('res from vm.loadTable', res)
             var data = res[0];
             var i;
             var metadata = [],
@@ -187,9 +187,9 @@
       var i;
       for (i in vm.groups[0].items) {
         if (vm.groups[0].items[i].type === 'number') {
-          variables.push('SUM(' + vm.groups[0].items[i].label + ')');
+          variables.push('SUM([' + vm.groups[0].items[i].label + '])');
         } else {
-          variables.push(vm.groups[0].items[i].label);
+          variables.push('[' + vm.groups[0].items[i].label + ']');
         }
       }
 
@@ -216,6 +216,8 @@
         default:
           groupBy = ' GROUP BY ' + groupBy.join(', ');
       }
+
+      console.log('request from buildQuery', 'SELECT ' + variables + ' FROM ' + tableid + groupBy);
 
       // Select data from IndexedDB
       alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
@@ -349,7 +351,7 @@
       alasql.promise('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
  alasql.worker();
 
-console.log('res',res)
+console.log('res from upload',res)
         var data = _.chunk(res[2], 1000);
         console.log('chunck',data)
         vm.count = 0;
@@ -378,7 +380,7 @@ console.log('res',res)
     /*      alasql.promise('SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
 
             // Web worker version
-            
+
             var data = _.chunk(res, 1000);
             console.log('data', data);
             for (i in data) {
