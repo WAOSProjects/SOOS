@@ -42,19 +42,19 @@
         <md-content class="md-padding">
           <div layout="row">
             <div flex-gt-sm="20" flex>
-              <div ng-repeat="item in vm.listTable" ng-click=" vm.fetchMetadata(item.tableid)">
-                {{item.tableid}}
+              <div ng-repeat="table in vm.listTable" ng-click=" vm.fetchMetadata(table.tableid)">
+                {{table.tableid}}
                 <ul class="items">
-                  <li class="item" ng-repeat="item2 in vm.metadata[item.tableid]" dnd-dragend="vm.buildQuery(table.tableid)" dnd-draggable="item"
+                  <li class="item" ng-repeat="meta in vm.metadata[table.tableid]" dnd-dragend="vm.buildQuery(table.tableid)" dnd-draggable="meta"
                     dnd-effect-allowed="copy">
-                    {{item2.label}}
+                    {{meta.label}}
                     </li>
                 </ul>
               </div>
             </div>
             <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true">
               <li class="title">{{group.name}}</li>
-              <li class="item" ng-repeat="item in group.items" dnd-moved="group.items.splice($index, 1);vm.buildQuery(table.tableid)" dnd-draggable="item"
+              <li class="item" ng-repeat="item in group.items track by $index" dnd-dragend="group.items.splice($index, 1);vm.buildQuery(table.tableid)" dnd-draggable="item"
                 dnd-effect-allowed="copyMove">{{ item.label }}</li>
             </ul>
             <pre> {{vm.modelAsJson}} </pre>
