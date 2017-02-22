@@ -429,8 +429,22 @@ console.log('res from upload',res)
       });
     };*/
 
-    // Tablea header html
 
+    // Convert a graph to an SVG for thumbnail
+    vm.saveAsBinary = function(chartId){
+      var svg = document.getElementById(chartId).children[0].innerHTML;
+
+      return svg = "data:image/svg+xml,"+svg;
+    };
+
+    // TODO To be deleted
+    vm.testThumbnailGen = function (chartId) {
+      var thumbnail = vm.saveAsBinary(chartId);
+
+      $('#binaryImage').attr('src', thumbnail);
+    };
+
+    // Tablea header html
     function title(column) {
       var html;
       html = '<div layout="column" layout-align="center center"><p class="header label">' + column.label + '</p><div class="header type">' + column.type + '</div></div>';

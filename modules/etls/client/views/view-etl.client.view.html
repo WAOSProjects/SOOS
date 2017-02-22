@@ -68,6 +68,11 @@
       </md-tab>
       <md-tab label="Dashboard">
         <md-content>
+          <highchart id="chart1" config="vm.chartConfig" class="span10"></highchart>
+
+          <md-button class="md-raised md-primary" ng-click="vm.testThumbnailGen('chart1')">Save thumbnail</md-button>
+          <img style="width: 150px;height: 150px; " id="binaryImage"/>
+
         </md-content>
       </md-tab>
     </md-tabs>
