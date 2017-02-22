@@ -12,7 +12,7 @@
  */
 
 md-icon .fa {
-  padding-left: 6px !important;
+  padding-left: 2px !important;
 }
 
 
@@ -20,20 +20,26 @@ md-icon .fa {
  * base
  */
 
- /* md-subheader */
- .base .md-subheader .rmt-subheader md-input-container {
-   margin: 0;
- }
- .base .md-subheader .rmt-subheader md-input-container md-select{
-   margin-top: -14px;
- }
- .base .md-subheader .rmt-subheader md-input-container .md-errors-spacer{
-   min-height: 12px;
- }
- .base .md-subheader .rmt-subheader .md-title {
-   -webkit-margin-after: 0.33em;
-   -webkit-margin-before: 0.33em;
- }
+/* md-subheader */
+.base .md-subheader .rmt-subheader md-input-container {
+  margin: 0;
+}
+.base .md-subheader .rmt-subheader md-input-container md-select {
+  margin-top: 0;
+}
+.base .md-subheader .rmt-subheader md-input-container .md-errors-spacer {
+  display: none;
+}
+.base .md-subheader .rmt-subheader .md-title {
+  -webkit-margin-after: .33em;
+  -webkit-margin-before: .33em;
+}
+
+/* md-subheader */
+
+.base .md-subheader .md-button {
+  margin: 0 0 0 10px;
+}
 
 /* forms */
 form.base {
@@ -42,14 +48,13 @@ form.base {
 
 /* md list */
 md-list.base {
-    padding: 0;
+  padding: 0;
 }
 /*
  * md-toolbar
  */
 
 /* font awesome icon */
-
 md-toolbar .md-icon-button .fa.fa-2x {
   font-size: 1.5em;
 }
@@ -61,4 +66,25 @@ md-toolbar .md-icon-button .fa.fa-2x {
 /* md-list-item */
 md-list-item .md-avatar {
   background: #dedede;
+}
+
+/*
+ * Toast
+ */
+
+md-toast.md-top {
+  top: 50px !important;
+}
+
+/*
+  * Chip
+  */
+
+.base .md-chip-remove md-icon {
+  min-height: 20px;
+  min-width: 20px;
+}
+
+.md-chips-no-underline .md-chips {
+  box-shadow: none !important;
 }

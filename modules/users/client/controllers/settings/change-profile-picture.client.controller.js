@@ -11,15 +11,15 @@
     var vm = this;
 
     vm.user = Authentication.user;
-    vm.fileSelected = false;
+    vm.progress = 0;
 
-    vm.upload = function (dataUrl, name) {
+    vm.upload = function (dataUrl) {
       vm.success = vm.error = null;
 
       Upload.upload({
         url: '/api/users/picture',
         data: {
-          newProfilePicture: Upload.dataUrltoBlob(dataUrl, name)
+          newProfilePicture: dataUrl
         }
       }).then(function (response) {
         $timeout(function () {
@@ -48,6 +48,7 @@
     // Called after the user has failed to uploaded a new picture
     function onErrorItem(response) {
       vm.fileSelected = false;
+      vm.progress = 0;
 
       // Show error message
       vm.error = response.message;

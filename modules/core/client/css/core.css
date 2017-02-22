@@ -6,7 +6,8 @@ html {
   width: 100% !important;
 }
 
-html, body {
+html,
+body {
   background: #f9f9f9;
   height: 100% !important;
   margin: 0;
@@ -15,7 +16,9 @@ html, body {
   padding: 0;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -29,26 +32,18 @@ html, body {
   width: 10px;
 }
 ::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment  {
+::-webkit-scrollbar-button:end:increment {
   background-color: transparent;
   display: block;
   height: 15px;
 }
-::-webkit-scrollbar-track-piece  {
+::-webkit-scrollbar-track-piece {
   background-color: transparent;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -o-border-radius: 6px;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:vertical {
   background-color: gray;
   border: none;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   height: 50px;
 }
@@ -58,41 +53,64 @@ html, body {
   background: #f83f51 !important;
 }
 .loading-bar .peg {
-     -moz-box-shadow: #f83f51 1px 0 6px 1px !important;
-      -ms-box-shadow: #f83f51 1px 0 6px 1px !important;
   -webkit-box-shadow: #f83f51 1px 0 6px 1px !important;
-          box-shadow: #f83f51 1px 0 6px 1px !important;
+  -moz-box-shadow: #f83f51 1px 0 6px 1px !important;
+  box-shadow: #f83f51 1px 0 6px 1px !important;
 }
 
 /*
 * Content
 */
 
+
+/* header */
+header {
+  height: 50px;
+}
+
+/* container */
+.container {
+  max-width: 100% !important;
+  padding: 10px;
+  width: 100% !important;
+}
+
 /* base */
 .base {
   background-color: #fff;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   float: left;
   width: 100%;
+}
+
+md-card.base {
+  border: 1px solid #ddd;
+  box-shadow: none;
+  float: none;
+  width: auto;
 }
 
 .base .header {
   border-bottom: 1px solid #ddd;
 }
 
-.base .header .btn, .base .header .btn-large, .base .header .btn-flat{
+.base .header .btn,
+.base .header .btn-large,
+.base .header .btn-flat {
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: none;
   color: #7c7c7c;
   margin: 11px 5px 0 5px;
   margin-bottom: 5px;
-  padding: 0 0.7rem;
+  padding: 0 .7rem;
 }
 
-.base .header .btn:hover, .base .header .btn-large:hover, .base .header .btn-flat:hover {
-    background-color: #ddd;
-    color: #4c4c4c;
+.base .header .btn:hover,
+.base .header .btn-large:hover,
+.base .header .btn-flat:hover {
+  background-color: #ddd;
+  color: #4c4c4c;
 }
 
 /* General */
@@ -102,13 +120,13 @@ a {
 
 /* Forms */
 textarea {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   height: 10em;
 }
 
 button:disabled {
   cursor: no-drop;
-  opacity: 0.5;
+  opacity: .5;
 }
 
 /* Pagination */

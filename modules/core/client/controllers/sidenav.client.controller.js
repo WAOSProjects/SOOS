@@ -13,6 +13,10 @@
     vm.authentication = Authentication;
     vm.$state = $state;
     vm.sideNav = sideNavs.getSideNav('sidebar');
+    vm.sideblock = false;
 
+    vm.setSideblock = function () {
+      vm.sideblock = !vm.sideblock;
+    };
   }
 }());

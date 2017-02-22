@@ -67,8 +67,7 @@
         url: '/forbidden',
         templateUrl: '/modules/core/client/views/403.client.view.html',
         data: {
-          ignoreState: true,
-          pageTitle: 'Forbidden'
+          ignoreState: true
         }
       });
   }

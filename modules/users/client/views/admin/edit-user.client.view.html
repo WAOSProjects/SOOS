@@ -8,7 +8,7 @@
     <form flex="100" class="base" name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate autocomplete="off">
       <md-input-container class="md-icon-float md-block" show-errors>
         <md-icon><i class="fa fa-user"></i></md-icon>
-        <input ng-model="vm.user.firstName" type="text" placeholder="First Name" id="firstName" name="firstName" required />
+        <input ng-model="vm.user.firstName" type="text" placeholder="First Name" id="firstName" name="firstName" required autofocus />
         <div ng-messages="vm.userForm.firstName.$error" role="alert">
           <p ng-message="required" class="error-text">First name is required.</p>
         </div>
@@ -24,7 +24,15 @@
 
       <md-input-container class="md-icon-float md-block" show-errors>
         <md-icon><i class="fa fa-lock"></i></md-icon>
-        <input ng-model="vm.user.roles" type="text" placeholder="Roles" id="roles" name="roles" ng-list required />
+        <label>Roles</label>
+        <md-select ng-model="vm.user.roles" md-on-close="vm.clearSearchTerm()" data-md-container-class="SelectHeader" multiple="" id="roles" name="roles" required>
+          <md-select-header class="usersSelect-header">
+            <input ng-model="vm.searchTerm" type="search" placeholder="Search for a role.." class="select-header-searchbox md-text">
+          </md-select-header>
+          <md-optgroup label="roles">
+            <md-option ng-value="role" ng-repeat="role in vm.availableRolesList | filter:vm.searchTerm">{{role}}</md-option>
+          </md-optgroup>
+        </md-select>
         <div ng-messages="vm.userForm.roles.$error" role="alert">
           <p ng-message="required" class="error-text">At least one role is required.</p>
         </div>

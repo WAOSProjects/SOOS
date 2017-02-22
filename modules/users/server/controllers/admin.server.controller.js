@@ -6,7 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  config = require(path.resolve('./config/config'));
 
 /**
  * Show the current user
@@ -90,4 +91,11 @@ exports.userByID = function (req, res, next, id) {
     req.model = user;
     next();
   });
+};
+
+/**
+ * List of available roles
+ **/
+exports.roles = function (req, res) {
+  res.json(User.schema.path('roles').caster.enumValues);
 };

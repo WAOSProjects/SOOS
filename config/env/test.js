@@ -4,7 +4,7 @@ var defaultEnvConfig = require('./default');
 
 module.exports = {
   db: {
-    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/roMEANet-test',
+    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/roMEANet-SOOS-test',
     options: {
       user: '',
       pass: ''
@@ -28,12 +28,23 @@ module.exports = {
   app: {
     title: defaultEnvConfig.app.title + ' - Test Environment'
   },
+  uploads: {
+    profile: {
+      image: {
+        dest: './modules/users/client/img/profile/uploads/',
+        limits: {
+          fileSize: 100000 // Limit filesize (100kb) for testing purposes
+        }
+      }
+    }
+  },
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'APP_ID',
     clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
     callbackURL: '/api/auth/facebook/callback'
   },
   twitter: {
+    username: '@TWITTER_USERNAME',
     clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
     clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
     callbackURL: '/api/auth/twitter/callback'

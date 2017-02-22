@@ -17,7 +17,7 @@ module.exports = {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
     format: 'dev',
     fileLogger: {
-      directoryPath: process.cwd(),
+      directoryPath: process.env.LOG_DIR_PATH || (process.cwd() + '/logs'),
       fileName: 'app.log',
       maxsize: 10485760,
       maxFiles: 2,
@@ -33,6 +33,7 @@ module.exports = {
     callbackURL: '/api/auth/facebook/callback'
   },
   twitter: {
+    username: '@TWITTER_USERNAME',
     clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
     clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
     callbackURL: '/api/auth/twitter/callback'

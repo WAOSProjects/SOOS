@@ -7,7 +7,7 @@
   color: #2c3e50;
   margin: auto;
   overflow: hidden;
-  text-shadow: rgba(0, 0, 0, 0.2) 1px 1px;
+  text-shadow: rgba(0, 0, 0, .2) 1px 1px;
 }
 
 .home .back-logo .while-search {
@@ -28,35 +28,50 @@
 }
 
 .home .back-logo .initial {
-  color: #000
+  color: #000;
 }
 
+/* menu */
 
-/*
- * Suggest
- */
-
-.home .input-field {
-  padding-left: 0;
-  position : static;
+.menu {
+  border-bottom: 1px solid #ddd;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.home nav .search-input {
-  background: transparent;
-  display: inline-block;
-  width: 100%;
+.menu .part {
+  margin: 10px 20px 0 20px;
 }
 
-.home .input-field input[type=search] {
-  padding-left: 0;
+.menu md-input-container.part {
+  margin-top: 0 !important;
+  padding: 5px;
 }
 
-.home .ac-container .ac-menu .ac-menu-item {
-  background: #fff;
-  border-bottom: 1px dotted #ddd;
-  color: #2c3e50;
-  height: 50px;
-  margin: 0;
-  padding: 0;
-  width: 100%;
+.menu .md-errors-spacer {
+  display: none;
+}
+
+.menu .md-button.square {
+  margin: -12px 2px 0 2px !important;
+}
+
+.menu md-switch {
+  margin-top: 5px !important;
+}
+
+/* Square button */
+
+.md-button.square {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: none !important;
+  color: #7c7c7c;
+  font-size: 120%;
+  max-height: 45px;
+  min-width: 45px;
+  padding: 0 .3rem;
+}
+.md-button.square.active {
+  background: #ddd;
 }
