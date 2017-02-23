@@ -289,7 +289,7 @@
 
 
 
-    vm.chartConfig = {
+    vm.chartConfig = [{
       chart: {
         type: 'bar'
       },
@@ -322,15 +322,57 @@
           }
         }
       },
-
       credits: {
         enabled: false
       },
       series: [{
         name: 'Year 2012',
         data: [1052, 954, 4250, 740, 38]
-      }]
-    };
+      }],
+      thumbnail: ''
+    },
+      {
+        chart: {
+          type: 'bar'
+        },
+        title: {
+          text: 'Test Highchart2'
+        },
+        xAxis: {
+          categories: '',
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Population (millions)',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' millions'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: 'Year 2012',
+          data: [1052, 954, 4250, 740, 38]
+        }],
+        thumbnail: ''
+      }];
 
 
 

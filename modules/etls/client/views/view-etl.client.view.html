@@ -66,13 +66,37 @@
           </div>
         </md-content>
       </md-tab>
+      <md-tab label="Sand Box">
+        <md-content>
+
+          <div ng-repeat="config in vm.chartConfig track by $index">
+            <build-chart chart-id="'chart_' + $index" chart-config="config"></build-chart>
+            <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}"/>
+          </div>
+
+        </md-content>
+      </md-tab>
       <md-tab label="Dashboard">
         <md-content>
-          <md-button class="md-raised md-primary" ng-click="vm.genChart()">Generate Chart</md-button>
 
-          <build-chart ng-if="vm.gen" chart-id="chart1" chart-config="vm.chartConfig"></build-chart>
+          <div layout="row">
+            <!-- Charts column -->
+            <div layout="column">
+              <div>
+                Charts
+              </div>
+              <div ng-repeat="config in vm.chartConfig track by $index">
+                <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}"/>
+              </div>
+            </div>
 
-          <img style="width: 150px;height: 150px; " id="binaryImage"/>
+            <div>
+              PANEL
+            </div>
+          </div>
+
+
+
 
         </md-content>
       </md-tab>
