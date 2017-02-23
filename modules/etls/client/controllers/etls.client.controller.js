@@ -437,12 +437,20 @@ console.log('res from upload',res)
       return svg = "data:image/svg+xml,"+svg;
     };
 
+
+
     // TODO To be deleted
+    vm.genChart = function () {
+      vm.gen = true;
+    };
     vm.testThumbnailGen = function (chartId) {
       var thumbnail = vm.saveAsBinary(chartId);
 
       $('#binaryImage').attr('src', thumbnail);
     };
+
+
+
 
     // Tablea header html
     function title(column) {
