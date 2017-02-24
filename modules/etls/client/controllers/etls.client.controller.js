@@ -33,9 +33,7 @@
       items: []
     }];
 
-
-
-
+    vm.dashboard = [];
 
 
 
@@ -492,6 +490,10 @@ console.log('res from upload',res)
     };
 
 
+
+    vm.delChartFromDash = function(index) {
+      vm.dashboard.splice(index, 1);
+    };
 
 
     // Tablea header html

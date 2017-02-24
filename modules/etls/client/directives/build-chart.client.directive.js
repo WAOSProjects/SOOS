@@ -15,31 +15,35 @@
       template: '<highchart id="{{chartId}}" config="chartConfig"></highchart>',
 
       link: function(scope, element, attrs) {
+        // This directive build the chart an generate a thumbnail inside its config
         scope.$watch('chartConfig', function(newValue, oldValue) {
-          if (newValue) {
-            var svgHTML = element.children().children()[0].innerHTML;
-            // TODO SVG version ?
-            var svgThumbnail = saveAsBinary(svgHTML);
-            scope.chartConfig.thumbnail = svgThumbnail;
+          if (JSON.stringify(newValue) === JSON.stringify(oldValue) ) {
+            // TODO Delete animations of graphes ? Without setTimeout, thumbnails display labels only with animations
+            setTimeout(function() {
+              var svgHTML = element.children().children()[0].innerHTML;
+              // TODO SVG version ?
+              var svgThumbnail = saveAsBinary(svgHTML);
+              scope.chartConfig.thumbnail = svgThumbnail;
 
-            // TODO PNG version ?
-            var pngThumbnail = svgHTML;
-            var svg = element.children().children().children()[0];
-            var width = svg.getAttribute('width');
-            var height = svg.getAttribute('height');
-            var imgSrc = 'data:image/svg+xml;base64,' + btoa(pngThumbnail);
-            var canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-            var context = canvas.getContext('2d');
-            var image = new Image;
-            image.src = imgSrc;
+              // TODO PNG version ?
+              var pngThumbnail = svgHTML;
+              var svg = element.children().children().children()[0];
+              var width = svg.getAttribute('width');
+              var height = svg.getAttribute('height');
+              var imgSrc = 'data:image/svg+xml;base64,' + btoa(pngThumbnail);
+              var canvas = document.createElement('canvas');
+              canvas.width = width;
+              canvas.height = height;
+              var context = canvas.getContext('2d');
+              var image = new Image;
+              image.src = imgSrc;
 
-            image.onload = function() {
-              context.drawImage(image, 0, 0);
-              var canvasdata = canvas.toDataURL('image/png');
-              // scope.chartConfig.thumbnail = canvasdata;
-            };
+              image.onload = function() {
+                context.drawImage(image, 0, 0);
+                var canvasdata = canvas.toDataURL('image/png');
+                // scope.chartConfig.thumbnail = canvasdata;
+              };
+            }, 500);
           }
         }, true);
 

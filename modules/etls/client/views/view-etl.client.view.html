@@ -81,17 +81,41 @@
 
           <div layout="row">
             <!-- Charts column -->
-            <div layout="column">
+            <div layout="column" flex="20">
               <div>
                 Charts
               </div>
-              <div ng-repeat="config in vm.chartConfig track by $index">
-                <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}"/>
+              <div>
+                <ul class="items">
+                  <li class="item" ng-repeat="config in vm.chartConfig track by $index" dnd-dragend="vm.testThumb()" dnd-draggable="config"
+                      dnd-effect-allowed="copy">
+                    <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}" />
+                  </li>
+                </ul>
               </div>
             </div>
 
-            <div>
-              PANEL
+            <div layout="column" flex="80">
+              <div>
+                Panel
+              </div>
+              <div flex="50">
+                <ul dnd-list="vm.dashboard" dnd-external-sources="true">
+                  <li ng-repeat="config in vm.dashboard track by $index">
+                    <div>
+                      <div style="background-color: #3E7087" layout="row" layout-align="space-between center">
+                        <div>Tools</div>
+                        <div ng-click="vm.delChartFromDash($index)">[X]</div>
+                      </div>
+                      <div>
+                        <highchart id="'chart_in_dash_' + $index" config="config"></highchart>
+                      </div>
+                    </div>
+
+                  </li>
+                </ul>
+              </div>
+
             </div>
           </div>
 
