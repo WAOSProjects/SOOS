@@ -21,6 +21,7 @@
     vm.count = 0;
     vm.loading = [];
     vm.message = '';
+    vm.usedTable = '';
     vm.types = ['number', 'text', 'date'];
 
 
@@ -289,6 +290,10 @@
       }
     };
 
+    vm.defineUsedTable = function(table){
+      vm.usedTable = table;
+    }
+
 
     vm.buildQuery = function (tableid) {
       console.log(tableid)
@@ -331,10 +336,10 @@
           groupBy = ' GROUP BY ' + groupByProperFormat.join(', ');
       }
 
-      console.log('request from buildQuery', 'SELECT ' + variables + ' FROM ' + tableid + groupBy);
+      console.log('request from buildQuery', 'SELECT ' + variables + ' FROM [' + vm.usedTable + ']' + groupBy);
 
       // Select data from IndexedDB
-      alasql.promise('SELECT ' + variables + ' FROM ' + tableid + groupBy)
+      alasql.promise('SELECT ' + variables + ' FROM [' + vm.usedTable + ']' + groupBy)
         .then(function (res) {
           vm.item = res;
           $scope.$apply();

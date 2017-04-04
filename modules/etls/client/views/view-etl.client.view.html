@@ -18,11 +18,6 @@
             </md-tab>
             <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
 
-
-
-
-
-
               <md-content>
                 <div ng-if="vm.loading[table.tableid]" layout="row" layout-sm="column" layout-align="space-around">
                   <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -54,12 +49,12 @@
 
               <md-card ng-repeat="table in vm.listTable" ng-init="vm.fetchMetadata(table.tableid)">
 
-                <md-toolbar md-scroll-shrink ng-click=" showMetadata = ! showMetadata " >
+                <md-toolbar md-scroll-shrink ng-click=" showMetadata = ! showMetadata ; vm.defineUsedTable(table.tableid)" >
                   <div class="md-toolbar-tools">
                     <h4 class="md-subhead">
                       <i class="fa fa-database" aria-hidden="true"></i>
                       <span>{{table.tableid}}</span>
-                      </h3>
+                      </h4>
                   </div>
                 </md-toolbar>
 
@@ -75,6 +70,8 @@
               </md-card>
             </div>
 
+
+{{vm.usedTable}}
             <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true">
               <li class="title">{{group.name}}</li>
               <li class="item" ng-repeat="item in group.items track by $index" dnd-dragend="group.items.splice($index, 1);vm.buildQuery(table.tableid)"
