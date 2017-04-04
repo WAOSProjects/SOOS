@@ -1,5 +1,8 @@
 <section class="elts">
   <md-content flex>
+
+
+
     <md-tabs md-center-tabs md-border-bottom md-dynamic-height md-autoselect>
       <md-tab label="Data">
         <md-content class="md-padding">
@@ -10,10 +13,16 @@
                   <div ngf-select="vm.upload($event,$file)" ngf-drop ng-model="vm.file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
                     ngf-allow-dir="false">Select File
                     <span class=""> or Drop File</span></div>
-              </form>
+                </form>
               </div>
             </md-tab>
             <md-tab ng-repeat="table in vm.listTable track by $index" label="{{table.tableid}}" md-on-select="vm.loadTable(table.tableid)">
+
+
+
+
+
+
               <md-content>
                 <div ng-if="vm.loading[table.tableid]" layout="row" layout-sm="column" layout-align="space-around">
                   <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -31,31 +40,45 @@
                   <hot-table ng-if="!vm.loading[table.tableid]" settings="vm.tableSettings" datarows="vm.data[table.tableid]" height="800"
                     width="1600">
                     <hot-column ng-repeat="column in vm.metadata[table.tableid]" data="{{column.label}}" title="vm.title(column)"></hot-column>
-                    </hot-table>
+                  </hot-table>
                 </div>
               </md-content>
             </md-tab>
           </md-tabs>
         </md-content>
       </md-tab>
-      <md-tab label="Charts">
+      <md-tab label="Charts" md-selected>
         <md-content class="md-padding">
           <div layout="row">
-            <div flex-gt-sm="20" flex>
-              <div ng-repeat="table in vm.listTable" ng-click=" vm.fetchMetadata(table.tableid)">
-                {{table.tableid}}
-                <ul class="items">
+            <div >
+
+              <md-card ng-repeat="table in vm.listTable" ng-init="vm.fetchMetadata(table.tableid)">
+
+                <md-toolbar md-scroll-shrink ng-click=" showMetadata = ! showMetadata " >
+                  <div class="md-toolbar-tools">
+                    <h4 class="md-subhead">
+                      <i class="fa fa-database" aria-hidden="true"></i>
+                      <span>{{table.tableid}}</span>
+                      </h3>
+                  </div>
+                </md-toolbar>
+
+
+
+                <ul class="items" ng-if="vm.metadata[table.tableid] ; showMetadata">
                   <li class="item" ng-repeat="meta in vm.metadata[table.tableid]" dnd-dragend="vm.buildQuery(table.tableid)" dnd-draggable="meta"
                     dnd-effect-allowed="copy">
                     {{meta.label}}
-                    </li>
+                  </li>
                 </ul>
-              </div>
+
+              </md-card>
             </div>
+
             <ul ng-repeat="group in vm.groups" class="groups" dnd-list="group.items" dnd-external-sources="true">
               <li class="title">{{group.name}}</li>
-              <li class="item" ng-repeat="item in group.items track by $index" dnd-dragend="group.items.splice($index, 1);vm.buildQuery(table.tableid)" dnd-draggable="item"
-                dnd-effect-allowed="copyMove">{{ item.label }}</li>
+              <li class="item" ng-repeat="item in group.items track by $index" dnd-dragend="group.items.splice($index, 1);vm.buildQuery(table.tableid)"
+                dnd-draggable="item" dnd-effect-allowed="copyMove">{{ item.label }}</li>
             </ul>
             <pre> {{vm.modelAsJson}} </pre>
           </div>
@@ -71,7 +94,7 @@
 
           <div ng-repeat="config in vm.chartConfig track by $index">
             <build-chart chart-id="'chart_' + $index" chart-config="config"></build-chart>
-            <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}"/>
+            <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}" />
           </div>
 
         </md-content>
@@ -88,7 +111,7 @@
               <div>
                 <ul class="items">
                   <li class="item" ng-repeat="config in vm.chartConfig track by $index" dnd-dragend="vm.testThumb()" dnd-draggable="config"
-                      dnd-effect-allowed="copy">
+                    dnd-effect-allowed="copy">
                     <img style="width: 150px;height: 150px; " ng-src="{{config.thumbnail}}" />
                   </li>
                 </ul>

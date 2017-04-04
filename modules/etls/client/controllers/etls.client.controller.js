@@ -21,12 +21,125 @@
     vm.count = 0;
     vm.loading = [];
     vm.message = '';
+    vm.types = ['number', 'text', 'date'];
+
+
     vm.tableSettings = {
       stretchH: 'all',
       manualColumnMove: true,
       manualColumnResize: true,
       autoWrapRow: true
+      /* ,
+           colHeaders: true,
+           columns: columns,
+           afterGetColHeader: function (col, TH) {
+             var instance = this,
+               menu = buildMenu(columns[col].type),
+               button = buildButton();
+
+             addButtonMenuEvent(button, menu);
+
+             Handsontable.Dom.addEvent(menu, 'click', function (event) {
+               if (event.target.nodeName == 'LI') {
+                 setColumnType(col, event.target.data['colType'], instance);
+               }
+             });
+             if (TH.firstChild.lastChild.nodeName === 'BUTTON') {
+               TH.firstChild.removeChild(TH.firstChild.lastChild);
+             }
+             TH.firstChild.appendChild(button);
+             TH.style['white-space'] = 'normal';
+           }*/
     };
+
+
+    /*
+
+        function addButtonMenuEvent(button, menu) {
+          Handsontable.Dom.addEvent(button, 'click', function (event) {
+            var changeTypeMenu, position, removeMenu;
+
+            document.body.appendChild(menu);
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            changeTypeMenu = document.querySelectorAll('.changeTypeMenu');
+
+            for (var i = 0, len = changeTypeMenu.length; i < len; i++) {
+              changeTypeMenu[i].style.display = 'none';
+            }
+            menu.style.display = 'block';
+            position = button.getBoundingClientRect();
+
+            menu.style.top = (position.top + (window.scrollY || window.pageYOffset)) + 2 + 'px';
+            menu.style.left = (position.left) + 'px';
+
+            removeMenu = function (event) {
+              if (event.target.nodeName == 'LI' && event.target.parentNode.className.indexOf('changeTypeMenu') !== -1) {
+                if (menu.parentNode) {
+                  menu.parentNode.removeChild(menu);
+                }
+              }
+            };
+            Handsontable.Dom.removeEvent(document, 'click', removeMenu);
+            Handsontable.Dom.addEvent(document, 'click', removeMenu);
+          });
+        }
+
+        function buildMenu(activeCellType) {
+          var
+            menu = document.createElement('UL'),
+            types = ['text', 'numeric', 'date'],
+            item;
+
+          menu.className = 'changeTypeMenu';
+
+          for (var i = 0, len = types.length; i < len; i++) {
+            item = document.createElement('LI');
+            if ('innerText' in item) {
+              item.innerText = types[i];
+            } else {
+              item.textContent = types[i];
+            }
+
+            item.data = {
+              'colType': types[i]
+            };
+
+            if (activeCellType == types[i]) {
+              item.className = 'active';
+            }
+            menu.appendChild(item);
+          }
+
+          return menu;
+        }
+
+        function buildButton() {
+          var button = document.createElement('BUTTON');
+
+          button.innerHTML = '\u25BC';
+          button.className = 'changeType';
+
+          return button;
+        }
+
+        function setColumnType(i, type, instance) {
+          columns[i].type = type;
+          instance.updateSettings({
+            columns: columns
+          });
+          instance.validateCells(function () {
+            instance.render();
+          });
+        }
+
+
+    */
+
+
+
 
     vm.groups = [{
       name: 'GroupBy',
@@ -67,10 +180,8 @@
 
     vm.fetchMetadata = function (tableid) {
       if (!vm.metadata[tableid]) {
-        alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 1'
-          ])
+        alasql.promise(['SELECT * FROM ' + tableid + ' LIMIT 25'])
           .then(function (res) {
-            console.log('res', res)
             var data = res[0];
             var i;
             var metadata = [],
@@ -98,7 +209,7 @@
                 break;
               }
             }
-            console.log('done loading metadata',vm.metadata[tableid]);
+            console.log('done loading metadata', vm.metadata[tableid]);
           }).catch(function (err) {
             console.log('Error:', err);
           });
@@ -180,7 +291,8 @@
 
 
     vm.buildQuery = function (tableid) {
-      // Sconfigelect variables
+      console.log(tableid)
+      // Select variables
       var variables = [];
       var i;
       for (i in vm.groups[0].items) {
@@ -196,7 +308,6 @@
       // GroupBy TODO : reduce not filter
       var groupBy = vm.groups[0].items.filter(function (elem) {
         if (elem.type === 'number') {
-          console.log('thats a number');
           return false;
         }
         return true;
@@ -209,10 +320,15 @@
           groupBy = '';
           break;
         case 1:
-          groupBy = ' GROUP BY ' + groupBy;
+          groupBy = ' GROUP BY [' + groupBy + ']';
           break;
         default:
-          groupBy = ' GROUP BY ' + groupBy.join(', ');
+          var groupByProperFormat = [];
+          console.log('groupBy', groupBy)
+          for (i in groupBy) {
+            groupByProperFormat.push('[' + groupBy[i] + ']');
+          }
+          groupBy = ' GROUP BY ' + groupByProperFormat.join(', ');
       }
 
       console.log('request from buildQuery', 'SELECT ' + variables + ' FROM ' + tableid + groupBy);
@@ -245,7 +361,7 @@
                 variables.push('SUM(' + vm.groups[0].items[i].label + ')');
               } else {
                 variables.push(vm.groups[0].items[i].label);
-              }
+              }afterGetColHeader
             }
 
             variables = variables.join(', ');
@@ -288,47 +404,47 @@
 
 
     vm.chartConfig = [{
-      chart: {
-        type: 'bar'
-      },
-      title: {
-        text: 'Test Highchart'
-      },
-      xAxis: {
-        categories: '',
-        title: {
-          text: null
-        }
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Population (millions)',
-          align: 'high'
+        chart: {
+          type: 'bar'
         },
-        labels: {
-          overflow: 'justify'
-        }
-      },
-      tooltip: {
-        valueSuffix: ' millions'
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
+        title: {
+          text: 'Test Highchart'
+        },
+        xAxis: {
+          categories: '',
+          title: {
+            text: null
           }
-        }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Population (millions)',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' millions'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: 'Year 2012',
+          data: [1052, 954, 4250, 740, 38]
+        }],
+        thumbnail: ''
       },
-      credits: {
-        enabled: false
-      },
-      series: [{
-        name: 'Year 2012',
-        data: [1052, 954, 4250, 740, 38]
-      }],
-      thumbnail: ''
-    },
       {
         chart: {
           type: 'bar'
@@ -370,7 +486,8 @@
           data: [1052, 954, 4250, 740, 38]
         }],
         thumbnail: ''
-      }];
+      }
+    ];
 
 
 
@@ -389,11 +506,11 @@
       );
 
       alasql.promise('DROP TABLE IF EXISTS ' + tableName + '; CREATE TABLE ' + tableName + ';SELECT * FROM FILE(?, {headers:true})', [event.originalEvent]).then(function (res) {
- alasql.worker();
+        alasql.worker();
 
-console.log('res from upload',res)
+        console.log('res from upload', res)
         var data = _.chunk(res[2], 1000);
-        console.log('chunck',data)
+        console.log('chunck', data)
         vm.count = 0;
         for (i in data) {
           if (data[i]) {
@@ -471,10 +588,9 @@ console.log('res from upload',res)
 
 
     // Convert a graph to an SVG for thumbnail
-    vm.saveAsBinary = function(chartId){
+    vm.saveAsBinary = function (chartId) {
       var svg = document.getElementById(chartId).children[0].innerHTML;
-
-      return svg = "data:image/svg+xml,"+svg;
+      return svg = "data:image/svg+xml," + svg;
     };
 
 
@@ -491,14 +607,25 @@ console.log('res from upload',res)
 
 
 
-    vm.delChartFromDash = function(index) {
+    vm.delChartFromDash = function (index) {
       vm.dashboard.splice(index, 1);
     };
 
 
+
+
+    /*    var originatorEv;
+
+        vm.openMenu = function($mdOpenMenu, ev) {
+          originatorEv = ev;
+          $mdOpenMenu(ev);
+        };
+    */
+
     // Tablea header html
     function title(column) {
       var html;
+
       html = '<div layout="column" layout-align="center center"><p class="header label">' + column.label + '</p><div class="header type">' + column.type + '</div></div>';
       return html;
     }
