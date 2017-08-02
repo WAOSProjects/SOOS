@@ -28,7 +28,7 @@
         function onStart(e, ui) {
           /* todo : find element.width properly */
           ui.helper.width(element.width() + 5);
-          ui.helper.css('z-index', '100000');
+          ui.helper.css('z-index', '45');
         }
 
       }

@@ -1,3 +1,5 @@
+/* csslint ignore:start */
+
 /*
  * Navbar
  */
@@ -11,13 +13,30 @@
   position: fixed;
   right: 0;
   width: 100%;
-  z-index: 48;
+  z-index: 46;
 }
 
-.header nav.top .topTitle a,
-.header nav.top .topTitle span {
-  font-size: 24px;
+.header nav.top .nav-wrapper {
+  padding-left: 60px;
 }
+
+
+.header nav.top .top-menu-toggle,
+.header nav.top #top-menu-toggle {
+  display: none;
+}
+
+/* Page title */
+
+.header nav.top .page-title {
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* List */
 
 .header nav.top ul {
   list-style-type: none;
@@ -25,7 +44,7 @@
   padding: 0;
 }
 
-.header nav.top ul.right {
+.header nav.top ul.navigation {
   float: right;
 }
 
@@ -33,12 +52,21 @@
   float: left;
   list-style-type: none;
 }
-/* List */
+.header .center-logo {
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0 0 0;
+  position: absolute;
+  right: 0;
+}
+
 .header nav.top ul li.item {
   width: 50px;
 }
 
-.header nav.top ul li a {
+.header nav.top ul li a,
+.header nav.top ul li label {
   cursor: pointer;
   display: block;
   font-size: 1rem;
@@ -50,3 +78,5 @@
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,.1);
 }
+
+/* csslint ignore:stop */

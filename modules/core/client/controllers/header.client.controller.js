@@ -1,4 +1,3 @@
-
 (function () {
   'use strict';
 
@@ -13,13 +12,7 @@
 
     vm.authentication = Authentication;
     vm.isCollapsed = false;
+    vm.isOpenTopMenu = false;
     vm.nav = Navs.getNav('topbar');
-
-    $scope.$on('$stateChangeSuccess', stateChangeSuccess);
-
-    function stateChangeSuccess() {
-      // Collapsing the menu after navigation
-      vm.isCollapsed = false;
-    }
   }
 }());

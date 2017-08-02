@@ -9,7 +9,6 @@
 
   function HomeController($scope) {
     var vm = this;
-
     vm.logo = true;
     vm.showSomething = function() {
       vm.logo = !vm.logo;

@@ -9,10 +9,10 @@ module.exports = {
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/angular-tooltips/dist/angular-tooltips.css',
         'public/lib/angular-loading-bar/build/loading-bar.css',
+        // endbower
         'public/lib/codemirror/lib/codemirror.css',
         'public/lib/handsontable/dist/handsontable.full.css',
         'public/lib/angular-color-picker/dist/angularjs-color-picker.css'
-        // endbower
       ],
       js: [
         // bower:js
@@ -33,6 +33,7 @@ module.exports = {
         'public/lib/angular-material/angular-material.js',
         'public/lib/angularUtils-pagination/dirPagination.js',
         'public/lib/angular-sanitize/angular-sanitize.js',
+        // endbower
         'public/lib/d3/d3.js',
         'public/lib/d3-plugins/**/!(*-test).js',
         'public/lib/angular-ui-codemirror/ui-codemirror.js',
@@ -48,7 +49,6 @@ module.exports = {
         'public/lib/angular-color-picker/dist/angularjs-color-picker.js',
         'public/lib/tinycolor/dist/tinycolor-min.js',
         'public/lib/canvas-toBlob.js/canvas-toBlob.js'
-        // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

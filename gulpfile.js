@@ -25,7 +25,8 @@ var _ = require('lodash'),
   webdriver_update = require('gulp-protractor').webdriver_update,
   webdriver_standalone = require('gulp-protractor').webdriver_standalone,
   del = require('del'),
-  KarmaServer = require('karma').Server;
+  KarmaServer = require('karma').Server,
+  semver = require('semver');
 
 // Local settings
 var changedTestFiles = [];
@@ -47,9 +48,13 @@ gulp.task('env:prod', function () {
 
 // Nodemon task
 gulp.task('nodemon', function () {
+
+  // Node.js v7 and newer use different debug argument
+  var debugArgument = semver.satisfies(process.versions.node, '>=7.0.0') ? '--inspect' : '--debug';
+
   return plugins.nodemon({
     script: 'server.js',
-    nodeArgs: ['--debug'],
+    nodeArgs: [debugArgument],
     ext: 'js,html',
     verbose: true,
     watch: _.union(defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config)
@@ -371,8 +376,35 @@ gulp.task('dropdb', function (done) {
   });
 });
 
-// Downloads the selenium webdriver
+// Downloads the selenium webdriver if protractor version is compatible
 gulp.task('webdriver_update', webdriver_update);
+
+gulp.task('webdriver_prep', function(done) {
+  runSequence('protractor_prep', 'webdriver_update', done);
+});
+
+gulp.task('protractor_prep', function() {
+  var nodeVersions = process.versions;
+  switch (nodeVersions.node.substr(0, 1)) {
+    case '4':
+    case '5':
+      console.log('E2E testing doesnt support v4 and v5');
+      process.exit(0);
+      break;
+    case '6':
+      if (parseInt(nodeVersions.node.substr(1, 1), 10) < 9) {
+        console.log('E2E testing with latest protractor requires v >= 6.9 ');
+        process.exit(0);
+      }
+      break;
+    default:
+      console.log('Detecting support for protractor E2E tests');
+      break;
+  }
+
+  return gulp.src('*.js');
+});
+
 
 // Start the standalone selenium server
 // NOTE: This is not needed if you reference the
@@ -380,7 +412,7 @@ gulp.task('webdriver_update', webdriver_update);
 gulp.task('webdriver_standalone', webdriver_standalone);
 
 // Protractor test runner task
-gulp.task('protractor', ['webdriver_update'], function () {
+gulp.task('protractor', ['webdriver_prep'], function () {
   gulp.src([])
     .pipe(protractor({
       configFile: 'protractor.conf.js'
@@ -434,14 +466,9 @@ gulp.task('test:coverage', function (done) {
   runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', 'karma:coverage', done);
 });
 
-// Run the project in development mode
+// Run the project in development mode with node debugger enabled
 gulp.task('default', function (done) {
   runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon', 'watch'], done);
-});
-
-// Run the project in debug mode
-gulp.task('debug', function (done) {
-  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon-nodebug', 'watch'], done);
 });
 
 // Run the project in production mode

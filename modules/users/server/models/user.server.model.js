@@ -14,7 +14,6 @@ var mongoose = require('mongoose'),
 
 owasp.config(config.shared.owasp);
 
-
 /**
  * A Validation function for local strategy properties
  */
@@ -106,7 +105,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: config.users.groups
     }],
     default: ['user'],
     required: 'Please provide at least one role'
@@ -125,6 +124,7 @@ var UserSchema = new Schema({
   resetPasswordExpires: {
     type: Date
   }
+
 });
 
 /**

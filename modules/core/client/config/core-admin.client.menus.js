@@ -22,13 +22,25 @@
       position: 0, // default 1
       roles: ['*']
     };
+    var _appMobileToolBox = {
+      name: 'ToolBox',
+      version: '1.0.0',
+      state: 'toolbox', // main route
+      // view: 'home',
+      icon: 'fa-cog', // https://fortawesome.github.io/Font-Awesome/
+      color: '#24272d', // https://flatuicolors.com/ (sideNav)
+      fontColor: '#fff', // https://flatuicolors.com/ (sideNav)
+    //  type: 'dropdown-menu',
+    //  position: 0, // default 1
+      roles: ['*']
+    };
     var _appAdmin = {
       name: 'Admin',
       version: '1.0.0',
-      state: 'admin.users', // main route
+      state: 'admin', // main route
       icon: 'fa-user-secret', // https://fortawesome.github.io/Font-Awesome/
-      roles: ['admin']
-      // type: 'dropdown'
+      roles: ['admin'],
+      type: 'dropdown'
     };
     /**
      * Nav Bar Top
@@ -40,6 +52,15 @@
       roles: _appAdmin.roles,
       type: _appAdmin.type
     });
+
+    Navs.addNavItem('topbar_mobile', {
+      title: _appMobileToolBox.name,
+      icon: _appMobileToolBox.icon,
+      state: _appMobileToolBox.state,
+      roles: _appMobileToolBox.roles,
+      type: _appMobileToolBox.type
+    });
+
     /**
      * Side Bar left
      */
