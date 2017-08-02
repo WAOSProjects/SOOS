@@ -26,7 +26,7 @@
   'use strict';
 
   var raw = {
-    version: '1.0.0',
+    version: "1.0.0",
     models: d3.map(),
     charts: d3.map()
   };
@@ -47,14 +47,13 @@
         match, matches,
         data = [],
         re = new RegExp((
-          '(\\' + delimiter + '|\\r?\\n|\\r|^)' +
-          '(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|' +
-          '([^\"\\' + delimiter + '\\r\\n]*))'
-        ), 'gi');
+          "(\\" + delimiter + "|\\r?\\n|\\r|^)" +
+          "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+          "([^\"\\" + delimiter + "\\r\\n]*))"
+        ), "gi");
 
       while (matches = re.exec(string)) {
-        match = matches[2] ? matches[2].replace(new RegExp('\'\'', 'g'), '\'') : matches[3];
-        /*console.log(match, matches[2])*/
+        match = matches[2] ? matches[2].replace(new RegExp("\"\"", "g"), "\"") : matches[3];
         if (matches[1].length && matches[1] != delimiter) rows.push([]);
         rows[rows.length - 1].push(match);
       }
@@ -75,12 +74,10 @@
         }
       }
       return data;
-
     }
 
     function mode(array) {
       if (!arguments.length || array.length === 0) return null;
-
       var counter = {},
         mode = array[0],
         max = 1;
@@ -107,7 +104,6 @@
           if (type) keys[key].push(type);
         }
       })
-
       return keys;
     }
 
@@ -115,11 +111,11 @@
 
       if (!arguments.length) return;
 
-      var delimiters = [',', ';', '\t', ':', '|'],
+      var delimiters = [",", ";", "\t", ":", "|"],
         delimitersCount = delimiters.map(function(d) {
           return 0;
         }),
-        header = string.split('\n')[0],
+        header = string.split("\n")[0],
         character,
         quoted = false,
         firstChar = true;
@@ -152,8 +148,8 @@
     }
 
     function ParseError(message) {
-      this.name = 'ParseError';
-      this.message = message || 'Sorry something went wrong while parsing your data.';
+      this.name = "ParseError";
+      this.message = message || "Sorry something went wrong while parsing your data.";
     }
     ParseError.prototype = new Error();
     ParseError.prototype.constructor = ParseError;
@@ -177,20 +173,23 @@
 
   var model_dimension = function() {
 
-    var title = 'Untitled',
+    var title = "Untitled",
       description = null,
       types = [Number, String, Date],
       multiple = false,
-      required = false;
+      required = false,
+      dispatch = d3.dispatch('change');
 
     var dimension = function(object) {
       if (!dimension.value.length) return null;
       if (!arguments.length) return dimension.value.map(function(d) {
         return d.key;
       });
-      return multiple ? dimension.value.map(function(d) {
-        return accessor.call(dimension, object[d.key]);
-      }) : accessor.call(dimension, object[dimension.value[0].key]);
+      return multiple ?
+        dimension.value.map(function(d) {
+          return accessor.call(dimension, object[d.key]);
+        }) :
+        accessor.call(dimension, object[dimension.value[0].key]);
     };
 
     function accessor(d) {
@@ -217,13 +216,13 @@
 
     dimension.title = function(_) {
       if (!arguments.length) return title;
-      title = _ + '';
+      title = _ + "";
       return dimension;
     }
 
     dimension.description = function(_) {
       if (!arguments.length) return description;
-      description = _ + '';
+      description = _ + "";
       return dimension;
     }
 
@@ -238,9 +237,11 @@
 
     dimension.type = function() {
       if (!dimension.value[0] || !dimension.value[0].type) return;
-      return multiple ? dimension.value.map(function(d) {
-        return d.type
-      }) : dimension.value[0].type;
+      return multiple ?
+        dimension.value.map(function(d) {
+          return d.type
+        }) :
+        dimension.value[0].type;
     }
 
     dimension.clear = function() {
@@ -255,11 +256,12 @@
 
   raw.model = function() {
 
-    var title = 'Untitled',
+    var title = "Untitled",
       description = null,
       dimensions = d3.map();
 
     var model = function(data) {
+      if (!data) return;
       return map.call(this, data);
     }
 
@@ -269,13 +271,13 @@
 
     model.title = function(_) {
       if (!arguments.length) return title;
-      title = '' + _;
+      title = "" + _;
       return model;
     }
 
     model.description = function(_) {
       if (!arguments.length) return description;
-      description = '' + _;
+      description = "" + _;
       return model;
     }
 
@@ -296,39 +298,12 @@
       return dimensions;
     }
 
-    model.isValidType = function() {
-      var hasValidType = true;
-      var tmpBoolean = true;
-
-      dimensions.values().forEach(function(d) {
-        if (d.type()) {
-          var values = [];
-
-          if (typeof(d.type()) != 'object') {
-            values.push(d.type());
-          } else {
-            values = d.type();
-          }
-
-          tmpBoolean = values.filter(function(e) {
-            return d.types().map(function(f) {
-              return f.name;
-            }).indexOf(e) != -1;
-          }).length > 0;
-        }
-
-        hasValidType = hasValidType && tmpBoolean;
-      });
-
-      return hasValidType;
-    }
-
     model.isValid = function() {
       return dimensions.values()
         .filter(function(d) {
           return d.required() > d.value.length;
         })
-        .length == 0 && model.isValidType();
+        .length == 0;
     }
 
     model.instruction = function() {
@@ -338,9 +313,9 @@
         })
         .map(function(d) {
           var v = d.required() - d.value.length > 1 ? 'dimensions' : 'dimension';
-          return '<b>' + d.title() + '</b> requires at least ' + (d.required() - d.value.length) + ' more ' + v;
+          return '<b>' + d.title() + "</b> requires at least " + (d.required() - d.value.length) + " more " + v;
         })
-        .join('. ')
+        .join(". ")
     }
 
     model.clear = function() {
@@ -363,13 +338,13 @@
 
     var hierarchy = tree.dimension('hierarchy')
       .title('Hierarchy')
-      .description('This is a description of the hierarchy that illustrates what the dimension is for and other things.')
+      .description("This is a description of the hierarchy that illustrates what the dimension is for and other things.")
       .required(1)
       .multiple(true);
 
     var size = tree.dimension('size')
       .title('Size')
-      .description('This is a description of the hierarchy that illustrates what the dimension is for and other things.')
+      .description("This is a description of the hierarchy that illustrates what the dimension is for and other things.")
       .accessor(function(d) {
         return +d;
       })
@@ -390,12 +365,14 @@
 
         if (!hierarchy()) return root;
 
+
         var leaf = seek(root, hierarchy(d), hierarchy());
         if (leaf === false || !leaf) return;
 
         if (!leaf.size) leaf.size = 0;
         leaf.size += size() ? +size(d) : 1;
 
+        //console.log(leaf, color(), color(d))
         leaf.color = color(d);
         leaf.label = label(d);
 
@@ -435,30 +412,30 @@
     var points = raw.model();
 
     var x = points.dimension('x')
-      .title('X Axis')
+      .title("X Axis")
       .types(Number, Date)
       .accessor(function(d) {
-        return this.type() == 'Date' ? new Date(d) : +d;
+        return this.type() == "Date" ? new Date(d) : +d;
       })
       .required(1)
 
     var y = points.dimension('y')
-      .title('Y Axis')
+      .title("Y Axis")
       .types(Number, Date)
       .accessor(function(d) {
-        return this.type() == 'Date' ? new Date(d) : +d;
+        return this.type() == "Date" ? new Date(d) : +d;
       })
       .required(1)
 
     var size = points.dimension('size')
-      .title('Size')
+      .title("Size")
       .types(Number)
 
     var color = points.dimension('color')
-      .title('Color')
+      .title("Color")
 
     var label = points.dimension('label')
-      .title('Label')
+      .title("Label")
       .multiple(true)
 
     points.map(function(data) {
@@ -618,7 +595,7 @@
 
     option.title = function(_) {
       if (!arguments.length) return title;
-      title = _ + '';
+      title = _ + "";
       return option;
     }
 
@@ -630,7 +607,7 @@
 
     option.description = function(_) {
       if (!arguments.length) return description;
-      description = _ + '';
+      description = _ + "";
       return option;
     }
 
@@ -718,7 +695,7 @@
       return type;
     }
 
-    d3.rebind(option, dispatch, 'on');
+    d3.rebind(option, dispatch, "on");
 
     return option;
   }
@@ -726,11 +703,13 @@
   raw.chart = function(id) {
 
     var id = id || raw.charts.values().length,
-      title = 'Untitled',
+      title = "Untitled",
       description = null,
       category = null,
-      thumbnail = '',
-      options = d3.map();
+      thumbnail = "",
+      isDrawing = false,
+      options = d3.map(),
+      dispatch = d3.dispatch('endDrawing', 'startDrawing');
 
     var chart = function(selection) {
       selection.each(function(data) {
@@ -820,6 +799,22 @@
       options.values().clear();
     }
 
+    chart.isDrawing = function(_) {
+      if (!arguments.length) return isDrawing;
+      isDrawing = _;
+      return chart;
+    }
+
+    chart.dispatchStartDrawing = function() {
+      dispatch.startDrawing();
+    }
+
+    chart.dispatchEndDrawing = function() {
+      dispatch.endDrawing();
+    }
+
+    d3.rebind(chart, dispatch, "on");
+
     raw.charts.set(id, chart);
 
     return chart;
@@ -828,22 +823,47 @@
 
   // Utils
 
+  //
+  raw.getMaxWidth = function(array, accessor) {
+    var accessor = accessor || function(d) {
+        return d;
+      },
+      array = array.map(accessor),
+      widths = [];
+
+    var svg = d3.select('body')
+      .append('svg')
+
+    var texts = svg.selectAll('text')
+      .data(array)
+      .enter().append('text')
+      .style("font-size", "11px")
+      .style("font-family", "Arial, Helvetica")
+      .text(String)
+
+    texts.each(function() {
+      widths.push(this.getBBox().width);
+    });
+    svg.remove();
+    return d3.max(widths);
+
+  }
+
+  var timeFormat = '([\\sT]?(0?[0-9]|1[0-9]|2[0-4])\:(0?[1-9]|[012345][0-9])(\\:(0?[1-9]|[012345][0-9])(\\.[0-9]{1,3})?)?((\\s*[\\+\\-](0?[0-9]|1[0-9]|2[0-4])(\\:)?(0?[1-9]|[012345][0-9]))|(\\s*[A-z]{1,3}))*?)?';
+
   raw.dateFormats = [
-    /^((0?[1-9]|[12][0-9]|3[01])[\-\_\.\/\s])?(0?[1-9]|1[012])[\-\_\.\/\s][0-9]{2,4}$/,
-    /^((0?[1-9]|[12][0-9]|3[01])[\-\_\.\/\s])?[A-z]+[\-\_\.\/\s][0-9]{2,4}$/,
-    /^[A-z]+[\-\_\.\/\s]((0?[1-9]|[12][0-9]|3[01])[,][\-\_\.\/\s])?[0-9]{2,4}$/,
-    /^(0?[1-9]|1[012])[\-\_\.\/\s](0?[1-9]|[12][0-9]|3[01])[\-\_\.\/\s][0-9]{2,4}$/,
-    /^[0-9]{2,4}[\-\_\.\/\s](0?[1-9]|1[012])[\-\_\.\/\s](0?[1-9]|[12][0-9]|3[01])$/
+    new RegExp('^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$'),
+    new RegExp('^(0?[1-9]|1[012])[\\-\\_\\.\\/\\s]+(0?[1-9]|[12][0-9]|3[01])[\\-\\_\\.\\/\\s]+([0-9]{2,4})' + timeFormat + '$'),
+    //  new RegExp('^([0-9]{2,4})[\\-\\_\\.\\/\\s]+(0?[1-9]|1[012])[\\-\\_\\.\\/\\s]+(0?[1-9]|[12][0-9]|3[01])' + timeFormat + '$'),
+    //  new RegExp('^([0-9]{2,4})[\\-\\_\\.\\/\\s]+(0?[1-9]|1[012])[\\-\\_\\.\\/\\s]*(0?[1-9]|[12][0-9]|3[01])?$'),
+    new RegExp('^[A-z]{3,}(\\,)?[\\-\\_\\.\\/\\s]*([A-z]{3,}(\\,)?[\\-\\_\\.\\/\\s]+)?(0?[1-9]|[12][0-9]|3[01])([A-z]{2})?(\\,)?[\\-\\_\\.\\/\\s]*([0-9]{2,4})' + timeFormat + '$'),
+    new RegExp('^([A-z]{3,}(\\,)?[\\-\\_\\.\\/\\s]*)?((0?[1-9]|[12][0-9]|3[01])([A-z]{2})?(\\,)?[\\-\\_\\.\\/\\s]*)?[A-z]{3,}(\\,)?[\\-\\_\\.\\/\\s]*([0-9]{2,4})' + timeFormat + '$'),
+    //  new RegExp('^([A-z]{3,}(\\,)?\\s+)?(0?[1-9]|[12][0-9]|3[01])([A-z]{2})?[\\-\\_\\.\\/\\s]*(0?[1-9]|1[012])[\\-\\_\\.\\/\\s]*([0-9]{2,4})' + timeFormat + '$'),
+    new RegExp('^[A-z]{3,}(\\,)?\\s+([A-z]{3,}(\\,)?\\s+)?(0?[1-9]|[12][0-9]|3[01])?\\s*' + timeFormat + '\\s+([0-9]{2,4})$')
   ]
 
   raw.isString = function(value) {
     return typeof value == 'string';
-  }
-
-  raw.isBoolean = function(value) {
-    if (value.toLowerCase() === 'true' || value.toLowerCase() === 'yes' || value === 1) return true;
-    if (value.toLowerCase() === 'false' || value.toLowerCase() === 'no' || value === 0) return true;
-    return false;
   }
 
   raw.isNumber = function(value) {
@@ -853,8 +873,11 @@
   raw.isDate = function(value) {
     var isDate = false;
     for (var format in raw.dateFormats) {
-      if (value.match(raw.dateFormats[format])) {
-        isDate = !isNaN(Date.parse(value));
+      if (value.trim().match(raw.dateFormats[format])) {
+        isDate = !isNaN(Date.parse(value)) && value.length != 4;
+        if (isDate) {
+          break;
+        }
       }
     }
     return isDate;
@@ -875,7 +898,7 @@
   }
 
   raw.foreground = function(color) {
-    return d3.hsl(color).l > .5 ? '#222222' : '#ffffff';
+    return d3.hsl(color).l > .5 ? "#222222" : "#ffffff";
   }
 
   exports.raw = raw;
