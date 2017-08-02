@@ -2,7 +2,7 @@
   font-family: 'Karla', sans-serif;
   font-size: 21px;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -.01em;
   line-height: 48px;
   margin: 0;
   margin-bottom: 30px;
@@ -42,7 +42,7 @@
 /* Header and footer */
 
 .raws section.dark {
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 
@@ -52,7 +52,7 @@
   background-color: transparent;
   border: none;
   border-radius: 2px;
-  color: #5A5E5A;
+  color: #5a5e5a;
   font-weight: 400;
   margin-top: 20px;
   padding: 10px 12px;
@@ -71,37 +71,25 @@
 
 /* Charts */
 
-.raws .chart-description {
+.raws .posters .item {
+  background-color: #fff;
+  opacity: .8;
+  width: 200px;
+}
+
+.raws .posters .item:hover {
+  opacity: 1;
+}
+
+.raws .posters .item .image {
+  background-color: #f3f3f3;
+  background-size: 100% 100%;
+  height: 140px;
+}
+
+.raws .posters .item .chart-description {
   font-size: 14px;
 }
-
-.raws .chart-description h4 {
-  font-family: 'Karla', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 1px;
-}
-
-.raws .chart-description p {
-  font-family: 'Karla', sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  margin-top: 9px;
-}
-
-.raws .chart-description hr {
-  background-color: #3F403F;
-  height: 1px;
-  margin-bottom: 18px;
-  margin-left: 0;
-  margin-top: 10px;
-  width: 20px;
-}
-
-.raws .chart-description a {
-  font-weight: 500;
-}
-
 
 /* Dimensions */
 
@@ -122,10 +110,10 @@
   overflow: hidden;
   padding: 10px;
   position: relative;
+  -webkit-transition: border .15s ease-in-out;
   -moz-transition: border .15s ease-in-out;
   -ms-transition: border .15s ease-in-out;
   -o-transition: border .15s ease-in-out;
-  -webkit-transition: border .15s ease-in-out;
   transition: border .15s ease-in-out;
 }
 
@@ -144,10 +132,10 @@
   opacity: .85;
   padding: 8px 10px;
   position: relative;
+  -webkit-transition: background .1s ease-in-out;
   -moz-transition: background .1s ease-in-out;
   -ms-transition: background .1s ease-in-out;
   -o-transition: background .1s ease-in-out;
-  -webkit-transition: background .1s ease-in-out;
   transition: background .1s ease-in-out;
 }
 
@@ -158,8 +146,8 @@
 .raws .layout {
   background-color: #406490;
   border-radius: 2px;
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   cursor: pointer;
   display: table;
@@ -195,40 +183,22 @@
 .raws .layout.selected .layout-thumb,
 .raws .layout:hover .layout-thumb {
   opacity: .15;
+  -webkit-transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -ms-transition: opacity .2s ease-in-out;
   -o-transition: opacity .2s ease-in-out;
-  -webkit-transition: opacity .2s ease-in-out;
   transition: opacity .2s ease-in-out;
 }
 
 .raws .layout-inner {
   border-radius: 2px;
   bottom: 0;
-  -moz-box-align: center;
-  -ms-box-align: center;
-  -o-box-align: center;
-  -webkit-box-align: center;
-  box-align: center;
-  -moz-box-pack: center;
-  -ms-box-pack: center;
-  -o-box-pack: center;
-  -webkit-box-pack: center;
-  box-pack: center;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;      /* TWEENER - IE 10 */
   display: -o-flexbox;      /* TWEENER - IE 10 */
   display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-  -moz-flex-align: center;
-  -ms-flex-align: center;
-  -o-flex-align: center;
-  -webkit-flex-align: center;
   flex-align: center;
-  -moz-flex-pack: center;
-  -ms-flex-pack: center;
-  -o-flex-pack: center;
-  -webkit-flex-pack: center;
   flex-pack: center;
   left: 0;
   margin: 0;
@@ -237,23 +207,42 @@
   right: 0;
   text-align: center;
   top: 0;
+
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-box-align: center;
+  -o-box-align: center;
+  box-align: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
+  -o-box-pack: center;
+  box-pack: center;
+  -webkit-flex-align: center;
+  -moz-flex-align: center;
+  -ms-flex-align: center;
+  -o-flex-align: center;
+  -webkit-flex-pack: center;
+  -moz-flex-pack: center;
+  -ms-flex-pack: center;
+  -o-flex-pack: center;
 }
 
 .raws .layout.selected .layout-inner,
 .raws .layout:hover .layout-inner {
   opacity: 1;
+  -webkit-transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -ms-transition: opacity .2s ease-in-out;
   -o-transition: opacity .2s ease-in-out;
-  -webkit-transition: opacity .2s ease-in-out;
   transition: opacity .2s ease-in-out;
 }
 
 .raws .layout.yours {
   background-color: transparent;
   border: 2px dashed #ddd;
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
+  -moz-box-shadow: none;
   box-shadow: none;
 }
 
@@ -273,7 +262,7 @@
   background-color: #406490;
   border-bottom: 1px solid rgb(0, 0, 0);
   border-bottom: 1px solid rgba(0, 0, 0, .1);
-  color: #ffffff;
+  color: #fff;
   cursor: move;
 }
 
@@ -284,7 +273,7 @@
 }
 
 .raws .dimension-multiple {
-  color: #bbbbbb;
+  color: #bbb;
   left: 10px;
   position: absolute;
   top: 10px;
@@ -353,7 +342,7 @@
 
 .raws .dimension.invalid .dimension-type {
   color: rgb(0, 0, 0);
-  color: rgba(0, 0, 0, .6)
+  color: rgba(0, 0, 0, .6);
 }
 
 .raws .dimension-placeholder {
@@ -361,7 +350,7 @@
 }
 
 .raws .dimension-info {
-  color: #bbbbbb;
+  color: #bbb;
   cursor: pointer;
   position: absolute;
   right: 10px;
@@ -373,7 +362,7 @@
 }
 
 .raws .dimension-description {
-  background: #ffffff;
+  background: #fff;
   bottom: 0;
   font-size: 14px;
   font-weight: 400;
@@ -383,31 +372,31 @@
   padding: 10px;
   position: absolute;
   top: 37px;
+  -webkit-transform: translateY(100%);
   -moz-transform: translateY(100%);
   -ms-transform: translateY(100%);
   -o-transform: translateY(100%);
-  -webkit-transform: translateY(100%);
   transform: translateY(100%);
-  -moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
-  -ms-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
-  -o-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
-  -webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
-  transition: transform 0.4s, opacity 0.1s 0.3s;
+  -webkit-transition: -webkit-transform .4s, opacity .1s .3s;
+  -moz-transition: -moz-transform .4s, opacity .1s .3s;
+  -ms-transition: -moz-transform .4s, opacity .1s .3s;
+  -o-transition: -moz-transform .4s, opacity .1s .3s;
+  transition: transform .4s, opacity .1s .3s;
   width: 100%;
 }
 
 .raws .dimension-description .open {
   opacity: .95;
+  -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
   -o-transform: translateY(0px);
-  -webkit-transform: translateY(0px);
   transform: translateY(0px);
-  -moz-transition: -webkit-transform 0.4s, opacity 0.1s;
-  -ms-transition: -moz-transform 0.4s, opacity 0.1s;
-  -o-transition: -webkit-transform 0.4s, opacity 0.1s;
-  -webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
-  transition: transform 0.4s, opacity 0.1s;
+  -webkit-transition: -webkit-transform .4s, opacity .1s;
+  -moz-transition: -webkit-transform .4s, opacity .1s;
+  -ms-transition: -moz-transform .4s, opacity .1s;
+  -o-transition: -webkit-transform .4s, opacity .1s;
+  transition: transform .4s, opacity .1s;
   z-index: 1005;
 }
 
@@ -425,42 +414,43 @@
 }
 
 .raws .chart-resize {
-  -moz-box-align: center;
-  -ms-box-align: center;
-  -o-box-align: center;
-  -webkit-box-align: center;
-  box-align: center;
-  -moz-box-pack: center;
-  -ms-box-pack: center;
-  -o-box-pack: center;
-  -webkit-box-pack: center;
-  box-pack: center;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;      /* TWEENER - IE 10 */
   display: -o-flexbox;      /* TWEENER - IE 10 */
   display: flex;          /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  flex-align: center;
+  flex-pack: center;
+  padding: 0;
+
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-box-align: center;
+  -o-box-align: center;
+  box-align: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
+  -o-box-pack: center;
+  box-pack: center;
+  -webkit-flex-align: center;
   -moz-flex-align: center;
   -ms-flex-align: center;
   -o-flex-align: center;
-  -webkit-flex-align: center;
-  flex-align: center;
+  -webkit-flex-pack: center;
   -moz-flex-pack: center;
   -ms-flex-pack: center;
   -o-flex-pack: center;
-  -webkit-flex-pack: center;
-  flex-pack: center;
-  padding: 0;
 }
 
 
 /* CodeMirror */
 
 .CodeMirror {
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 2px;
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   font-family: Menlo, Monaco, Courier, monospace;
   font-size: 10px;
@@ -475,7 +465,7 @@
 
 .CodeMirror-activeline-background {
   background: rgb(68, 204, 164) !important;
-  background: rgba(68, 204, 164, 0.18) !important;
+  background: rgba(68, 204, 164, .18) !important;
 }
 
 pre.CodeMirror-placeholder {
@@ -524,29 +514,26 @@ pre.CodeMirror-placeholder {
   padding-bottom: 5px;
 }
 
-.handsontable table{
-  width:100%;
+.handsontable table {
+  width: 100%;
 }
 
-.md-tabs-canvas{
+.md-tabs-canvas {
   background: #e1e6ea;
 }
-md-content.md-default-theme, md-content  {
-  background-color: #ECECEC;
-
+md-content.md-default-theme,
+md-content {
+  background-color: #ececec;
 }
 
 md-pagination-wrapper.md-center-tabs {
   margin: 0 auto;
   position: relative;
   width: initial;
-
-
 }
 
-.md-tab{
+.md-tab {
   border: 1px solid #e1e6ea;
-
 }
 .md-tab.md-active {
   background-color: #fff;
@@ -554,28 +541,25 @@ md-pagination-wrapper.md-center-tabs {
   cursor: default;
 }
 
-md-content{
+md-content {
   border-top: 1px solid #e2e2e2;
-  box-shadow: #CED2DB 0 1px 2px 0;
-
+  box-shadow: #ced2db 0 1px 2px 0;
 }
 md-tabs md-ink-bar {
   background: rgb(63,81,181);
   color: rgb(63,81,181);
 }
 
-.raws .download{
+.raws .download {
   background: #406490;
   border: 1px solid #406490;
   color: #fff;
-
 }
 
 
-.raws .download:disabled{
+.raws .download:disabled {
   background: grey;
   color: #fff;
-
 }
 
 .raws label {
@@ -594,7 +578,7 @@ md-tabs md-ink-bar {
   position: relative;
   vertical-align: middle;
 }
-.raws .md-block{
+.raws .md-block {
   display: block;
   margin: 0;
   max-height: 300px;

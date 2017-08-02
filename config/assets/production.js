@@ -47,7 +47,11 @@ module.exports = {
         'public/lib/ngHandsontable/dist/ngHandsontable.min.js',
         'public/lib/angular-color-picker/dist/angularjs-color-picker.min.js',
         'public/lib/tinycolor/dist/tinycolor-min.js',
-        'public/lib/canvas-toBlob.js/canvas-toBlob.js'
+        'public/lib/canvas-toBlob.js/canvas-toBlob.js',
+        'public/lib/zeroclipboard/dist/ZeroClipboard.min.js',
+        'public/lib/is_js/is.min.js',
+        'public/lib/js-xlsx/dist/xlsx.full.min.js',
+        'public/lib/d3-plugins-density/horizon.js'
       ]
     },
     css: 'public/dist/application*.min.css',

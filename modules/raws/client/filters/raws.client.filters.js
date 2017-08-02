@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function() {
   'use strict';
 
@@ -10,8 +12,21 @@
   function categoryFilter() {
     return function(charts, category) {
       return charts.filter(function(chart) {
-        return !chart.category() && category === 'Others' || chart.category() === category;
+        return !chart.category() && category == 'Others' || chart.category() == category;
       });
+    };
+  }
+
+  angular
+    .module('raws')
+    .filter('decodeUrl', decodeUrl);
+
+  decodeUrl.$inject = [];
+
+  function decodeUrl() {
+    return function(url) {
+      if (!url) return url;
+      return decodeURIComponent(url);
     };
   }
 }());
