@@ -3,8 +3,9 @@
 (function() {
   'use strict';
 
-  angular.module('raws')
-    .directive('chartOption', chartOption);
+  angular
+        .module('raws')
+        .directive('chartOption', chartOption);
 
   chartOption.$inject = [];
 
@@ -22,9 +23,9 @@
         scope.$watch('chart', fitWidth);
 
         function fitWidth(chart, old) {
-          if (chart == old) return;
+          if (chart === old) return;
           if (!scope.option.fitToWidth || !scope.option.fitToWidth()) return;
-          scope.option.value = $('.col-lg-9').width();
+          scope.option.value = $('.flex-80').width();
         }
 
         $(document).ready(fitWidth);

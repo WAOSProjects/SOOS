@@ -1,56 +1,52 @@
 <section class="raws">
 
-  <section class="">
-    <div class="container">
-      <div layout="row" flex-xs="100" flex-sm="100" flex="33">
-        <p>Insert your data or choose one of our samples</p>
-        <md-menu>
-          <md-button aria-label="Open Samples" class="md-icon-button" md-no-ink ng-click="$mdOpenMenu($event)">
-            <md-icon md-menu-origin md-font-set="material-icons"> <i class="material-icons">folder_open</i> </md-icon>
-            <md-tooltip md-direction="right">Samples</md-tooltip>
-          </md-button>
-          <md-menu-content width="6">
-            <md-menu-item ng-repeat="s in samples">
-              <md-button ng-click="selectSample(s)">
-                <md-icon md-menu-align-target class="material-icons">text_fields</md-icon>
-                {{ s.title }}
-              </md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-      </div>
-
-      <md-content>
-        <md-tabs md-dynamic-height md-center-tabs md-no-ink md-no-ink-bar md-border-bottom layout-align="center center">
-          <md-tab>
-            <md-tab-label>
-              <md-icon md-font-set="material-icons"> <i class="material-icons">list</i> </md-icon>
-              <md-tooltip md-direction="bottom">Parse</md-tooltip>
-            </md-tab-label>
-            <md-tab-body>
-              <ui-codemirror ui-codemirror-opts="codeMirrorOptions" ng-model="text"></ui-codemirror>
-            </md-tab-body>
-          </md-tab>
-          <md-tab ng-if="data.length">
-            <md-tab-label>
-              <md-icon md-font-set="material-icons"> <i class="material-icons">apps</i> </md-icon>
-              <md-tooltip md-direction="bottom">Table</md-tooltip>
-            </md-tab-label>
-            <md-tab-body>
-              <hot-table hot-id="rawTable" datarows="data" settings="tableSettings">
-                <hot-column ng-repeat="column in metadata" data="{{column.key}}" title="column.key"></hot-column>
-              </hot-table>
-            </md-tab-body>
-          </md-tab>
-        </md-tabs>
-      </md-content>
-      <!--<div ng-if="!loading && !data.length && !error" class="alert"><i class="fa fa-hand-o-right breath-right"></i> Not sure how it works? FAQs</div> TODO FAQ -->
-      <div ng-if="!loading && !error && data.length" class="alert alert-success"><i class="fa fa-thumbs-up breath-right"></i><strong>{{data.length}}</strong> records in your data have been successfully parsed!</div>
-      <div ng-if="!loading && error" class="alert alert-warning"><i class="fa fa-thumbs-down breath-right"></i><strong>Whoops!</strong> Please, check line {{error+1}}</div>
-      <div ng-if="loading" class="alert"><i class="fa breath-right fa-refresh fa-spin"></i>Loading your data. Please wait.</div>
+  <section>
+    <div layout="row" flex-xs="100" flex-sm="100" flex="33" class="caintainer">
+      <p>Insert your data or choose one of our samples</p>
+      <md-menu>
+        <md-button aria-label="Open Samples" class="md-icon-button" md-no-ink ng-click="$mdOpenMenu($event)">
+          <md-icon md-menu-origin md-font-set="material-icons"> <i class="material-icons">folder_open</i> </md-icon>
+          <md-tooltip md-direction="right">Samples</md-tooltip>
+        </md-button>
+        <md-menu-content width="6">
+          <md-menu-item ng-repeat="s in samples">
+            <md-button ng-click="selectSample(s)">
+              <md-icon md-menu-align-target class="material-icons">text_fields</md-icon>
+              {{ s.title }}
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
+    <md-content>
+      <md-tabs md-dynamic-height md-center-tabs md-no-ink md-no-ink-bar md-border-bottom layout-align="center center">
+        <md-tab>
+          <md-tab-label>
+            <md-icon md-font-set="material-icons"> <i class="material-icons">list</i> </md-icon>
+            <md-tooltip md-direction="bottom">Parse</md-tooltip>
+          </md-tab-label>
+          <md-tab-body>
+            <ui-codemirror ui-codemirror-opts="codeMirrorOptions" ng-model="text"></ui-codemirror>
+          </md-tab-body>
+        </md-tab>
+        <md-tab ng-if="data.length">
+          <md-tab-label>
+            <md-icon md-font-set="material-icons"> <i class="material-icons">apps</i> </md-icon>
+            <md-tooltip md-direction="bottom">Table</md-tooltip>
+          </md-tab-label>
+          <md-tab-body>
+            <hot-table hot-id="rawTable" datarows="data" settings="tableSettings">
+              <hot-column ng-repeat="column in metadata" data="{{column.key}}" title="column.key"></hot-column>
+            </hot-table>
+          </md-tab-body>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+    <!--<div ng-if="!loading && !data.length && !error" class="alert"><i class="fa fa-hand-o-right breath-right"></i> Not sure how it works? FAQs</div> TODO FAQ -->
+    <div ng-if="!loading && !error && data.length" class="alert alert-success"><i class="fa fa-thumbs-up breath-right"></i><strong>{{data.length}}</strong> records in your data have been successfully parsed!</div>
+    <div ng-if="!loading && error" class="alert alert-warning"><i class="fa fa-thumbs-down breath-right"></i><strong>Whoops!</strong> Please, check line {{error+1}}</div>
+    <div ng-if="loading" class="alert"><i class="fa breath-right fa-refresh fa-spin"></i>Loading your data. Please wait.</div>
   </section>
-
   <section ng-if="error">
     <div class="container">
       <h2 class="md-headline">Ouch. It seems like RAW encountered some problems while parsing your data. Please, be sure everything is ok with your data. Often this is due to some missing delimiters. If you want to use a <a href="http://en.wikipedia.org/wiki/Delimiter">delimiter char</a> as string literal, please include it in double quotes. See our <a href="https://github.com/densitydesign/raw/wiki/FAQs#raw-says-there-is-something-wrong-with-my-data">FAQs</a> for more information.</h2>
@@ -60,42 +56,37 @@
 
   <section class="" ng-if="!error && data.length  && parsed">
     <div class="container">
-      <div>
-        <h3 id="layout">Choose a Chart</h3>
-        <div layout="row">
-          <div flex="30">
-            <div class="chart-description">
-              <h4>{{chart.title()}}</h4>
-              <img class="image" ng-src="{{chart.thumbnail()}}"></img>
-              <hr>
-              <p class="light" ng-bind-html="chart.description()"></p>
-              <p class="light" data-ng-show="!chart.description()">No description given</p>
-            </div>
+      <h3 id="layout">Choose a Chart</h3>
+      <div layout="row">
+        <div flex="30">
+          <div class="chart-description">
+            <h4>{{chart.title()}}</h4>
+            <img class="image" ng-src="{{chart.thumbnail()}}"></img>
+            <hr>
+            <p class="light" ng-bind-html="chart.description()"></p>
+            <p class="light" data-ng-show="!chart.description()">No description given</p>
           </div>
-          <div flex="70">
-            <div class='md-padding posters' layout="row" layout-wrap layout-align="space-around">
-              <md-card class="item"ng-class="{selected: c == chart}" ng-click="selectChart(c)" ng-repeat="c in charts">
-                <div class="md-card-image image" ng-style="{'background-image':'url(' + c.thumbnail() + ')'}"></div>
-                <md-card-content>
-                  <div class="content">
-                    <span>{{c.title()}}</span><br />
-                    <small>{{c.category() || 'Other'}}</small>
-                  </div>
-                </md-card-content>
-              </md-card>
-            </div>
+        </div>
+        <div flex="70">
+          <div class='md-padding posters' layout="row" layout-wrap layout-align="space-around">
+            <md-card class="item" ng-class="{selected: c == chart}" ng-click="selectChart(c)" ng-repeat="c in charts">
+              <div class="md-card-image image" ng-style="{'background-image':'url(' + c.thumbnail() + ')'}"></div>
+              <md-card-content>
+                <div class="content">
+                  <span>{{c.title()}}</span><br />
+                  <small>{{c.category() || 'Other'}}</small>
+                </div>
+              </md-card-content>
+            </md-card>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="dark" ng-if="!error && data.length">
-
+  <section class="dark" ng-if="!error && data.length && parsed">
     <div class="container">
-
       <div id="mapping" layout="column">
-
         <div>
           <h3>
             Map your Dimensions
@@ -104,41 +95,24 @@
   					<span class="clearfix"></span>
 					</h3>
         </div>
-
-
         <div layout="row" layout-margin>
-
           <div flex="20">
             <div draggable>
               <ul class="list-unstyled dimensions-list">
                 <li class="dimension" data-dimension="{{dimension}}" ng-repeat="dimension in metadata track by $index">
-                  <span class="dimension-key">{{ dimension.key }}</span>
+                  <span class="dimension-key">{{ dimension.key }}</span><br />
                   <span class="dimension-type">{{dimension.type}}</span>
                   <span class="dimension-icon pull-right"><i class="fa fa-bars"></i></span>
                 </li>
               </ul>
             </div>
           </div>
-
-
           <div flex="80">
             <div class="sticky">
               <div layout="row" layout-margin group every="3" watch="model">
-
                 <div flex="30" class="dimensions-wrapper" ng-repeat="dimension in model.dimensions().values() track by $index" ng-init="open=false">
-
                   <div class="dimensions-model">
-
                     <div class="dimension-multiple">
-
-                      <md-button class="md-icon-button" data-ng-show="!dimension.multiple()">
-                        <md-tooltip md-direction="bottom">
-                          You can drag only one dimension here
-                        </md-tooltip>
-                        <md-icon md-font-icon="fa fa-tag">
-                        </md-icon>
-                      </md-button>
-
                       <md-button class="md-icon-button" data-ng-show="dimension.multiple()">
                         <md-tooltip md-direction="right">
                           You can drag more than one dimension here
@@ -147,7 +121,6 @@
                         </md-icon>
                       </md-button>
                     </div>
-
                     <md-button class="md-icon-button dimension-required" data-ng-show="dimension.required()">
                       <md-icon md-font-icon="fa fa-asterisk">
                       </md-icon>
@@ -155,12 +128,9 @@
                         Required
                       </md-tooltip>
                     </md-button>
-
-
                     <p class="dimension-title">{{dimension.title()}}</p>
                     <ul sortable title="dimension.title()" value="dimension.value" multiple="dimension.multiple()" types="dimension.types()" class="dimensions-container list-unstyled" open="open">
                     </ul>
-
                   </div>
                 </div>
               </div>
@@ -173,27 +143,30 @@
 
 
 
-  <section class="" ng-if="!error && data.length">
+  <section class="" ng-if="!error && data.length && parsed">
 
     <div class="container">
       <h3 id="options">Customize your Visualization</h3>
       <div layout="row">
         <div flex="20" layout-margin layout="column">
           <ul class="list-unstyled">
-            <li ng-repeat="option in chart.options() track by $index" chart-option>
-              <p class="option-title">
-                <a layout="row" layout-align="end center" class="option-fit" data-ng-show="option.fitToWidth()"><i class="fa fa-expand"></i></a>
-              </p>
 
+            <li ng-repeat="option in chart.options() track by $index" chart-option>
+
+              <p class="option-title text-capitalize">
+                <a data-ng-show="option.fitToWidth()" data-toggle="tooltip" data-title="Fit to width" class="option-fit pull-right"><i class="fa fa-expand"></i></a>
+              </p>
               <div ng-switch="" on="option.type()">
+
                 <md-input-container ng-switch-when="number">
                   <label>{{option.title()}}</label>
                   <input ng-model="option.value" required type="number" step="any" min="1">
                 </md-input-container>
+
                 <div ng-switch-when="checkbox">
-                  <label class="checkbox">
-									<input type="checkbox" ng-model="option.value"/>
-								</label>
+                  <label class="">
+  									<input type="checkbox" ng-model="option.value"/>
+  								</label>
                 </div>
 
                 <div colors="option.value" ng-switch-when="color"></div>
@@ -203,31 +176,29 @@
                     <md-option ng-repeat="opt in option.values()">{{opt}} </md-option>
                   </md-select>
                 </md-input-container>
+
                 <md-input-container ng-switch-default="ng-switch-default">
-                  <input type="text" min="0" class="form-control" ng-model="option.value">
+                  <input ng-model="option.value" type="text" min="0" >
                 </md-input-container>
               </div>
-
             </li>
           </ul>
         </div>
-
         <div flex="80" layout-margin>
           <div class="chart-resize">
-
-            <div ng-if="model.isValid()" id="chart" class="idChart" chart="chart" model="model" data="data" svgcode="svgcode"> </div>
-
+            <div ng-show="model.isValid()" id="chart" chart></div>
           </div>
-          <div class="text-muted text-center " ng-show="!model.isValid() ">
-            <h4><span ng-bind-html="model.instruction() "></span></h4>
+          <div class="text-muted text-center" ng-show="!model.isValid()">
+            <!--<i class="fa fa-hand-o-up breath-right"></i>-->
+            <h4><span ng-bind-html="model.instruction()"></span></h4>
           </div>
-
         </div>
-
       </div>
     </div>
-
   </section>
+
+
+
 
   <section class="dark" ng-show="model.isValid()" style="padding-bottom:20px">
 
