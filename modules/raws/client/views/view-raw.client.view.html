@@ -59,29 +59,25 @@
 
 
   <section class="" ng-if="!error && data.length  && parsed">
-
     <div class="container">
       <div>
-        <h3 id="layout">
-						Choose a Chart
-					</h3>
+        <h3 id="layout">Choose a Chart</h3>
         <div layout="row">
-
           <div flex="30">
             <div class="chart-description">
               <h4>{{chart.title()}}</h4>
+              <img class="image" ng-src="{{chart.thumbnail()}}"></img>
               <hr>
               <p class="light" ng-bind-html="chart.description()"></p>
               <p class="light" data-ng-show="!chart.description()">No description given</p>
             </div>
           </div>
-
           <div flex="70">
             <div class='md-padding posters' layout="row" layout-wrap layout-align="space-around">
               <md-card class="item"ng-class="{selected: c == chart}" ng-click="selectChart(c)" ng-repeat="c in charts">
                 <div class="md-card-image image" ng-style="{'background-image':'url(' + c.thumbnail() + ')'}"></div>
                 <md-card-content>
-                  <div class="chart-description">
+                  <div class="content">
                     <span>{{c.title()}}</span><br />
                     <small>{{c.category() || 'Other'}}</small>
                   </div>
@@ -101,12 +97,12 @@
       <div id="mapping" layout="column">
 
         <div>
-          <h3>Map your Dimensions
-							<a ng-click="model.clear()" class="pull-right light"><i class="fa fa-trash-o"></i></a>
-                                    <md-tooltip md-direction="right">Samples</md-tooltip>
-
-							<span class="clearfix"></span>
-						</h3>
+          <h3>
+            Map your Dimensions
+  					<a ng-click="model.clear()" class="pull-right light"><i class="fa fa-trash-o"></i></a>
+            <md-tooltip md-direction="right">Samples</md-tooltip>
+  					<span class="clearfix"></span>
+					</h3>
         </div>
 
 
@@ -166,34 +162,21 @@
                     </ul>
 
                   </div>
-
-
                 </div>
-
               </div>
             </div>
-
-
-
           </div>
-
         </div>
-
       </div>
     </div>
-
-
-
   </section>
+
+
 
   <section class="" ng-if="!error && data.length">
 
     <div class="container">
-
-      <h3 id="options">
-			Customize your Visualization
-		</h3>
-
+      <h3 id="options">Customize your Visualization</h3>
       <div layout="row">
         <div flex="20" layout-margin layout="column">
           <ul class="list-unstyled">

@@ -71,6 +71,12 @@
 
 /* Charts */
 
+.raws .chart-description .image {
+  background-size: 100% 100%;
+  height: auto;
+  width: 100%;
+}
+
 .raws .posters .item {
   background-color: #fff;
   opacity: .8;
@@ -87,7 +93,7 @@
   height: 140px;
 }
 
-.raws .posters .item .chart-description {
+.raws .posters .item .content {
   font-size: 14px;
 }
 
