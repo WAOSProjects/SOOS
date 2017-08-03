@@ -11,7 +11,9 @@
   function coder() {
     return {
       restrict: 'EA',
-      template: '<textarea id="source" readonly class="source-area" rows="4" ng-model="svgCode"></textarea>',
+      template: '<md-input-container class="md-block">'+
+      '<textarea id="source" readonly class="source-area" rows="5" md-select-on-focus ng-model="svgCode"></textarea>'+
+      '</md-input-container>',
       link: function postLink(scope, element, attrs) {
 
         scope.$on('completeGraph', function() {

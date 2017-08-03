@@ -12,14 +12,10 @@
     return {
       restrict: 'E',
       replace: true,
-      template: '<div class="row">' +
-        '<form class="form-search col-lg-12">' +
-        '<button bs-select class="btn btn-default" placeholder="Choose type" ng-model="mode" bs-options="m.label for m in modes">' +
-        'Select <span class="caret"></span>' +
-        '</button>' +
-        '<input class="form-control col-lg-12" placeholder="Filename" type="text" ng-model="filename">' +
-        '<button class="btn btn-success form-control" ng-class="{disabled:!mode.label}" ng-click="mode.download()">Download</button>' +
-        '</form>' +
+      template: '<div class="column">' +
+        '<md-input-container><label>Choose type</label><md-select ng-model="mode"> <md-option ng-repeat="m in modes" ng-value="m">{{m.label}}</md-option> </md-select> </md-input-container>' +
+        '<md-input-container><label>Filename</label><input ng-model="filename"></md-input-container>' +
+        '<md-button class="download" ng-disabled="!mode.label" ng-click="mode.download()">Download</md-button>' +
         '</div>',
 
       link: function postLink(scope, element, attrs) {

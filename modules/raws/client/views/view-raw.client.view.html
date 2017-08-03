@@ -1,6 +1,6 @@
 <section class="raws">
 
-  <section>
+  <section class="part">
     <div layout="row" flex-xs="100" flex-sm="100" flex="33" class="caintainer">
       <p>Insert your data or choose one of our samples</p>
       <md-menu>
@@ -46,15 +46,14 @@
     <div ng-if="!loading && !error && data.length" class="alert alert-success"><i class="fa fa-thumbs-up breath-right"></i><strong>{{data.length}}</strong> records in your data have been successfully parsed!</div>
     <div ng-if="!loading && error" class="alert alert-warning"><i class="fa fa-thumbs-down breath-right"></i><strong>Whoops!</strong> Please, check line {{error+1}}</div>
     <div ng-if="loading" class="alert"><i class="fa breath-right fa-refresh fa-spin"></i>Loading your data. Please wait.</div>
-  </section>
-  <section ng-if="error">
-    <div class="container">
+
+    <div class="container" ng-if="error">
       <h2 class="md-headline">Ouch. It seems like RAW encountered some problems while parsing your data. Please, be sure everything is ok with your data. Often this is due to some missing delimiters. If you want to use a <a href="http://en.wikipedia.org/wiki/Delimiter">delimiter char</a> as string literal, please include it in double quotes. See our <a href="https://github.com/densitydesign/raw/wiki/FAQs#raw-says-there-is-something-wrong-with-my-data">FAQs</a> for more information.</h2>
     </div>
   </section>
 
 
-  <section class="" ng-if="!error && data.length  && parsed">
+  <section class="part light"ng-if="!error && data.length  && parsed">
     <div class="container">
       <h3 id="layout">Choose a Chart</h3>
       <div layout="row">
@@ -84,7 +83,7 @@
     </div>
   </section>
 
-  <section class="dark" ng-if="!error && data.length && parsed">
+  <section class="part" ng-if="!error && data.length && parsed">
     <div class="container">
       <div id="mapping" layout="column">
         <div>
@@ -143,7 +142,7 @@
 
 
 
-  <section class="" ng-if="!error && data.length && parsed">
+  <section class="part light" ng-if="!error && data.length && parsed">
 
     <div class="container">
       <h3 id="options">Customize your Visualization</h3>
@@ -198,38 +197,20 @@
   </section>
 
 
-
-
-  <section class="dark" ng-show="model.isValid()" style="padding-bottom:20px">
-
-
-
+  <section class="part" ng-show="model.isValid()" style="padding-bottom:20px">
     <div layout="row" layout-padding>
       <div flex="20">
         <h3><i class="fa fa-arrow-circle-o-down breath-right "></i>Download</h3>
         <downloader data="data" model="model"></downloader>
       </div>
-
       <div flex="80">
-        <h3 id="data "><i class="fa fa-code breath-right "></i>Embed Code</h3>
-        <md-input-container class="md-block">
-          <textarea aria-label="embeded code" id="source" readonly class="" rows="5" md-select-on-focus ng-model="svgcode"></textarea>
-        </md-input-container>
-        <div layout="row" layout-align="space-between center">
-
-
-          <p class="light ">Copy the code above into your HTML to embed the visualization </p>
-
-
-          <md-button class="md-list-item-content" ngclipboard data-clipboard-target="#source">
-            <md-icon md-font-set="material-icons"> <i class="material-icons">content_copy</i> </md-icon>
-          </md-button>
-        </div>
-
+          <h3 id="data "><i class="fa fa-code breath-right "></i>Embed Code</h3>
+					<coder ng-show="!chart.isDrawing()"></coder>
+					<!-- <p ng-show="!chart.isDrawing()" class="light">Copy the snippet above into your HTML code to embed the visualization
+						<a class="pull-right" id="copy-button" copy-button data-clipboard-target="source" data-container="body"><i class="fa fa-clipboard"></i></a>
+					</p> -->
       </div>
     </div>
-
-
   </section>
 
 </section>
